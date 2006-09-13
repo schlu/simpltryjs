@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>tt_test</title>
+		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/rating_control.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+		#rater li {
+			display: inline;
+			padding: 2px;
+			margin: 0;
+		}
+		.simpltryRatingControlHighlight {
+			background-color: #ff0;
+		}
+		</style>
+	</head>
+	<body id="tt_test">
+		<ul id="rater">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<script type="text/javascript" charset="utf-8">
+			new Simpltry.RatingControl("rater");
+		</script>
+	</body>
+</html>
