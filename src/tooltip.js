@@ -13,14 +13,22 @@ Dependencies:
 */
 if(!Simpltry) var Simpltry = {};
 Simpltry.BaseTooltip = {};
+Simpltry.BaseTooltip.DefaultOptions  = {
+	offsetLeft: 0,
+	offsetTop: 0
+}
 Simpltry.BaseTooltip.prototype = {
 	initialize: function(element, options) {
-		this.options = options || {};
+		this.setOptions(options);
 		this.element = $(element);
 		this.popup = $(this.element.id + '_tooltip');
 		if(!Simpltry.bodyWidth) Simpltry.calculateBodyWidth();
 		this.setPopupPosition();
 		this.attachEvents();
+	},
+	setOptions: function(options) {
+		this.options = $H(Simpltry.BaseTooltip.DefaultOptions);
+		Object.extend(this.options, options || {});
 	},
 	setPopupPosition: function() {
 		var offset = Position.cumulativeOffset(this.element);
@@ -36,6 +44,8 @@ Simpltry.BaseTooltip.prototype = {
 			leftPosition = offset[0];
 			topPosition = offset[1] + this.element.offsetHeight;
 		}
+		leftPosition += this.options.offsetLeft;
+		topPosition += this.options.offsetTop;
 		var distanceFromScreenRight = Simpltry.bodyWidth - (offset[0] + Element.getDimensions(this.popup).width + 8);
 		if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
 		Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});

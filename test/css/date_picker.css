@@ -1,0 +1,27 @@
+.datePicker {
+	background-color: #ffe;
+	border: thin solid black;
+	width: 14.7em;
+	text-align:  center;
+}
+.datePickerMonthHeader {
+	font-weight: bold;
+	white-space: nowrap;
+}
+.datePickerDay {
+	width: 14%;
+	cursor: pointer;
+	color: #222;
+}
+.datePickerWeekend {
+	background-color: #e0e0e0;
+}
+.datePickerWeekday {
+	background-color: #f0f0f0;
+}
+.datePickerDayHeader {
+	border-bottom: thin solid #222;
+}
+.datePickerTablePadding {
+	background-color: #ccc;
+}

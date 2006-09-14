@@ -59,7 +59,6 @@ Simpltry.DatePicker.css = {
 	tableRow: "datePickerTableRow",
 	headerRow: "datePickerHeaderRow",
 	controlRow: "datePickerControlRow",
-	dayHeader: "datePickerHeaderRow",
 	weekend: "datePickerWeekend",
 	weekday: "datePickerWeekday",
 	tbody: "datePickerTbody"
@@ -95,7 +94,7 @@ Simpltry.DatePicker.prototype = {
 			this.year += 1;
 			this.month = 1;
 		}
-		var table = Builder.node("table", {class: Simpltry.DatePicker.css.datePicker});
+		var table = Builder.node("table", {class: Simpltry.DatePicker.css.datePicker, cellspacing:0, cellpadding:0});
 		var tbody = Builder.node("tbody", {class: Simpltry.DatePicker.css.tbody});
 		tbody.appendChild(this.buildDateControls());
 		tbody.appendChild(this.buildDateHeader());
@@ -134,7 +133,7 @@ Simpltry.DatePicker.prototype = {
 	buildDateHeader: function() {
 		var tr = Builder.node("tr", {class: Simpltry.DatePicker.css.headerRow});
 		$R(0, 6, false).each(function(i) {
-			var td = Builder.node("td", {class: Simpltry.DatePicker.css.dayHeader}, [Simpltry.DatePicker.ths[i]]);
+			var td = Builder.node("th", {class: Simpltry.DatePicker.css.dayHeader}, [Simpltry.DatePicker.ths[i]]);
 			tr.appendChild(td);
 		});
 		return tr;
@@ -142,12 +141,15 @@ Simpltry.DatePicker.prototype = {
 	buildDates: function() {
 		var today = new Date();
 		var rows = [];
-		var firstDate = new Date(this.year, this.month, 1);
-		var currentRow = $R(0, firstDate.getDay(), true).collect(function(i) {
-			var blankNode = Builder.node("td", {class: Simpltry.DatePicker.css.tablePadding});
-			blankNode.innerHTML = "&nbsp;";
-			return blankNode;
-		});
+		var firstDate = new Date(this.year, this.month-1, 1);
+		var currentRow = [];
+		if(firstDate.getDay() != 0) {
+			currentRow = $R(0, firstDate.getDay(), true).collect(function(i) {
+				var blankNode = Builder.node("td", {class: Simpltry.DatePicker.css.tablePadding});
+				blankNode.innerHTML = "&nbsp;";
+				return blankNode;
+			});
+		}
 		Simpltry.DateUtil.getDateObjects(this.year, this.month).each(function(date) {
 			var td = Builder.node("td", {class: Simpltry.DatePicker.css.day}, [date.getDate()]);
 			if(date.getDay() == 0 || date.getDay() == 6) {

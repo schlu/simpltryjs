@@ -26,7 +26,7 @@ Simpltry.setupForms = function(event) {
         field.addClassName("tooltipRight");
         var popup = Builder.node("div", {id: field.id + "_tooltip", style: "display:none;"}, ["test"]);
         body.appendChild(popup);
-        var toolTip = new Simpltry.ClickTooltip(field);
+        var toolTip = new Simpltry.ClickTooltip(field, {offsetLeft:9});
         new Simpltry.DatePicker(popup, {
             onSelect: function(year, month, day) {
                 field.value = month + "/" + day + "/" + year;
