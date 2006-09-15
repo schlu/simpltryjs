@@ -245,7 +245,8 @@ Object.extend(Object.extend(Dialog.Ajax.prototype, Dialog.Base.prototype),
 		onDisplay: function() {
 			new Ajax.Updater('ajaxUpdateLayer', this.options.url, {
 				onComplete: function() {Element.remove($('dialogLoadingLayer'));this.positionDialog();}.bind(this),
-				evalScripts: true
+				evalScripts: true,
+				method: "get"
 			});
 		}
 	});
