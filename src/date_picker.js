@@ -69,7 +69,7 @@ Simpltry.DatePicker.DefaultOptions = {
 	onSelect: Prototype.emptyFunction
 };
 Simpltry.DatePicker.prototype = {
-	initialize: function(container, options){
+	initialize: function(container, options) {
 		this.container = container;
 		this.setOptions(options);
 		if(this.options.month && this.options.year) {
@@ -80,7 +80,7 @@ Simpltry.DatePicker.prototype = {
 				var d = new Date(Date.parse(this.options.dateString));
 				this.month = d.getMonth() + 1;
 				this.year = d.getYear() + 1900;
-			} catch(e) {}
+			} catch(e) {};
 		} 
 		if(!this.month){
 			var today = new Date();
@@ -94,8 +94,8 @@ Simpltry.DatePicker.prototype = {
 			this.year += 1;
 			this.month = 1;
 		}
-		var table = Builder.node("table", {class: Simpltry.DatePicker.css.datePicker, cellspacing:0, cellpadding:0});
-		var tbody = Builder.node("tbody", {class: Simpltry.DatePicker.css.tbody});
+		var table = Builder.node("table", {className: Simpltry.DatePicker.css.datePicker, cellspacing:0, cellpadding:0});
+		var tbody = Builder.node("tbody", {className: Simpltry.DatePicker.css.tbody});
 		tbody.appendChild(this.buildDateControls());
 		tbody.appendChild(this.buildDateHeader());
 		this.buildDates().each(function(row) {
@@ -110,19 +110,19 @@ Simpltry.DatePicker.prototype = {
 		Object.extend(this.options, options || {});
 	},
 	buildDateControls: function(){
-		var tr = Builder.node("tr", {class: Simpltry.DatePicker.css.controlRow});
-		var c1 = Builder.node("td", {class: Simpltry.DatePicker.css.backYear}, [Builder.node("a", {href:"#"}, ["<<"])]);
+		var tr = Builder.node("tr", {className: Simpltry.DatePicker.css.controlRow});
+		var c1 = Builder.node("td", {className: Simpltry.DatePicker.css.backYear}, [Builder.node("a", {href:"#"}, ["<<"])]);
 		c1.onclick = function(event) {this.change(this.year-1, this.month); return false;}.bindAsEventListener(this);
 		tr.appendChild(c1);
-		var c2 = Builder.node("td", {class: Simpltry.DatePicker.css.backMonth}, [Builder.node("a", {href:"#"}, ["<"])]);
+		var c2 = Builder.node("td", {className: Simpltry.DatePicker.css.backMonth}, [Builder.node("a", {href:"#"}, ["<"])]);
 		c2.onclick = function(event) {this.change(this.year, this.month-1); return false;}.bindAsEventListener(this);
 		tr.appendChild(c2);
-		var month = Builder.node("td", {colspan: "3", class: Simpltry.DatePicker.css.monthHeader}, [Simpltry.DatePicker.months[this.month] + " " + this.year]);
+		var month = Builder.node("td", {colspan: "3", className: Simpltry.DatePicker.css.monthHeader}, [Simpltry.DatePicker.months[this.month] + " " + this.year]);
 		tr.appendChild(month);
-		var c3 = Builder.node("td", {class: Simpltry.DatePicker.css.forwardMonth}, [Builder.node("a", {href:"#"}, [">"])]);
+		var c3 = Builder.node("td", {className: Simpltry.DatePicker.css.forwardMonth}, [Builder.node("a", {href:"#"}, [">"])]);
 		c3.onclick = function(event) {this.change(this.year, this.month+1); return false;}.bindAsEventListener(this);
 		tr.appendChild(c3);
-		var c4 = Builder.node("td", {class: Simpltry.DatePicker.css.forwardYear}, [Builder.node("a", {href:"#"}, [">>"])]);
+		var c4 = Builder.node("td", {className: Simpltry.DatePicker.css.forwardYear}, [Builder.node("a", {href:"#"}, [">>"])]);
 		c4.onclick = function(event) {this.change(this.year+1, this.month); return false;}.bindAsEventListener(this);
 		tr.appendChild(c4);
 		return tr
@@ -131,9 +131,9 @@ Simpltry.DatePicker.prototype = {
 		new Simpltry.DatePicker(this.container, Object.extend(this.options, {year:newYear, month:newMonth}));
 	},
 	buildDateHeader: function() {
-		var tr = Builder.node("tr", {class: Simpltry.DatePicker.css.headerRow});
+		var tr = Builder.node("tr", {className: Simpltry.DatePicker.css.headerRow});
 		$R(0, 6, false).each(function(i) {
-			var td = Builder.node("th", {class: Simpltry.DatePicker.css.dayHeader}, [Simpltry.DatePicker.ths[i]]);
+			var td = Builder.node("th", {className: Simpltry.DatePicker.css.dayHeader}, [Simpltry.DatePicker.ths[i]]);
 			tr.appendChild(td);
 		});
 		return tr;
@@ -145,13 +145,13 @@ Simpltry.DatePicker.prototype = {
 		var currentRow = [];
 		if(firstDate.getDay() != 0) {
 			currentRow = $R(0, firstDate.getDay(), true).collect(function(i) {
-				var blankNode = Builder.node("td", {class: Simpltry.DatePicker.css.tablePadding});
+				var blankNode = Builder.node("td", {className: Simpltry.DatePicker.css.tablePadding});
 				blankNode.innerHTML = "&nbsp;";
 				return blankNode;
 			});
 		}
 		Simpltry.DateUtil.getDateObjects(this.year, this.month).each(function(date) {
-			var td = Builder.node("td", {class: Simpltry.DatePicker.css.day}, [date.getDate()]);
+			var td = Builder.node("td", {className: Simpltry.DatePicker.css.day}, [date.getDate()]);
 			if(date.getDay() == 0 || date.getDay() == 6) {
 				$(td).addClassName(Simpltry.DatePicker.css.weekend);
 			} else {
@@ -163,17 +163,17 @@ Simpltry.DatePicker.prototype = {
 			td.onclick = function(event) {this.options.onSelect(date.getYear() + 1900, date.getMonth() + 1, date.getDate());}.bindAsEventListener(this);
 			currentRow.push(td);
 			if(currentRow.length % 7 == 0) {
-				rows.push(Builder.node("tr", {class: Simpltry.DatePicker.css.tableRow}, currentRow));
+				rows.push(Builder.node("tr", {className: Simpltry.DatePicker.css.tableRow}, currentRow));
 				currentRow = [];
 			}
 		}.bind(this));
 		if(currentRow.length > 0) {
 			(7-currentRow.length).times(function(i) {
-				var blankNode = Builder.node("td", {class: Simpltry.DatePicker.css.tablePadding});
+				var blankNode = Builder.node("td", {className: Simpltry.DatePicker.css.tablePadding});
 				blankNode.innerHTML = "&nbsp;";
 				currentRow.push(blankNode);
 			});
-			rows.push(Builder.node("tr", {class: Simpltry.DatePicker.css.tableRow}, currentRow));
+			rows.push(Builder.node("tr", {className: Simpltry.DatePicker.css.tableRow}, currentRow));
 		}
 		return rows;
 	}
