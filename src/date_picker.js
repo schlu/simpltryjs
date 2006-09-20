@@ -61,12 +61,18 @@ Simpltry.DatePicker.css = {
 	controlRow: "datePickerControlRow",
 	weekend: "datePickerWeekend",
 	weekday: "datePickerWeekday",
-	tbody: "datePickerTbody"
+	tbody: "datePickerTbody",
+	cancelRow: "datePickerCancelRow",
+	cancel: "datePickerCancel",
+	selected: "datePickerSelected"
 };
 Simpltry.DatePicker.ths = {0:"sun", 1:"mon", 2:"tue", 3:"wed", 4:"thu", 5:"fri", 6:"sat"};
 Simpltry.DatePicker.months = {1:"January", 2:"Febuary", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
 Simpltry.DatePicker.DefaultOptions = {
-	onSelect: Prototype.emptyFunction
+	onSelect: Prototype.emptyFunction,
+	onCancel: Prototype.emptyFunction,
+	showCancel: false,
+	selectedDate: {day:null, month:null, year:null}
 };
 Simpltry.DatePicker.prototype = {
 	initialize: function(container, options) {
@@ -80,6 +86,10 @@ Simpltry.DatePicker.prototype = {
 				var d = new Date(Date.parse(this.options.dateString));
 				this.month = d.getMonth() + 1;
 				this.year = d.getYear() + 1900;
+				this.day = d.getDate();
+				this.options.selectedDate.month = this.month;
+				this.options.selectedDate.year = this.year;
+				this.options.selectedDate.day = this.day;
 			} catch(e) {};
 		} 
 		if(!this.month){
@@ -101,6 +111,7 @@ Simpltry.DatePicker.prototype = {
 		this.buildDates().each(function(row) {
 			tbody.appendChild(row);
 		});
+		if(this.options.showCancel) tbody.appendChild(this.buildCancel());
 		table.appendChild(tbody);
 		$(this.container).innerHTML = "";
 		$(this.container).appendChild(table);
@@ -160,7 +171,20 @@ Simpltry.DatePicker.prototype = {
 			if(today.getDate() == date.getDate() && today.getMonth() == date.getMonth() && today.getYear() == date.getYear()) {
 				$(td).addClassName(Simpltry.DatePicker.css.today);
 			}
-			td.onclick = function(event) {this.options.onSelect(date.getYear() + 1900, date.getMonth() + 1, date.getDate());}.bindAsEventListener(this);
+			if(this.options.selectedDate.day && this.options.selectedDate.day == date.getDate() && this.options.selectedDate.month == date.getMonth() + 1 && this.options.selectedDate.year == date.getYear() + 1900) {
+				$(td).addClassName(Simpltry.DatePicker.css.selected);
+				this.selectedCell = td;
+			}
+			td.onclick = function(event) {
+				if(this.selectedCell) {
+					this.selectedCell.removeClassName(Simpltry.DatePicker.css.selected);
+				}
+				this.selectedCell = td;
+				this.options.selectedDate.day = date.getDate();
+				this.options.selectedDate.month = date.getMonth() + 1;
+				this.options.selectedDate.year = date.getYear() + 1900;
+				td.addClassName(Simpltry.DatePicker.css.selected);this.options.onSelect(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+			}.bindAsEventListener(this);
 			currentRow.push(td);
 			if(currentRow.length % 7 == 0) {
 				rows.push(Builder.node("tr", {className: Simpltry.DatePicker.css.tableRow}, currentRow));
@@ -176,5 +200,14 @@ Simpltry.DatePicker.prototype = {
 			rows.push(Builder.node("tr", {className: Simpltry.DatePicker.css.tableRow}, currentRow));
 		}
 		return rows;
+	},
+	buildCancel: function() {
+		var tr = Builder.node('tr', {className: Simpltry.DatePicker.css.cancelRow});
+		var td = Builder.node("td",{colspan:7});
+		var div = Builder.node('div',{className: Simpltry.DatePicker.css.cancel}, ['cancel'])
+		div.onclick = function(event) {if(this.day) {this.options.onCancel(this.year, this.month, this.day);}else{this.options.onCancel()}}.bindAsEventListener(this);
+		td.appendChild(div);
+		tr.appendChild(td);
+		return tr;
 	}
 };

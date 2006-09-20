@@ -59,6 +59,10 @@ Simpltry.setupForms = function(event) {
 				field.value = month + "/" + day + "/" + year;
 				toolTip.close();
 			},
+			onCancel: function() {
+				toolTip.close();
+			},
+			showCancel: true,
 			dateString: (field.value != "" ? field.value : null)
 		});
 	});

@@ -25,3 +25,13 @@
 .datePickerTablePadding {
 	background-color: #ccc;
 }
+.datePickerCancel {
+    cursor:  pointer;
+    text-align: right;
+    padding: 0 4px;
+    border-left: thin solid #222;
+    float: right;
+}
+.datePickerSelected {
+    background-color: #faa;
+}
