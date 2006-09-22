@@ -18,7 +18,7 @@ if(!Simpltry) var Simpltry = {};
 
 Simpltry.DateUtil = {
 	isValidDate: function(year, month, day){
-		month = month - 1;
+		month = month;
 		var d = new Date(year, month, day);
 		return d.getMonth() == month;
 	},
