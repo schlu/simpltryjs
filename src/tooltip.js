@@ -52,6 +52,7 @@ Simpltry.BaseTooltip.prototype = {
 	},
 	attachEvents: Prototype.emptyFunction,
 	display: function() {
+	    this.setPopupPosition()
 		this.popup.show();
 	},
 	close: function() {
