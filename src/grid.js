@@ -234,6 +234,6 @@ Simpltry.DataGrid.prototype = {
 		}
 		this.container.appendChild(table);
 		this.addHeaderControls();
-	},
+	}
 	
 };
