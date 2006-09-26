@@ -6,17 +6,37 @@
 		<title>grid_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/grid.js" type="text/javascript" charset="utf-8"></script>
+		<style>
+		    * {
+		        padding: 0;
+		        margin: 0;
+		    }
+		    ul {
+		        list-style: none;
+		    }
+		    .simpltryDataGridHeaderControl {
+		        background-color: #ddd;
+		        border: thin solid black;
+		    }
+		    .simpltryDataGridHeaderControl li {
+		        cursor: pointer;
+		    }
+		</style>
 	</head>
 	<body id="grid_demo">
 		<div id="grid">
 		</div>
 		<script type="text/javascript" charset="utf-8">
-			var testData = {headers: ["cat","hat"],
+			var testData = {headers: ["cat","hat","count"],
 			                rows: [
-			                    ['red','baseball'],
-			                    ['black', 'fedora'],
-			                    ['black', 'baseball']
+			                    ['red','baseball', "1"],
+			                    ['black', 'fedora', "3"],
+			                    ['blue', 'fedora', "3"],
+			                    ['blue', 'bowler', "2"],
+			                    ['red', 'bowler', "5"],
+			                    ['black', 'baseball', "101"]
 			                ]};
 			new Simpltry.DataGrid('grid', testData);
 		</script>
