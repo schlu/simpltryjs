@@ -23,6 +23,9 @@
 		    .simpltryDataGridHeaderControl li {
 		        cursor: pointer;
 		    }
+		    .simpltryDataGridPaddingRow td {
+		        padding-bottom: 13px;
+		    }
 		</style>
 	</head>
 	<body id="grid_demo">
@@ -39,7 +42,11 @@
 			                    ['red', 'bowler', "5"],
 			                    ['black', 'baseball', "101"]
 			                ]};
-			new Simpltry.DataGrid('grid', testData);
+			new Simpltry.DataGrid('grid', testData, {
+			    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
+			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("td"))},
+			    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}
+			});
 		</script>
 	</body>
 </html>

@@ -22,6 +22,7 @@ Simpltry.DataGrid = Class.create();
 Simpltry.DataGrid.css = {
     dataGrid: "simpltryDataGrid",
     headerRow: "simpltryDataGridHeaderRow",
+    paddingRow: "simpltryDataGridPaddingRow",
     dataRow: "simpltryDataGridDataRow",
     oddRow: "simpltryDataGridOddRow",
     evenRow: "simpltryDataGridEvenRow",
@@ -30,10 +31,20 @@ Simpltry.DataGrid.css = {
     headerControl: "simpltryDataGridHeaderControl"
 }
 
+Simpltry.DataGrid.DefaultOptions = {
+    beforeEachRow: Prototype.emptyFunction,
+    afterEachRow: Prototype.emptyFunction,
+    beforeHeaderRow: Prototype.emptyFunction,
+    afterHeaderRow: Prototype.emptyFunction,
+    beforeFooterRow: Prototype.emptyFunction,
+    afterFooterRow: Prototype.emptyFunction
+};
+
 Simpltry.DataGrid.prototype = {
-	initialize: function(container, data) {
+	initialize: function(container, data, options) {
 		this.container = $(container);
 		this.data = data || {};
+		this.setOptions(options);
 		this.removedColumns = {};
 		this.numberColumn = {};
 		this.resetDefaults();
@@ -56,7 +67,10 @@ Simpltry.DataGrid.prototype = {
 			this.render();
 		}
 	},
-	
+	setOptions: function(options) {
+		this.options = $H(Simpltry.DataGrid.DefaultOptions);
+		Object.extend(this.options, options || {});
+	},
 	resetDefaults: function(){
     	this.sortedBy = null;
     	this.sortedReverse = false;
@@ -66,6 +80,7 @@ Simpltry.DataGrid.prototype = {
 	buildThead: function(headers){
 	    var thead = Builder.node('thead');
 	    var tr = Builder.node('tr', {className: Simpltry.DataGrid.css.headerRow});
+	    this.options.beforeHeaderRow(tr);
 	    headers.each(function(header, i) {
 	        if(!this.removedColumns[i]) {
     	        var th = Builder.node("th", {}, [header]);
@@ -79,6 +94,7 @@ Simpltry.DataGrid.prototype = {
     	        th.onclick = this.sort.bind(this,i, (this.sortedBy == i && !this.sortedReverse));
     	        tr.appendChild(th);
 	        }
+	    this.options.afterHeaderRow(tr);
 	    }.bind(this));
 	    thead.appendChild(tr);
 	    return thead;
@@ -88,18 +104,19 @@ Simpltry.DataGrid.prototype = {
 	    var tbody = Builder.node('tbody');
 	    rows.each(function(row,i) {
 	        var tr = Builder.node('tr', {className: Simpltry.DataGrid.css.dataRow + " " + (i%2 != 0 ? Simpltry.DataGrid.css.evenRow : Simpltry.DataGrid.css.oddRow)});
+	        this.options.beforeEachRow(tr, i);
 	        row.each(function(cell, k) {
 	            if(!this.removedColumns[k]) {
     	            var td = Builder.node('td', {}, [cell]);
     	            tr.appendChild(td);
     	        }
 	        }.bind(this));
-	        if(this.groupedBy != null && rows.length > i + 1 && rows[i][this.groupedBy] != rows[i+1][this.groupedBy]) {
-	            $A(tr.getElementsByTagName('TD')).each(function(td) {
-	                td.style.paddingBottom = "13px";
-                });
-	        }
+	        this.options.afterEachRow(tr, i);
 	        tbody.appendChild(tr);
+	        if(this.groupedBy != null && rows.length > i + 1 && rows[i][this.groupedBy] != rows[i+1][this.groupedBy]) {
+	            var padRow = Builder.node('tr', {className: Simpltry.DataGrid.css.paddingRow}, [$A(tr.childNodes).collect(function(cell) {return Builder.node('td', {}, [' ']);})]);
+	            tbody.appendChild(padRow);
+	        }
 		}.bind(this));
 		return tbody;
 	},
@@ -109,6 +126,7 @@ Simpltry.DataGrid.prototype = {
 	    var tfoot = Builder.node('tfoot');
 	    var tr = Builder.node('tr');
 	    tfoot.appendChild(tr);
+	    this.options.beforeFooterRow(tr);
     	var numCols = this.data.rows[0].length - 1;
 	    $R(0, numCols, false).each(function(i) {
             if(!this.removedColumns[i]) {
@@ -117,6 +135,7 @@ Simpltry.DataGrid.prototype = {
     	        tr.appendChild(td)
 	        }
         }.bind(this));
+	    this.options.afterFooterRow(tr);
         if(renderFooter) {
             return tfoot;
         } else {
