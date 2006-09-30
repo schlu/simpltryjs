@@ -17,10 +17,14 @@ Dependencies:
 if(!Simpltry) var Simpltry = {};
 
 Simpltry.ColorPicker = Class.create();
+
+Simpltry.ColorPicker.css = {
+    table: "colorPicker",
+    color: "colorPickerColor"
+}
+
 Simpltry.ColorPicker.DefaultOptions = {
-    size: "large", //large||small
-    cellWidth: 15,
-    cellHeight: 13,
+    size: "large",
     onSelect: Prototype.emptyFunction
 }
 Object.extend(Simpltry.ColorPicker.prototype, {
@@ -40,15 +44,14 @@ Object.extend(Simpltry.ColorPicker.prototype, {
     },
     createPicker: function() {
         var pThis = this;
-        var p = Builder.node("table", {cellspacing: 1, cellpadding: 0, style: "border: thin solid #ccc"}, [Builder.node("tbody", {},
+        var p = Builder.node("table", {cellspacing: 1, cellpadding: 0, style: "border: thin solid #ccc", className: Simpltry.ColorPicker.css.table}, [Builder.node("tbody", {},
             this.rows.collect(function(row) {
                 return Builder.node("tr", {}, 
                     row.collect(function(color) {
                         var td = Builder.node("td", {
-                            width: pThis.options.cellWidth, 
-                            height: pThis.options.cellHeight, 
-                            style: "border: 1px solid #ccc;background-color:#" + color
-                        });
+                            style: "border: 1px solid #ccc;background-color:#" + color,
+                            className: Simpltry.ColorPicker.css.color
+                        }, [" "]);
                         td.onmouseover = pThis.cellMouseOver;
                         td.onmouseout = pThis.cellMouseOut;
                         td.onclick = function() {pThis.options.onSelect(color);};

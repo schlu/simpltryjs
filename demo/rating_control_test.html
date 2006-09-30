@@ -6,6 +6,7 @@
 		<title>tt_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/rating_control.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<style>
 		.clear:after {
 		    content: ".";
@@ -32,7 +33,7 @@
 	<body id="tt_test">
 	    <p><a href="index.html">back</a></p>
 		This rater goes to 7:
-		<div id="rater1" class="rater clear">
+		<div id="rater1" class="rater clear" simpltry_type="rating">
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
@@ -42,15 +43,11 @@
 			<div>7</div>
 		</div>
 		This rater goes to 4:
-		<div id="rater2" class="rater clear">
+		<div id="rater2" class="rater clear" simpltry_type="rating">
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
 			<div>4</div>
 		</div>
-		<script type="text/javascript" charset="utf-8">
-			new Simpltry.RatingControl("rater1");
-			new Simpltry.RatingControl("rater2");
-		</script>
 	</body>
 </html>
