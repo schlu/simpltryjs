@@ -211,3 +211,26 @@ Simpltry.DatePicker.prototype = {
 		return tr;
 	}
 };
+
+Simpltry.registerWidget('date_picker', function(element, options) {
+    if(element.tagName == 'INPUT' && element.type == 'text') {
+        element.autoComplete = "false";
+		element.addClassName("tooltipRight");
+		var popup = Builder.node("div", {id: element.id + "_tooltip", style: "display:none;"}, ["test"]);
+		document.body.appendChild(popup);
+		var toolTip = new Simpltry.ClickTooltip(element, {offsetLeft:9});
+		new Simpltry.DatePicker(popup, {
+			onSelect: function(year, month, day) {
+				element.value = month + "/" + day + "/" + year;
+				toolTip.close();
+			},
+			onCancel: function() {
+				toolTip.close();
+			},
+			showCancel: true,
+			dateString: (element.value != "" ? element.value : null)
+		});
+    } else {
+        new Simpltry.DatePicker(element, options);
+    }
+});

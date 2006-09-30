@@ -45,31 +45,6 @@ Simpltry.Form.MoveToNextField.prototype = {
 	}
 }
 
-Simpltry.setupForms = function(event) {
-	var body = $$("body")[0];
-	$A($$("input.simpltryDateField")).each(function(field, i) {
-		if(!field.id) field.id = "simpltryDateField" + i;
-		field.autoComplete = "false";
-		field.addClassName("tooltipRight");
-		var popup = Builder.node("div", {id: field.id + "_tooltip", style: "display:none;"}, ["test"]);
-		body.appendChild(popup);
-		var toolTip = new Simpltry.ClickTooltip(field, {offsetLeft:9});
-		new Simpltry.DatePicker(popup, {
-			onSelect: function(year, month, day) {
-				field.value = month + "/" + day + "/" + year;
-				toolTip.close();
-			},
-			onCancel: function() {
-				toolTip.close();
-			},
-			showCancel: true,
-			dateString: (field.value != "" ? field.value : null)
-		});
-	});
-	$A($$("input.simpltryMoveToNextField")).each(function(field, i) {
-		if(field.type == "text" && field.maxLength) new Simpltry.Form.MoveToNextField(field);
-	});
-};
-
-//used for datefield binding
-Event.observe(window, "load", Simpltry.setupForms, false);
+Simpltry.registerWidget('move_to_next', function(element, options) {
+    if(element.type == "text" && element.maxLength) new Simpltry.Form.MoveToNextField(element);
+});

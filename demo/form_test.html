@@ -5,16 +5,17 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>form_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body id="form_test">
 		<div>
 			<form action="/frontier/authentication/login.cgi" id="login" method="post">
-				<div><input type="text" id="zipcode" maxlength="5" class="simpltryMoveToNextField" /></div>
+				<div><input type="text" id="zipcode" maxlength="5" simpltry_widget="move_to_next" /></div>
 				<div>
-					<input type="text" maxlength="3" name="areacode" id="areacode" size="4" class="simpltryMoveToNextField" />
-					<input type="text" maxlength="3" name="pre" id="pre" size="4" class="simpltryMoveToNextField" />
-					<input type="text" maxlength="4" name="suff" id="suff" size="5" class="simpltryMoveToNextField" />
+					<input type="text" maxlength="3" name="areacode" id="areacode" size="4" simpltry_widget="move_to_next" />
+					<input type="text" maxlength="3" name="pre" id="pre" size="4" simpltry_widget="move_to_next" />
+					<input type="text" maxlength="4" name="suff" id="suff" size="5" simpltry_widget="move_to_next" />
 				</div>
 				<div><select>
 					<option>test</option>

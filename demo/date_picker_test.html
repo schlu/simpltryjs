@@ -6,14 +6,15 @@
 		<title>date_picker_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/date_picker.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
 		<link href="css/date_picker.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="date_picker_test">
 	    <p><a href="index.html">back</a></p>
-		<input type="text" name="startDate" id="datefield" class="simpltryDateField" /><br/>
-		<input type="text" name="oldDate" id="datefield2" class="simpltryDateField" value="3/7/1979" />
+		<input type="text" name="startDate" id="datefield" simpltry_widget="date_picker" /><br/>
+		<input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /><br/>
+		<div simpltry_widget="date_picker"></div>
 	</body>
 </html>

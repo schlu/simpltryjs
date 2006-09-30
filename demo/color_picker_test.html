@@ -6,8 +6,8 @@
 		<title>color_picker_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/color_picker.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/color_picker.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" media="screen">
 		  .colorPickerColor {
 		      padding:  5px;
@@ -18,10 +18,10 @@
 	<body id="color_picker_test">
 	    <p><a href="index.html">back</a></p>
 		4x3
-		<div id="picker1" simpltry_type="color_picker" simpltry_options="{onSelect: function(color){alert(color)}, size: 'small'}">
+		<div id="picker1" simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'">
 		</div>
 		10x7
-		<div id="picker3" simpltry_type="color_picker">
+		<div id="picker3" simpltry_widget="color_picker">
 		</div>
 	</body>
 </html>

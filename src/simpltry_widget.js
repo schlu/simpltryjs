@@ -12,19 +12,26 @@ Dependencies:
 	Prototype: 1.5.0_rc0+
 */
 
-if(!Simpltry) var Simpltry;
+if(!Simpltry) var Simpltry = {};
+
+Simpltry.Widgets = $H();
+
+Simpltry.registerWidget = function(type, callBack) {
+    Simpltry.Widgets[type] = callBack;
+}
 
 Simpltry.attachWidgets = function(event) {
     var elements = $A(document.getElementsByTagName('*'));
     elements.each(function(element, i) {
-        if(element.getAttribute('simpltry_type')) {
-            var simpltryType = element.getAttribute('simpltry_type');
+        if(element.getAttribute('simpltry_widget')) {
+            var simpltryType = element.getAttribute('simpltry_widget');
             if(!element.id) element.id = simpltryType + i;
-            eval('options = ' + element.getAttribute('simpltry_options') + ' || {}');
-            if(simpltryType == 'color_picker') {
-                new Simpltry.ColorPicker(element.id, options);
-            } else if(simpltryType == 'rating') {
-                new Simpltry.RatingControl(element.id, options);
+            var options = {};
+            if(element.getAttribute('simpltry_options')) {
+                eval("options = {" + element.getAttribute('simpltry_options') + "}");
+            }
+            if(Simpltry.Widgets[simpltryType]) {
+                Simpltry.Widgets[simpltryType](element, options);
             }
         }
     });

@@ -78,3 +78,7 @@ Object.extend(Simpltry.RatingControl.prototype, {
 		}.bind(this));
 	}
 });
+
+Simpltry.registerWidget('rating', function(element, options) {
+    new Simpltry.RatingControl(element.id, options);
+});

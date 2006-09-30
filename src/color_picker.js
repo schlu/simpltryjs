@@ -83,3 +83,7 @@ Object.extend(Simpltry.ColorPicker.prototype, {
         ["808080", "ff0000", "800080", "000000"]
     ]
 });
+
+Simpltry.registerWidget('color_picker', function(element, options) {
+    new Simpltry.ColorPicker(element.id, options);
+});
