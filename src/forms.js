@@ -45,6 +45,8 @@ Simpltry.Form.MoveToNextField.prototype = {
 	}
 }
 
-Simpltry.registerWidget('move_to_next', function(element, options) {
-    if(element.type == "text" && element.maxLength) new Simpltry.Form.MoveToNextField(element);
-});
+if(Simpltry.registerWidget) {
+    Simpltry.registerWidget('move_to_next', function(element, options) {
+        if(element.type == "text" && element.maxLength) new Simpltry.Form.MoveToNextField(element);
+    });
+}

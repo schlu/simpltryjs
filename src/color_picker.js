@@ -84,6 +84,8 @@ Object.extend(Simpltry.ColorPicker.prototype, {
     ]
 });
 
-Simpltry.registerWidget('color_picker', function(element, options) {
-    new Simpltry.ColorPicker(element.id, options);
-});
+if(Simpltry.registerWidget) {
+    Simpltry.registerWidget('color_picker', function(element, options) {
+        new Simpltry.ColorPicker(element.id, options);
+    });
+}
