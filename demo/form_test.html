@@ -5,8 +5,35 @@
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>form_test</title>
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/effects.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/controls.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
+		<style type="text/css" media="screen">
+		  div.autocomplete {
+                position:absolute;
+                width:250px;
+                background-color:white;
+                border:1px solid #888;
+                margin:0px;
+                padding:0px;
+              }
+              div.autocomplete ul {
+                list-style-type:none;
+                margin:0px;
+                padding:0px;
+              }
+              div.autocomplete ul li.selected { background-color: #ffb;}
+              div.autocomplete ul li {
+                list-style-type:none;
+                display:block;
+                margin:0;
+                padding:2px;
+                height:32px;
+                cursor:pointer;
+              }
+		</style>
+		
 	</head>
 	<body id="form_test">
 		<div>
@@ -21,6 +48,10 @@
 					<option>test</option>
 					</select>
 				</div>
+				<div simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world</div>
+				<div>
+				    <input size="100 type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
+				<div>
 			</form>
 		</div>
 	</body>

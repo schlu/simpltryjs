@@ -37,4 +37,29 @@ Simpltry.attachWidgets = function(event) {
     });
 }
 
+//make s.a.u InPlaceEditor a widget
+Simpltry.registerWidget('inplace_editor', function(element, options) {
+    var url = options['url'];
+    delete(options['url']);
+    new Ajax.InPlaceEditor(element, url, options);
+});
+
+//make s.a.u Ajax.Autocompleter a widget
+Simpltry.registerWidget('ajax_autocompleter', function(element, options) {
+    var url = options['url'];
+    delete(options['url']);
+    var autoCompleteElement = options['autoCompleteElement'];
+    delete(options['autoCompleteElement']);
+    var autoComplete = null;
+    if(autoCompleteElement) {
+        autoCompleteElement = $(autoCompleteElement);
+    } else {
+        autoCompleteElement = document.createElement('div');
+        autoCompleteElement.setStyle({'display':'none'});
+        autoCompleteElement.addClassName("autocomplete");
+        document.body.appendChild(autoCompleteElement);
+    }
+    new Ajax.Autocompleter(element, autoCompleteElement, url, options);
+});
+
 Event.observe(window, 'load', Simpltry.attachWidgets, false);
