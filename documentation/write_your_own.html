@@ -1,0 +1,40 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Simpltry Javascript Widgets</title>
+		<style type="text/css" media="screen">
+		  .indent {
+		      padding-left: 15px;
+		  }
+		  .odd {
+		      background-color: #ff9;
+		  }
+		</style>
+		
+	</head>
+	<body id="demo_index">
+		<h1>Write your own Simpltry Javascript Widget</h1>
+		<h2>Why?</h2>
+		<p>Because it is tedious to write dynamic unintrusive js to setup all your widgets.  If you think that it isn't too annoying to include js files just for setting up behavior then you probably don't need this.  Although this may not alleviate that entirely.  Fortunately this will happily live side by side with any known framework based on Prototype or script.aculo.us.</p>
+		<h2>How?</h2>
+		<p>Writing your own widget couldn't be simpler.  There is a small rule that you need to follow, which shouldn't be too hard if you are used to using script.aculo.us or Prototype.  The rule is that you have to be able to construct your widget based on a DOM element and a Hash of options.  After you have wrote your new awesome widget you need to be able instantiate it like this "new MyAwsomeWidget(element, options)".  There are however a few tricks.  I made the script.aculo.us Ajax.InPlaceEditor into a simptry_widget.  It takes so little code that I will show you line by line how to take an existing widget and make it work within simpltry.</p>
+		<div class="code_block">
+		    <ol>
+		        <li class="odd">Simpltry.registerWidget('inplace_editor', function(element, options) {</li>
+                <li class="indent even">var url = options['url'];</li>
+                <li class="indent odd">delete(options['url']);</li>
+                <li class="indent even">new Ajax.InPlaceEditor(element, url, options);</li>
+                <li class="odd">});</li>
+            </ol>
+		</div>
+		<p>5 Lines!  In the first line you call the method Simpltry.registerWidget.  The first argument of that method is the value that you want to associate your widget.  Now anytime the Simpltry finds the value "inplace_editor" in the attribute simpltry_widget, it will call the second argument which must be a function that takes two arguments the element and the options.  The second and third lines deal with the fact that Ajax.InPlaceEditor takes 3 parameters not 2.  As you can see this is easily handled by making the url an option, then extracting it into a local variable and deleting it from the original options hash.  The forth line sets up the widget and the fifth line closes the functions out.  Then you call it like this:</p>
+		<div class="code_block">
+		    <ol>
+		        <li class="odd">&lt;div simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">original text&lt;/div></li>
+            </ol>
+		</div>
+		<p>Notice the options are passed through using a second customer attribute "simpltry_options".  If you have used Prototype or script.aculo.us before you will be familiar with the syntax of the options, it is simply a js hash with out the {}.  When you click save on inplace editor the url you put in the options is called and everything works exactly the same from that point on.  Check out the <a href="../demo/form.html">Demo</a>!</p>
+	</body>
+</html>
