@@ -21,7 +21,11 @@ Simpltry.BaseTooltip.prototype = {
 	initialize: function(element, options) {
 		this.setOptions(options);
 		this.element = $(element);
-		this.popup = $(this.element.id + '_tooltip');
+		if(this.options.tooltip) {
+		    this.popup = $(this.options.tooltip);
+		} else {
+    		this.popup = $(this.element.id + '_tooltip');
+		}
 		if(!Simpltry.bodyWidth) Simpltry.calculateBodyWidth();
 		this.setPopupPosition();
 		this.attachEvents();
@@ -83,7 +87,7 @@ Object.extend(Object.extend(Simpltry.PopupTooltip.prototype, Simpltry.BaseToolti
 		this.popup.addClassName('mouseOver');
 		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
 	},
-	elementMouseOut: function(e) {
+    	elementMouseOut: function(e) {
 		this.element.removeClassName('mouseOver');
 		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
 	},
@@ -104,13 +108,31 @@ Object.extend(Simpltry, {
 		$A(document.getElementsByTagName('body')).each(function(element) {
 		   Simpltry.bodyWidth = Element.getDimensions(element).width;
 		});
-	},
-	anchorTooltips: function() {
-		document.getElementsByClassName('popupTooltipAnchor').each(function(tippable) {
-			if($(tippable.id + '_tooltip') != null) {
-				new Simpltry.PopupTooltip(tippable);
-			}
-		});
 	}
 });
-Event.observe(window, "load", Simpltry.anchorTooltips, false);
+
+Simpltry.BaseTooltip.setupWidget = function(element, options) {
+    if(options['tooltipText']) {
+        var tooltip = Builder.node('div', {style: "display:none"}, options['tooltipText']);
+        document.body.appendChild(tooltip);
+        options['tooltip'] = tooltip;
+        delete(options['tooltipText']);
+    }
+    if(!options['tooltip']) {
+        options['tooltip'] = element.next();
+    }
+};
+
+if(Simpltry.registerWidget) {
+    Simpltry.registerWidget("popup_tooltip", function(element, options) {
+        Simpltry.BaseTooltip.setupWidget(element, options);
+        new Simpltry.PopupTooltip(element, options);
+    });
+}
+
+if(Simpltry.registerWidget) {
+    Simpltry.registerWidget("click_tooltip", function(element, options) {
+        Simpltry.BaseTooltip.setupWidget(element, options);
+        new Simpltry.ClickTooltip(element, options);
+    });
+}
