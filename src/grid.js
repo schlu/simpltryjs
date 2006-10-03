@@ -256,3 +256,11 @@ Simpltry.DataGrid.prototype = {
 	}
 	
 };
+
+if(Simpltry.registerWidget) {
+    Simpltry.registerWidget('grid', function(element, options) {
+        var data = options['data'];
+        delete(options['data']);
+        new Simpltry.DataGrid(element, data, options);
+    });
+}

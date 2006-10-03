@@ -10,11 +10,6 @@ ask that you leave every from this point up in tact.
 
 Dependencies: 
 	Prototype: 1.5.0_rc0+
-	script.aculo.us: 1.6.1+
-		-builder - only for datefield binding
-	Simpltry
-		-tooltip - only for datefield binding
-		-date_picker - only for datefield binding
 */
 
 if(!Simpltry) var Simpltry = {};
