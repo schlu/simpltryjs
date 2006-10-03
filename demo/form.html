@@ -10,6 +10,16 @@
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
 		<style type="text/css" media="screen">
+		  * {
+		      margin: 0px;
+		      padding: 0px;
+		  }
+		  body {
+		      padding: 3px;
+		  }
+		  p {
+		      padding: 2px 0;
+		  }
 		  div.autocomplete {
                 position:absolute;
                 width:250px;
@@ -32,14 +42,21 @@
                 height:32px;
                 cursor:pointer;
               }
+              .demo {
+                  margin-top: 5px;
+                  padding: 10px;
+                  border: thin solid #333;
+              }
 		</style>
 		
 	</head>
 	<body id="form_test">
+	    <h1>Simpltry form widgets</h1>
 		<div>
 			<form action="/frontier/authentication/login.cgi" id="login" method="post">
-				<div><input type="text" id="zipcode" maxlength="5" simpltry_widget="move_to_next" /></div>
-				<div>
+			    <div class="demo"><h2>simptry_widget="move_to_next"</h2><p>Occasionally it is handy to automatically push users to the next field once the minimum number of character has been met.  So of the occasions are zip codes, and phone numbers.  Simpltry offers an easy way to implement this, first you must set the maxlength attribute of you text field.  Then add simptry_widget="move_to_next".  After the max length of characters is met it moves the user to the next input, select box or text area.  Give it a try!</p>
+				<div>Zipcode: <input type="text" id="zipcode" maxlength="5" size="5" simpltry_widget="move_to_next" /></div>
+				<div>Phone:
 					<input type="text" maxlength="3" name="areacode" id="areacode" size="4" simpltry_widget="move_to_next" />
 					<input type="text" maxlength="3" name="pre" id="pre" size="4" simpltry_widget="move_to_next" />
 					<input type="text" maxlength="4" name="suff" id="suff" size="5" simpltry_widget="move_to_next" />
@@ -47,11 +64,20 @@
 				<div><select>
 					<option>test</option>
 					</select>
+				</div></div>
+				<div class="demo">
+				    <h2>simpltry_widget="inplace_editor"</h2>
+				    <p>This is a demo of the Ajax.InPlaceEditor from script.aculo.us.  There is a mandatory option (url) that is the server side path for saving what the user changes.  Click on Hello world below to see the demo.</p>
+				    <div simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world</div>
 				</div>
-				<div simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world</div>
-				<div>
-				    <input size="100 type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
-				<div>
+				<div class="demo">
+				    <h2>simpltry_widget="ajax_autocompleter"</h2>
+				    <p>The auto completer is another control that is awesome.  It becomes even simpler to use when you use the simpltry_widget ajax_autocompleter.  The same as the inplace_editor there is a mandatory option (url) that is the server side path for getting the appropriate list.  To see the demo start typing in the field below.</p>
+    				<div>
+    				    <input size="100" type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
+    				<div>
+    				<p>Usually you need to provide the element to put the results in as the Second parameter for Ajax.Autocompleter, but if you don't provide it in the option "autoCompleteElement" simpltry will build a div for you.</p>
+    			</div>
 			</form>
 		</div>
 	</body>
