@@ -1,0 +1,16 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>date_picker_test</title>
+		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/effects.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../lib/controls.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body id="date_picker_test">
+	    <div id='updated'></div>
+		<a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: function(transport, object) {Simpltry.attachPartial(object)}}); return false;">update div</a>
+	</body>
+</html>

@@ -20,8 +20,9 @@ Simpltry.registerWidget = function(type, callBack) {
     Simpltry.Widgets[type] = callBack;
 }
 
-Simpltry.attachWidgets = function(event) {
-    var elements = $A(document.getElementsByTagName('*'));
+Simpltry.attachWidgets = function(event, element) {
+    element = element || document;
+    var elements = $A($(element).getElementsByTagName('*'));
     elements.each(function(element, i) {
         if(element.getAttribute('simpltry_widget')) {
             var simpltryType = element.getAttribute('simpltry_widget');
@@ -35,7 +36,11 @@ Simpltry.attachWidgets = function(event) {
             }
         }
     });
-}
+};
+
+Simpltry.attachPartial = function(element) {
+    Simpltry.attachWidgets(null, element);
+};
 
 //make s.a.u InPlaceEditor a widget
 Simpltry.registerWidget('inplace_editor', function(element, options) {
