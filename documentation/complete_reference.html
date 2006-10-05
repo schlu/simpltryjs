@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+	<head>
+		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+		<title>Simpltry Javascript Widgets Reference</title>
+		<style type="text/css" media="screen">
+		  * {
+		      margin: 0;
+		      padding: 0;
+		  }
+		  dt {
+          	color: #666;
+          	float: left;
+          	width: 185px;
+          	text-align: right;
+          	padding: 5px 0 0 0;
+          }
+
+          dd {
+          	display: block;
+          	margin-left: 190px;
+          	padding: 5px 0 0 0;
+          }
+          table.options th {
+              background-color: #ff9;
+              border-left: thin solid black;
+              border-top: thin solid black;
+          }
+          
+        table.options td {
+            padding: 0 3px;
+            border-left: thin solid black;
+            border-top: thin solid black;
+        }
+        table.options {
+            border-right: thin solid black;
+            border-bottom: thin solid black;
+        }
+		</style>
+		
+	</head>
+	<body id="reference">
+		<h1>Simpltry Javascript Widgets Reference</h1>
+		<h2>Simpltry.ColorPicker</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>color_picker</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+    	                <tr>
+    		                <td>size</td>
+    		                <td>string</td>
+    		                <td>large</td>
+    		                <td>must be "large" or "small".  makes the color picker 10x7 or 4x3 respectively</td>
+    		            </tr>
+		                <tr>
+                            <td>onSelect</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called when the user selects a color</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>none</dd>
+		</dl>
+	</body>
+</html>
