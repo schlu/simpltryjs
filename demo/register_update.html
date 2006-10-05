@@ -11,6 +11,6 @@
 	</head>
 	<body id="date_picker_test">
 	    <div id='updated'></div>
-		<a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: function(transport, object) {Simpltry.attachPartial(object)}}); return false;">update div</a>
+		<a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: Simpltry.Widgets.updateComplete}); return false;">update div</a>
 	</body>
 </html>

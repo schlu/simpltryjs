@@ -123,15 +123,12 @@ Simpltry.BaseTooltip.setupWidget = function(element, options) {
     }
 };
 
-if(Simpltry.registerWidget) {
-    Simpltry.registerWidget("popup_tooltip", function(element, options) {
+if(Simpltry.Widgets) {
+    Simpltry.Widgets.register("popup_tooltip", function(element, options) {
         Simpltry.BaseTooltip.setupWidget(element, options);
         new Simpltry.PopupTooltip(element, options);
     });
-}
-
-if(Simpltry.registerWidget) {
-    Simpltry.registerWidget("click_tooltip", function(element, options) {
+    Simpltry.Widgets.register("click_tooltip", function(element, options) {
         Simpltry.BaseTooltip.setupWidget(element, options);
         new Simpltry.ClickTooltip(element, options);
     });

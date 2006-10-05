@@ -14,43 +14,47 @@ Dependencies:
 
 if(!Simpltry) var Simpltry = {};
 
-Simpltry.Widgets = $H();
+Simpltry.Widgets = Class.create();
+Simpltry.Widget = $H();
 
-Simpltry.registerWidget = function(type, callBack) {
-    Simpltry.Widgets[type] = callBack;
-}
-
-Simpltry.attachWidgets = function(event, element) {
-    element = element || document;
-    var elements = $A($(element).getElementsByTagName('*'));
-    elements.each(function(element, i) {
-        if(element.getAttribute('simpltry_widget')) {
-            var simpltryType = element.getAttribute('simpltry_widget');
-            if(!element.id) element.id = simpltryType + i;
-            var options = {};
-            if(element.getAttribute('simpltry_options')) {
-                eval("options = {" + element.getAttribute('simpltry_options') + "}");
+Object.extend(Simpltry.Widgets, {
+    register: function(type, callBack) {
+        Simpltry.Widget[type] = callBack;
+    },
+    attach: function(event, element) {
+        element = element || document;
+        var elements = $A($(element).getElementsByTagName('*'));
+        elements.each(function(element, i) {
+            if(element.getAttribute('simpltry_widget')) {
+                var simpltryType = element.getAttribute('simpltry_widget');
+                if(!element.id) element.id = simpltryType + i;
+                var options = {};
+                if(element.getAttribute('simpltry_options')) {
+                    eval("options = {" + element.getAttribute('simpltry_options') + "}");
+                }
+                if(Simpltry.Widget[simpltryType]) {
+                    Simpltry.Widget[simpltryType](element, options);
+                }
             }
-            if(Simpltry.Widgets[simpltryType]) {
-                Simpltry.Widgets[simpltryType](element, options);
-            }
-        }
-    });
-};
-
-Simpltry.attachPartial = function(element) {
-    Simpltry.attachWidgets(null, element);
-};
+        });
+    },
+    attachPartial: function(element) {
+        Simpltry.Widgets.attach(null, element);
+    },
+    updateComplete: function(transport, object) {
+        Simpltry.Widgets.attachPartial(object);
+    }
+});
 
 //make s.a.u InPlaceEditor a widget
-Simpltry.registerWidget('inplace_editor', function(element, options) {
+Simpltry.Widgets.register('inplace_editor', function(element, options) {
     var url = options['url'];
     delete(options['url']);
     new Ajax.InPlaceEditor(element, url, options);
 });
 
 //make s.a.u Ajax.Autocompleter a widget
-Simpltry.registerWidget('ajax_autocompleter', function(element, options) {
+Simpltry.Widgets.register('ajax_autocompleter', function(element, options) {
     var url = options['url'];
     delete(options['url']);
     var autoCompleteElement = options['autoCompleteElement'];
@@ -67,4 +71,4 @@ Simpltry.registerWidget('ajax_autocompleter', function(element, options) {
     new Ajax.Autocompleter(element, autoCompleteElement, url, options);
 });
 
-Event.observe(window, 'load', Simpltry.attachWidgets, false);
+Event.observe(window, 'load', Simpltry.Widgets.attach, false);

@@ -212,8 +212,8 @@ Simpltry.DatePicker.prototype = {
 	}
 };
 
-if(Simpltry.registerWidget) {
-    Simpltry.registerWidget('date_picker', function(element, options) {
+if(Simpltry.Widgets) {
+    Simpltry.Widgets.register('date_picker', function(element, options) {
         if(element.tagName == 'INPUT' && element.type == 'text') {
             element.autoComplete = "false";
     		element.addClassName("tooltipRight");
