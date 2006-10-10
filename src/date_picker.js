@@ -95,7 +95,7 @@ Simpltry.DatePicker.prototype = {
 		if(!this.month){
 			var today = new Date();
 			this.month = today.getMonth() + 1;
-			this.year = today.getYear() + 1900; 
+			this.year = today.getYear() + 1900;
 		}
 		if(this.month == 0) {
 			this.year -= 1;

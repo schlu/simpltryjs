@@ -73,5 +73,295 @@
 		    <dt>additional simpltry_options</dt>
 		    <dd>none</dd>
 		</dl>
+		<h2>Simpltry.DatePicker</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>date_picker</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>onSelect</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called when the user selects a date</td>
+    		            </tr>
+		                <tr>
+                            <td>onCancel</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called when the user cancels the date picker</td>
+    		            </tr>
+		                <tr>
+                            <td>showCancel</td>
+                            <td>boolean</td>
+                            <td>false</td>
+                            <td>toggles display of the date picker</td>
+    		            </tr>
+		                <tr>
+                            <td>month</td>
+                            <td>int</td>
+                            <td>new Date().getMonth() + 1</td>
+                            <td>month to start the date picker at.  month is 1 based (e.g. jan == 1) if no month is passed today's month is selected.  must be passed with year.</td>
+    		            </tr>
+		                <tr>
+                            <td>year</td>
+                            <td>int</td>
+                            <td>new Date().getYear() + 1900</td>
+                            <td>year to start the date picker at. if no year is passed today's year is selected. must be passed with month.</td>
+    		            </tr>
+		                <tr>
+                            <td>dateString</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>sets the selected date with the Date that is returned from the method Date.parse()</td>
+    		            </tr>
+		                <tr>
+                            <td>selectedDate</td>
+                            <td>object</td>
+                            <td>{day:null, month:null, year:null}</td>
+                            <td>Mostly used internally but feel free to pass in an object with attributes for day, month and year.  day, month and year are all 1 based and follow the same format as the above options.</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>none</dd>
+		</dl>
+		<h2>Simpltry.Form.MoveToNextField</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>move_to_next</dd>
+		    <dt>constructor params</dt>
+		    <dd>field</dd>
+		    <dt>options</dt>
+		    <dd>
+                none
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>none</dd>
+		</dl>
+		<h2>Simpltry.DataGrid</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>grid</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, data, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>beforeEachRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called before each row</td>
+    		            </tr>
+		                <tr>
+                            <td>afterEachRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called after each row</td>
+    		            </tr>
+		                <tr>
+                            <td>beforeHeaderRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called before header row</td>
+    		            </tr>
+		                <tr>
+                            <td>afterHeaderRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called after header row</td>
+    		            </tr>
+		                <tr>
+                            <td>beforeFooterRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called before footer row</td>
+    		            </tr>
+		                <tr>
+                            <td>afterFooterRow</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called after footer row</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>data</td>
+                            <td>json</td>
+                            <td>null</td>
+                            <td>this is a <span style="font-weight:bold">mandatory</span> option if you are using the data grid as a widget.  It tells the data grid what data to display.</td>
+    		            </tr>
+    		        </tbody>
+    		    </table>
+		    </dd>
+		</dl>
+		<h2>Simpltry.RatingControl</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>rating</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>onSelect</td>
+                            <td>function</td>
+                            <td>Prototype.emptyFunction</td>
+                            <td>gets called when the user selects a rating</td>
+    		            </tr>
+		                <tr>
+                            <td>selected</td>
+                            <td>integer</td>
+                            <td>null</td>
+                            <td>sets the original</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>
+		        none
+		    </dd>
+		</dl>
+		<h2>Simpltry.PopupTooltip</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>popup_tooltip</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>offsetLeft</td>
+                            <td>integer</td>
+                            <td>0</td>
+                            <td>the number of pixels the tooltip is moved left after the position is calculated</td>
+    		            </tr>
+		                <tr>
+                            <td>offsetTop</td>
+                            <td>integer</td>
+                            <td>0</td>
+                            <td>the number of pixels the tooltip is moved down after the position is calculated</td>
+    		            </tr>
+		                <tr>
+                            <td>direction</td>
+                            <td>string</td>
+                            <td>below</td>
+                            <td>the direction the popup appears relative to the handle.  Currently supports (below, right).</td>
+    		            </tr>
+		                <tr>
+                            <td>tooltip</td>
+                            <td>string or DOM element</td>
+                            <td>null</td>
+                            <td>This is the actual element that gets popped up.</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>tooltipText</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>used for creating simple tooltips, if you specify this and tooltip as options this will overwrite the tooltip option.  If you do not specify this or tooltip the widget will automatically bind the next DOM element as the tool tip</td>
+    		            </tr>
+    		        </tbody>
+    		    </table>
+		    </dd>
+		</dl>
+		<h2>Simpltry.ClickTooltip</h2>
+		<dl>
+		    <dt>simpltry_widget string</dt>
+		    <dd>click_tooltip</dd>
+		    <dt>constructor params</dt>
+		    <dd>container, options</dd>
+		    <dt>options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>offsetLeft</td>
+                            <td>integer</td>
+                            <td>0</td>
+                            <td>the number of pixels the tooltip is moved left after the position is calculated</td>
+    		            </tr>
+		                <tr>
+                            <td>offsetTop</td>
+                            <td>integer</td>
+                            <td>0</td>
+                            <td>the number of pixels the tooltip is moved down after the position is calculated</td>
+    		            </tr>
+		                <tr>
+                            <td>direction</td>
+                            <td>string</td>
+                            <td>below</td>
+                            <td>the direction the popup appears relative to the handle.  Currently supports (below, right).</td>
+    		            </tr>
+		                <tr>
+                            <td>tooltip</td>
+                            <td>string or DOM element</td>
+                            <td>null</td>
+                            <td>This is the actual element that gets popped up.</td>
+    		            </tr>
+    		        </tbody>
+		        </table>
+		    </dd>
+		    <dt>additional simpltry_options</dt>
+		    <dd>
+		        <table class="options" cellspacing="0" cellpadding="0">
+    	            <thead>
+    	                <tr><th>option</th><th>type</th><th>default</th><th>description</th></tr>
+    		        </thead>
+    		        <tbody>
+		                <tr>
+                            <td>tooltipText</td>
+                            <td>string</td>
+                            <td>null</td>
+                            <td>used for creating simple tooltips, if you specify this and tooltip as options this will overwrite the tooltip option.  If you do not specify this or tooltip the widget will automatically bind the next DOM element as the tool tip</td>
+    		            </tr>
+    		        </tbody>
+    		    </table>
+		    </dd>
+		</dl>
 	</body>
 </html>

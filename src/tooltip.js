@@ -15,7 +15,8 @@ if(!Simpltry) var Simpltry = {};
 Simpltry.BaseTooltip = {};
 Simpltry.BaseTooltip.DefaultOptions  = {
 	offsetLeft: 0,
-	offsetTop: 0
+	offsetTop: 0,
+	direction: "below"
 }
 Simpltry.BaseTooltip.prototype = {
 	initialize: function(element, options) {
@@ -38,13 +39,10 @@ Simpltry.BaseTooltip.prototype = {
 		var offset = Position.cumulativeOffset(this.element);
 		var leftPosition = 0;
 		var topPosition = 0;
-		if(Element.hasClassName(this.element, 'tooltipRight')) {
+		if(this.options.direction == "right") {
 			leftPosition = offset[0] + this.element.clientWidth;
 			topPosition = offset[1];
-		} else if(Element.hasClassName(this.element, 'tooltipLeft')) {
-			leftPosition = offset[0] - Element.getDimensions(this.popup).width;
-			topPosition = offset[1];
-		} else {
+		} else if(this.options.direction == "below") {
 			leftPosition = offset[0];
 			topPosition = offset[1] + this.element.offsetHeight;
 		}
@@ -80,34 +78,32 @@ Object.extend(Object.extend(Simpltry.PopupTooltip.prototype, Simpltry.BaseToolti
 		this.popup.onmouseout = this.popupMouseOut.bindAsEventListener(this);
 	},
 	elementMouseOver: function(e) {
-		this.element.addClassName('mouseOver');
+		this.element.addClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
 	},
 	popupMouseOver: function(e) {
-		this.popup.addClassName('mouseOver');
+		this.popup.addClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
 	},
     	elementMouseOut: function(e) {
-		this.element.removeClassName('mouseOver');
+		this.element.removeClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
 	},
 	popupMouseOut: function(e) {
-		this.popup.removeClassName('mouseOver');
+		this.popup.removeClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
 	},
 	checkMouseOut: function() {
-		if(!this.popup.hasClassName('mouseOver') && !this.element.hasClassName('mouseOver')) this.close();
+		if(!this.popup.hasClassName('toolTipMouseOver') && !this.element.hasClassName('toolTipMouseOver')) this.close();
 	},
 	checkMouseOver: function() {
-		if(this.popup.hasClassName('mouseOver') || this.element.hasClassName('mouseOver')) this.display();
+		if(this.popup.hasClassName('toolTipMouseOver') || this.element.hasClassName('toolTipMouseOver')) this.display();
 	}
 });
 
 Object.extend(Simpltry, {
 	calculateBodyWidth: function() {
-		$A(document.getElementsByTagName('body')).each(function(element) {
-		   Simpltry.bodyWidth = Element.getDimensions(element).width;
-		});
+	   Simpltry.bodyWidth = Element.getDimensions(document.body).width;
 	}
 });
 

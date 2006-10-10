@@ -15,8 +15,7 @@ if(!Simpltry) var Simpltry = {};
 Simpltry.RatingControl = Class.create();
 Simpltry.RatingControl.DefaultOptions = {
 	onSelect: Prototype.emptyFunction,
-	selected: null,
-	id: null
+	selected: null
 };
 Object.extend(Simpltry.RatingControl.prototype, {
 	initialize: function(container, options) {
@@ -32,6 +31,9 @@ Object.extend(Simpltry.RatingControl.prototype, {
 			}
 		}.bind(this));
 		this.attachEvents();
+		if(this.options.selected) {
+		    this.markUpTo(this.ratings[this.options.selected]);
+		}
 	},
 	setOptions: function(options) {
 		this.options = $H(Simpltry.RatingControl.DefaultOptions);
@@ -53,10 +55,13 @@ Object.extend(Simpltry.RatingControl.prototype, {
 	},
 	mouseOver: function(event) {
 		var rating = Event.element(event);
-		this.clear(false);
+		this.markUpTo(rating);
+	},
+	markUpTo: function(element) {
+	    this.clear(false);
 		$R(1,this.ratings.keys().length, false).each(function(r){
 			this.ratings[r].addClassName("simpltryRatingControlHighlight");
-			if(this.ratings[r] == rating) {
+			if(this.ratings[r] == element) {
 				throw $break;
 			}
 		}.bind(this));

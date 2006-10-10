@@ -9,12 +9,14 @@ Code means you agree to the aformentioned conditions.  Please alter this code ho
 ask that you leave from this point up in tact.
 
 Dependencies: 
-	Prototype: 1.5.0_rc0+
+	Prototype: 1.5.0_rc1+
 */
 
 if(!Simpltry) var Simpltry = {};
 
 Simpltry.Widgets = Class.create();
+Simpltry.Widgets.widgetAttribute = "simpltry_widget";
+Simpltry.Widgets.optionsAttribute = "simpltry_options";
 Simpltry.Widget = $H();
 
 Object.extend(Simpltry.Widgets, {
@@ -25,12 +27,12 @@ Object.extend(Simpltry.Widgets, {
         element = element || document;
         var elements = $A($(element).getElementsByTagName('*'));
         elements.each(function(element, i) {
-            if(element.getAttribute('simpltry_widget')) {
-                var simpltryType = element.getAttribute('simpltry_widget');
+            if(element.getAttribute(Simpltry.Widgets.widgetAttribute)) {
+                var simpltryType = element.getAttribute(Simpltry.Widgets.widgetAttribute);
                 if(!element.id) element.id = simpltryType + i;
                 var options = {};
-                if(element.getAttribute('simpltry_options')) {
-                    eval("options = {" + element.getAttribute('simpltry_options') + "}");
+                if(element.getAttribute(Simpltry.Widgets.optionsAttribute)) {
+                    eval("options = {" + element.getAttribute(Simpltry.Widgets.optionsAttribute) + "}");
                 }
                 if(Simpltry.Widget[simpltryType]) {
                     Simpltry.Widget[simpltryType](element, options);
