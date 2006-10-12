@@ -14,7 +14,7 @@
 	    <h1>Simpltry Rating Control</h1>
 	    <h2>simpltry_widget="rating"</h2>
 	    <p>This is a rating control similar to netflix and every other cool site on the internet.  You build it by creating a container div and then as many divs inside the container as you want ratings.  So in the following example we want 5 pluses so we have 5 divs inside the container.  It is your responsibility to style the divs to look like a rater.  <a href="css/simpltry_rater.css">here</a> is the style sheet I used along with the <a href="css/img/plus-gray.gif">unhighlighted</a> and <a href="css/img/plus-green.gif">highlighted</a> images if you decide to use these images you must buy a license from <a href="http://twothirty.com">twotiny</a> although at the time of this writing I can't find the page where I bought them so . . .</p>
-		<div id="rater1" class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2">
+		<div id="rater1" class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2, onSelect:function(rating){alert('you selected ' + rating);}">
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
@@ -24,7 +24,7 @@
         <div class="code">
         <p>example markup:</p>
 <code><pre>
-&lt;div class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2">
+&lt;div class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2, onSelect:function(rating){alert('you selected ' + rating);}">
 	&lt;div>1&lt;/div>
 	&lt;div>2&lt;/div>
 	&lt;div>3&lt;/div>
