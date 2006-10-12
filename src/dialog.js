@@ -15,7 +15,8 @@ Dependencies:
 		-effects
 		-dragdrop
 */
-var WindowProperties = {
+if(!Simpltry) var Simpltry = {};
+Simpltry.WindowProperties = {
 	getHorizontalScroll: function() {
 		return window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
 	},
@@ -51,7 +52,7 @@ var WindowProperties = {
 		} else {
 			bodyWidth = document.body.offsetWidth;
 		}
-		var browserSize = WindowProperties.getBrowserSize();
+		var browserSize = Simpltry.WindowProperties.getBrowserSize();
 		var calculatedHeight = browserSize.height;
 		var calculatedWidth = browserSize.width;
 		
@@ -61,19 +62,19 @@ var WindowProperties = {
 	}
 };
 
-var Dialog = {};
-Dialog.State = {
+Simpltry.Dialog = {};
+Simpltry.Dialog.State = {
 	activeDialog: [],
 	opaqueDivUp: null,
-	hasActiveDialogs: function() {return Dialog.State.activeDialog.length > 0},
+	hasActiveDialogs: function() {return Simpltry.Dialog.State.activeDialog.length > 0},
 	highestIndex: 1000,
 	highestId: 0
 };
-Dialog.css = {
+Simpltry.Dialog.css = {
 	title: "simpltryDialogTitle",
 	dialog: "simpltryDialog"
 };
-Dialog.DefaultOptions = {
+Simpltry.Dialog.DefaultOptions = {
 	opacity: .6,
 	width: 300,
 	title: "Confirm?",
@@ -83,10 +84,10 @@ Dialog.DefaultOptions = {
 	height:null
 };
 
-Dialog.removeAll = function() {Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog()})};
+Simpltry.Dialog.removeAll = function() {Simpltry.Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog()})};
 
-Dialog.Button = Class.create();
-Dialog.Button.prototype = {
+Simpltry.Dialog.Button = Class.create();
+Simpltry.Dialog.Button.prototype = {
 	initialize: function(buttonText, dialogBox, options) {
 		this.options = Object.extend({onClick: Prototype.emptyFunction}, options || {});
 		this.element = document.createElement('input');
@@ -95,21 +96,25 @@ Dialog.Button.prototype = {
 		this.element.onclick = function(event) {this.options.onClick(event);dialogBox.removeDialog();return false;}.bindAsEventListener(this);
 	}
 };
-Dialog.Base = {};
-Dialog.Base.prototype = {
+Simpltry.Dialog.Base = {};
+Simpltry.Dialog.Base.prototype = {
+    initialize: function(options, buttons){
+        this.setup(options, buttons);
+        this.show();
+    },
 	_show: Prototype.emptyFunction,
 	onDisplay: Prototype.emptyFunction,
 	show: function() {
-		this.id = ++Dialog.State.highestId;
-		if(Dialog.State.opaqueDialog == null) {
+		this.id = ++Simpltry.Dialog.State.highestId;
+		if(Simpltry.Dialog.State.opaqueDialog == null) {
 			var opaqueLayer = document.createElement('div');
 			$(opaqueLayer);
-			var contentSize = WindowProperties.getContentSize();
+			var contentSize = Simpltry.WindowProperties.getContentSize();
 			Element.setStyle(opaqueLayer, {position: "absolute", top:"0", left:"0", width: contentSize.width + "px", height: contentSize.height + "px", display: "block", zIndex: 1000, background: "#fff"});
 			opaqueLayer.id = "dialog_opaque_layer";
 			Element.setOpacity(opaqueLayer, this.options.opacity);
 			document.body.appendChild(opaqueLayer);
-			Dialog.State.opaqueDialog = opaqueLayer;
+			Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
 			$$('select').each(function(element) {Element.hide(element)});
 		}
 				
@@ -117,8 +122,8 @@ Dialog.Base.prototype = {
 		this.dialogLayer.id = "dialog_layer" + this.id;
 		$(this.dialogLayer);
 		this.dialogLayer.addClassName("dialog");
-		Element.setStyle(this.dialogLayer, {position: "absolute", zIndex: ++Dialog.State.highestIndex});
-		var browserSize = WindowProperties.getBrowserSize();
+		Element.setStyle(this.dialogLayer, {position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
+		var browserSize = Simpltry.WindowProperties.getBrowserSize();
 		if(typeof(this.options.width) == 'number') {
 			this.dialogLayer.style.width = this.options.width + "px";
 		} else {
@@ -158,19 +163,19 @@ Dialog.Base.prototype = {
 		var inputs = $A(this.dialogLayer.getElementsByTagName('input'));
 		if(inputs.length > 0 && !inputs[0].disabled) inputs.first().focus();
 		this.isRemoved = false;
-		Dialog.State.activeDialog.push(this);
+		Simpltry.Dialog.State.activeDialog.push(this);
 		this.onDisplay();
 	},
 	positionDialog: function() {
 		var dims = this.dialogLayer.getDimensions();
 		if(!this.dims || dims.width != this.dims.width || dims.height != this.dims.height) {
 			this.dims = dims;
-			var browserSize = WindowProperties.getBrowserSize();
+			var browserSize = Simpltry.WindowProperties.getBrowserSize();
 			this.topOffset = (browserSize.height / 2) - (this.dims.height / 2);
 			this.leftOffset = (browserSize.width / 2) - (this.dims.width / 2);
 		}
-		this.dialogLayer.style.top = (WindowProperties.getVerticalScroll() + this.topOffset) + "px";
-		this.dialogLayer.style.left = (WindowProperties.getHorizontalScroll() + this.leftOffset) + "px";
+		this.dialogLayer.style.top = (Simpltry.WindowProperties.getVerticalScroll() + this.topOffset) + "px";
+		this.dialogLayer.style.left = (Simpltry.WindowProperties.getHorizontalScroll() + this.leftOffset) + "px";
 	},
 	onKeyPress: function(event) {
 		if(event.keyCode == Event.KEY_ESC && !this.isRemoved) {
@@ -190,21 +195,21 @@ Dialog.Base.prototype = {
 		this.dialogLayer.style.display = "none";
 		Element.remove(this.dialogLayer);
 		this.isRemoved = true;
-		Dialog.State.activeDialog = Dialog.State.activeDialog.reject(function(dialog){return dialog.id == this.id;}.bind(this))
-		if(!Dialog.State.hasActiveDialogs()) {
-			Dialog.State.opaqueDialog.style.display = "none";
-			Element.remove(Dialog.State.opaqueDialog);
+		Simpltry.Dialog.State.activeDialog = Simpltry.Dialog.State.activeDialog.reject(function(dialog){return dialog.id == this.id;}.bind(this))
+		if(!Simpltry.Dialog.State.hasActiveDialogs()) {
+			Simpltry.Dialog.State.opaqueDialog.style.display = "none";
+			Element.remove(Simpltry.Dialog.State.opaqueDialog);
 			if(this.options.makeDraggable) Draggables.removeObserver(this);
 			$$('select').each(function(element) {Element.show(element)});
-			Dialog.State.opaqueDialog = null;
+			Simpltry.Dialog.State.opaqueDialog = null;
 		}
 	},
 	setOffset: function() {
 		var offset = Position.positionedOffset(this.dialogLayer);
-		this.leftOffset = offset[0] - WindowProperties.getHorizontalScroll();
-		this.topOffset = offset[1] - WindowProperties.getVerticalScroll();
+		this.leftOffset = offset[0] - Simpltry.WindowProperties.getHorizontalScroll();
+		this.topOffset = offset[1] - Simpltry.WindowProperties.getVerticalScroll();
 		var reposition = false;
-		var browserSize = WindowProperties.getBrowserSize();
+		var browserSize = Simpltry.WindowProperties.getBrowserSize();
 		if((this.topOffset + this.dialogLayer.getDimensions().height + 20) > browserSize.height) {
 			this.topOffset -= (this.topOffset + this.dialogLayer.getDimensions().height) - (browserSize.height - 20);
 			reposition = true;
@@ -218,17 +223,17 @@ Dialog.Base.prototype = {
 	}
 }
 
-Dialog.Ajax = Class.create();
-Object.extend(Object.extend(Dialog.Ajax.prototype, Dialog.Base.prototype),
+Simpltry.Dialog.Ajax = Class.create();
+Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base.prototype),
 	{
-		initialize: function(options) {
-			options = Object.extend(Object.extend({},Dialog.DefaultOptions), options || {});
+		setup:function(options, buttons) {
+		    options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
 			this.options = Object.extend({
 				additionalText: "loading . . . "
 			}, options);
 			this.options.makeDraggable = false;
 			this.options.displayTitle = false;
-			this.buttons = [];
+			this.buttons = buttons || [];
 		},
 		_show: function(){
 			var additionalTextLayer = document.createElement('div');
@@ -251,10 +256,10 @@ Object.extend(Object.extend(Dialog.Ajax.prototype, Dialog.Base.prototype),
 		}
 	});
 
-Dialog.Confirm = Class.create();
-Object.extend(Object.extend(Dialog.Confirm.prototype, Dialog.Base.prototype), {
-	initialize: function(options, buttons) {
-		options = Object.extend(Object.extend({},Dialog.DefaultOptions), options || {});
+Simpltry.Dialog.Confirm = Class.create();
+Object.extend(Object.extend(Simpltry.Dialog.Confirm.prototype, Simpltry.Dialog.Base.prototype), {
+	setup: function(options, buttons) {
+		options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
 		this.options = Object.extend({
 			additionalText: null
 		}, options);
@@ -264,7 +269,7 @@ Object.extend(Object.extend(Dialog.Confirm.prototype, Dialog.Base.prototype), {
 		}.bind(this));
 	},
 	addButton: function(buttonText, options) {
-		var newButton = new Dialog.Button(buttonText, this, options);
+		var newButton = new Simpltry.Dialog.Button(buttonText, this, options);
 		this.buttons.push(newButton);
 	},
 	_show: function() {
@@ -285,10 +290,8 @@ Object.extend(Object.extend(Dialog.Confirm.prototype, Dialog.Base.prototype), {
 	
 });
 
-Dialog.Alert = function(alertText, options) {
+Simpltry.Dialog.Alert = function(alertText, options) {
 	options = Object.extend({title: "Alert!", additionalText: alertText}, options || {});
-	var dialog = new Dialog.Confirm(options);
-	dialog.addButton('ok');
-	dialog.show();
+	var dialog = new Simpltry.Dialog.Confirm(options,[{}]);
 	return dialog;
 };
