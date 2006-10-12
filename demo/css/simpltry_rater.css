@@ -1,0 +1,20 @@
+.clear:after {
+    content: ".";
+    display: block;
+    position:relative;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+.rater div {
+	height: 10px;
+	width: 10px;
+	padding: 1px;
+	cursor: pointer;
+	background: transparent url("img/plus-gray.gif") no-repeat 50% 50%;
+	text-indent: -9999px;
+	float: left;
+}
+.rater div.simpltryRatingControlHighlight {
+	background: transparent url("img/plus-green.gif") no-repeat 50% 50%;
+}

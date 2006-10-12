@@ -7,47 +7,31 @@
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/rating_control.js" type="text/javascript" charset="utf-8"></script>
-		<style>
-		.clear:after {
-		    content: ".";
-		    display: block;
-		    position:relative;
-		    height: 0;
-		    clear: both;
-		    visibility: hidden;
-		}
-		.rater div {
-			height: 10px;
-			width: 10px;
-			padding: 1px;
-			cursor: pointer;
-			background: transparent url("img/plus-gray.gif") no-repeat 50% 50%;
-			text-indent: -9999px;
-			float: left;
-		}
-		.rater div.simpltryRatingControlHighlight {
-			background: transparent url("img/plus-green.gif") no-repeat 50% 50%;
-		}
-		</style>
+		<link href="css/demo.css" rel="stylesheet" type="text/css" />
+        <link href="css/simpltry_rater.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="tt_test">
-	    <p><a href="index.html">back</a></p>
-		This rater goes to 7:
-		<div id="rater1" class="rater clear" simpltry_widget="rating" simpltry_options="selected: 5">
+	    <h1>Simpltry Rating Control</h1>
+	    <h2>simpltry_widget="rating"</h2>
+	    <p>This is a rating control similar to netflix and every other cool site on the internet.  You build it by creating a container div and then as many divs inside the container as you want ratings.  So in the following example we want 5 pluses so we have 5 divs inside the container.  It is your responsibility to style the divs to look like a rater.  <a href="css/simpltry_rater.css">here</a> is the style sheet I used along with the <a href="img/plus-gray.gif">unhighlighted</a> and <a href="img/plus-green.gif">highlighted</a> images if you decide to use these images you must buy a license from <a href="http://twothirty.com">twotiny</a> although at the time of this writing I can't find the page where I bought them so . . .</p>
+		<div id="rater1" class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2">
 			<div>1</div>
 			<div>2</div>
 			<div>3</div>
 			<div>4</div>
 			<div>5</div>
-			<div>6</div>
-			<div>7</div>
 		</div>
-		This rater goes to 4:
-		<div id="rater2" class="rater clear" simpltry_widget="rating">
-			<div>1</div>
-			<div>2</div>
-			<div>3</div>
-			<div>4</div>
-		</div>
+        <div class="code">
+        <p>example markup:</p>
+<code><pre>
+&lt;div class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2">
+	&lt;div>1&lt;/div>
+	&lt;div>2&lt;/div>
+	&lt;div>3&lt;/div>
+	&lt;div>4&lt;/div>
+	&lt;div>5&lt;/div>
+&lt;/div>
+</code></pre>
+        </div>
 	</body>
 </html>
