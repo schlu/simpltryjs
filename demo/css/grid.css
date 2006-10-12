@@ -1,0 +1,17 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+ul {
+    list-style: none;
+}
+.simpltryDataGridHeaderControl {
+    background-color: #ddd;
+    border: thin solid black;
+}
+.simpltryDataGridHeaderControl li {
+    cursor: pointer;
+}
+.simpltryDataGridPaddingRow td {
+    padding-bottom: 13px;
+}

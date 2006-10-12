@@ -9,25 +9,8 @@
 		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/grid.js" type="text/javascript" charset="utf-8"></script>
-		<style>
-		    * {
-		        padding: 0;
-		        margin: 0;
-		    }
-		    ul {
-		        list-style: none;
-		    }
-		    .simpltryDataGridHeaderControl {
-		        background-color: #ddd;
-		        border: thin solid black;
-		    }
-		    .simpltryDataGridHeaderControl li {
-		        cursor: pointer;
-		    }
-		    .simpltryDataGridPaddingRow td {
-		        padding-bottom: 13px;
-		    }
-		</style>
+		<link href="css/demo.css" rel="stylesheet" type="text/css" />
+		<link href="css/grid.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="grid_demo">
 	    <p><a href="index.html">back</a></p>
@@ -43,6 +26,18 @@
 			    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
 			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("td"))},
 			    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'></div>
-		</script>
+        <h3>css classes</h3>
+        <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
+        <ul class="class_reference">
+            <li>simpltryDataGrid</li>
+            <li>simpltryDataGridHeaderRow</li>
+            <li>simpltryDataGridPaddingRow</li>
+            <li>simpltryDataGridDataRow</li>
+            <li>simpltryDataGridOddRow</li>
+            <li>simpltryDataGridEvenRow</li>
+            <li>simpltryDataGridSorted</li>
+            <li>simpltryDataGridSortedReverse</li>
+            <li>simpltryDataGridHeaderControl</li>
+        </ul>
 	</body>
 </html>

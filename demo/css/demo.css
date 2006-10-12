@@ -39,10 +39,17 @@ div.autocomplete ul li {
 	background-color: #ffd;
 	padding: 5px;
 	margin: 2px 0;
+	width: 100%;
+	overflow: auto;
 }
 .simpltryTooltip {
 	background-color: #ff2;
 }
 .anchor {
 	font-weight: bold;
+}
+.class_reference li {
+	color: #333;
+	margin-left: 20px;
+	list-style-type: square;
 }

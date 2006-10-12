@@ -13,9 +13,52 @@
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="date_picker_test">
-	    <p><a href="index.html">back</a></p>
-		<input type="text" name="startDate" id="datefield" simpltry_widget="date_picker" /><br/>
-		<input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /><br/>
-		<div simpltry_widget="date_picker"></div>
+	    <h1>Simpltry Date Picker Widget</h1>
+	    <h2>simpltry_widget="date_picker"</h2>
+	    <p>The date picker widget can be attached to a text field or any block level element (like div).  If you choose to bind it to a text field it serializes the last selection a user makes to that field in the format "mm/dd/yyyy".  To pre populate the date picker with a specific date just set the value on the text field in the same format.  Here is a date picker bound to a text field click on the text field to display the date picker.</p>
+	    <div class="demo">
+    		<p><input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /></p>
+            <div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" />&lt;/p>
+</code></pre>
+            </div>
+        </div>
+        <div class="demo">
+		    <p>This demo does not have the date picker bound to any thing.  It is not really that useful, when you select a date it alerts the selected date.</p>
+		    <div simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}"></div>
+            <div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;div simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}">&lt;/div>
+</code></pre>
+            </div>
+		</div>
+		
+        <h3>css classes</h3>
+        <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
+        <ul class="class_reference">
+            <li>datePicker</li>
+            <li>datePickerBackYear</li>
+            <li>datePickerBackMonth</li>
+            <li>datePickerForwardMonth</li>
+            <li>datePickerforwardYear</li>
+            <li>datePickerToday</li>
+            <li>datePickerDayHeader</li>
+            <li>datePickerMonthHeader</li>
+            <li>datePickerDay</li>
+            <li>datePickerTablePadding</li>
+            <li>datePickerTableRow</li>
+            <li>datePickerHeaderRow</li>
+            <li>datePickerControlRow</li>
+            <li>datePickerWeekend</li>
+            <li>datePickerWeekday</li>
+            <li>datePickerTbody</li>
+            <li>datePickerCancelRow</li>
+            <li>datePickerCancel</li>
+            <li>datePickerSelected</li>
+        </ul>
+        <p>A good starting off point is the style sheet we used for this demo.  <a href="css/date_picker.css">demo style sheet</a></p>
 	</body>
 </html>
