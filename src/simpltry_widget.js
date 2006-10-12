@@ -23,10 +23,11 @@ Object.extend(Simpltry.Widgets, {
     register: function(type, callBack) {
         Simpltry.Widget[type] = callBack;
     },
-    attach: function(event, element) {
-        element = element || document;
-        var elements = $A($(element).getElementsByTagName('*'));
-        elements.each(function(element, i) {
+    attach: function(event, parent) {
+        parent = parent || document;
+        var elements = $A($(parent).getElementsByTagName('*'));
+        for(var i = 0; i < elements.length; i++) {
+            element = elements[i];
             if(element.getAttribute(Simpltry.Widgets.widgetAttribute)) {
                 var simpltryType = element.getAttribute(Simpltry.Widgets.widgetAttribute);
                 if(!element.id) element.id = simpltryType + i;
@@ -38,7 +39,7 @@ Object.extend(Simpltry.Widgets, {
                     Simpltry.Widget[simpltryType](element, options);
                 }
             }
-        });
+        }
     },
     attachPartial: function(element) {
         Simpltry.Widgets.attach(null, element);
