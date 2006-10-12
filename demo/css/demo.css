@@ -35,3 +35,14 @@ div.autocomplete ul li {
     padding: 10px;
     border: thin solid #333;
 }
+.code {
+	background-color: #ffd;
+	padding: 5px;
+	margin: 2px 0;
+}
+.simpltryTooltip {
+	background-color: #ff2;
+}
+.anchor {
+	font-weight: bold;
+}

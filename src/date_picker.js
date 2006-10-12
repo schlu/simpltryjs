@@ -216,10 +216,9 @@ if(Simpltry.Widgets) {
     Simpltry.Widgets.register('date_picker', function(element, options) {
         if(element.tagName == 'INPUT' && element.type == 'text') {
             element.autoComplete = "false";
-    		element.addClassName("tooltipRight");
     		var popup = Builder.node("div", {id: element.id + "_tooltip", style: "display:none;"}, ["test"]);
     		document.body.appendChild(popup);
-    		var toolTip = new Simpltry.ClickTooltip(element, {offsetLeft:9});
+    		var toolTip = new Simpltry.ClickTooltip(element, {offsetLeft:9,toggle:false,direction:"right"});
     		new Simpltry.DatePicker(popup, {
     			onSelect: function(year, month, day) {
     				element.value = month + "/" + day + "/" + year;

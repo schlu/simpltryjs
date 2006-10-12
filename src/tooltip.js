@@ -17,7 +17,7 @@ Simpltry.BaseTooltip.DefaultOptions  = {
 	offsetLeft: 0,
 	offsetTop: 0,
 	direction: "below",
-	toggle: false
+	toggle: true
 }
 Simpltry.BaseTooltip.prototype = {
 	initialize: function(element, options) {
@@ -81,8 +81,8 @@ Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseToolti
     }
 });
 
-Simpltry.PopupTooltip = Class.create();
-Object.extend(Object.extend(Simpltry.PopupTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
+Simpltry.MouseoverTooltip = Class.create();
+Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
 	attachEvents: function() {
 		this.element.onmouseover = this.elementMouseOver.bindAsEventListener(this);
 		this.element.onmouseout = this.elementMouseOut.bindAsEventListener(this);
@@ -121,7 +121,7 @@ Object.extend(Simpltry, {
 
 Simpltry.BaseTooltip.setupWidget = function(element, options) {
     if(options['tooltipText']) {
-        var tooltip = Builder.node('div', {style: "display:none"}, options['tooltipText']);
+        var tooltip = Builder.node('div', {style: "display:none", className:"simpltryTooltip"}, options['tooltipText']);
         document.body.appendChild(tooltip);
         options['tooltip'] = tooltip;
         delete(options['tooltipText']);
@@ -132,9 +132,9 @@ Simpltry.BaseTooltip.setupWidget = function(element, options) {
 };
 
 if(Simpltry.Widgets) {
-    Simpltry.Widgets.register("popup_tooltip", function(element, options) {
+    Simpltry.Widgets.register("mouseover_tooltip", function(element, options) {
         Simpltry.BaseTooltip.setupWidget(element, options);
-        new Simpltry.PopupTooltip(element, options);
+        new Simpltry.MouseoverTooltip(element, options);
     });
     Simpltry.Widgets.register("click_tooltip", function(element, options) {
         Simpltry.BaseTooltip.setupWidget(element, options);

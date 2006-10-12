@@ -8,12 +8,35 @@
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="tt_test">
-	    <p><a href="index.html">back</a></p>
-		<div id="anchor" simpltry_widget="popup_tooltip">anchor</div>
-		<div id="anchor_tooltip" style="display:none;">tt</div>
+	    <h1>Simpltry Tooltip Widget</h1>
+	    <div class="demo">
+	        <h2>simpltry_widget="mouseover_tooltip"</h2>
+	        <p>In this example we build our tooltip with a preexisting dom element.  Mouse over the "anchor" text below to see a demo of the Mouseover Tooltip. When you don't include the "tooltip" option the widget just assumes you want to show the next dom element.</b>
+    		<div class="anchor"simpltry_widget="mouseover_tooltip">anchor</div>
+    		<div style="display:none;" class="simpltryTooltip">tooltip</div>
+
+            <div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;div id="anchor" simpltry_widget="mouseover_tooltip">anchor&lt;/div>
+&lt;div id="anchor_tooltip" style="display:none;" class="simpltryTooltip">tooltip&lt;/div>
+</code></pre>
+            </div>
+    	</div>
 		
-		<div id="anchor" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text', toggle:true">adhock tool tip</div>
+		<div class="demo">
+	        <h2>simpltry_widget="click_tooltip"</h2>
+	        <p>Sometimes all you need is a simple text only tooltip.  Then it is much simpler to pass the option "tooltipText".  This will create the necessary html at load time.  If you choose to go this route you can style the toolip with the class "simpltryTooltip".  This example also demonstrates that you can choose which direction you want your tooltip to display (currently only right and below are supported), if you choose right and your anchor is a block level element you will really need to specify a width on your anchor or else you tooltip will not display anywhere near your anchor</p>
+		    <div class="anchor" style="width:10em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text', direction:'right'">adhock tooltip anchor</div>
+            <div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;div id="anchor" style="width:9em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text'">adhock tooltip anchor&lt;/div>
+</code></pre>
+            </div>
+		</div>
 	</body>
 </html>
