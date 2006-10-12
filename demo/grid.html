@@ -13,24 +13,47 @@
 		<link href="css/grid.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="grid_demo">
-	    <p><a href="index.html">back</a></p>
-		<div id="grid" simpltry_widget="grid" simpltry_options='data:{headers: ["cat","hat","count"],
-			                rows: [
-			                    ["red","baseball", "1"],
-			                    ["black", "fedora", "3"],
-			                    ["blue", "fedora", "3"],
-			                    ["blue", "bowler", "2"],
-			                    ["red", "bowler", "5"],
-			                    ["black", "baseball", "101"]
-			                ]},
-			    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
-			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("td"))},
-			    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'></div>
+        <h1>Simpltry Grid Widget</h1>
+        <h2>simpltry_widget="grid"</h2>
+        <p>This is a simple grid component that takes a set of data builds a normal table, then adds sorting, grouping, summing and averaging. It is still very much a work in progress.  I would like to add asynchronous updating and a whole host of features</p>
+        <div class="demo">
+    		<div id="grid" simpltry_widget="grid" simpltry_options='data:{headers: ["cat","hat","count"],
+    			                rows: [
+    			                    ["red","baseball", "1"],
+    			                    ["black", "fedora", "3"],
+    			                    ["blue", "fedora", "3"],
+    			                    ["blue", "bowler", "2"],
+    			                    ["red", "bowler", "5"],
+    			                    ["black", "baseball", "101"]
+    			                ]},
+    			    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
+    			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("th"))},
+    			    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'></div>
+    		<div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;div id="grid" simpltry_widget="grid" simpltry_options='data:{headers: ["cat","hat","count"],
+	                rows: [
+	                    ["red","baseball", "1"],
+	                    ["black", "fedora", "3"],
+	                    ["blue", "fedora", "3"],
+	                    ["blue", "bowler", "2"],
+	                    ["red", "bowler", "5"],
+	                    ["black", "baseball", "101"]
+	                ]},
+	    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
+	    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("th"))},
+	    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'>&lt;/div>
+</pre></code>
+    		</div>
+    		<p>Above you can see what the "data" format should look like.  It has two properties headers and rows.  headers is an array of strings, those get built as the table headers.  rows is an array of arrays where each array represents a row in your table.  You can also pass in some callbacks to be called while the table is being rendered.  For instance beforeEachRow gets called before the data is put into the tr, in our example we are simply printing out the row number.</p>
+    	</div>
         <h3>css classes</h3>
         <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
         <ul class="class_reference">
             <li>simpltryDataGrid</li>
             <li>simpltryDataGridHeaderRow</li>
+            <li>simpltryDataGridHeaderCell</li>
             <li>simpltryDataGridPaddingRow</li>
             <li>simpltryDataGridDataRow</li>
             <li>simpltryDataGridOddRow</li>
@@ -39,5 +62,6 @@
             <li>simpltryDataGridSortedReverse</li>
             <li>simpltryDataGridHeaderControl</li>
         </ul>
+        <p>A good starting off point is the style sheet we used for this demo.  <a href="css/grid.css">demo style sheet</a></p>
 	</body>
 </html>

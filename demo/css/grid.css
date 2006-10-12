@@ -8,10 +8,22 @@ ul {
 .simpltryDataGridHeaderControl {
     background-color: #ddd;
     border: thin solid black;
+	border-top-width: 0;
 }
 .simpltryDataGridHeaderControl li {
     cursor: pointer;
 }
 .simpltryDataGridPaddingRow td {
     padding-bottom: 13px;
+}
+
+.simpltryDataGridDataRow td {
+	background-color:  #eee;
+	padding: 0 2px;
+}
+
+.simpltryDataGridHeaderRow th {
+	background-color:  #dde;
+	border-bottom: thin solid black;
+	padding: 0 2px;
 }

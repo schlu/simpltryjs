@@ -22,6 +22,7 @@ Simpltry.DataGrid = Class.create();
 Simpltry.DataGrid.css = {
     dataGrid: "simpltryDataGrid",
     headerRow: "simpltryDataGridHeaderRow",
+    headerCell: "simpltryDataGridHeaderCell",
     paddingRow: "simpltryDataGridPaddingRow",
     dataRow: "simpltryDataGridDataRow",
     oddRow: "simpltryDataGridOddRow",
@@ -46,7 +47,7 @@ Simpltry.DataGrid.prototype = {
 		this.data = data || {};
 		this.setOptions(options);
 		this.removedColumns = {};
-		this.numberColumn = {};
+		this.numberColumn = $H();
 		this.resetDefaults();
 		this.footerData = {};
 		if(this.data.rows.length > 0) {
@@ -83,7 +84,7 @@ Simpltry.DataGrid.prototype = {
 	    this.options.beforeHeaderRow(tr);
 	    headers.each(function(header, i) {
 	        if(!this.removedColumns[i]) {
-    	        var th = Builder.node("th", {}, [header]);
+    	        var th = Builder.node("th", {className: Simpltry.DataGrid.css.headerCell}, [header]);
     	        if(this.sortedBy == i) {
     	            if(this.sortedReverse) {
     	                th.addClassName(Simpltry.DataGrid.css.sortedReverse);
@@ -207,7 +208,7 @@ Simpltry.DataGrid.prototype = {
                 displayedCols.push(i);
             }
         }.bind(this));
-        $$("#" + this.container.id + " ." + Simpltry.DataGrid.css.headerRow + " th").each(function(header, i) {
+        $$("#" + this.container.id + " ." + Simpltry.DataGrid.css.headerRow + " th." + Simpltry.DataGrid.css.headerCell).each(function(header, i) {
             if(header.id == null || header.id == "") header.id = this.container.id + "_header" + i;
             var headerControl = Builder.node("div", {className: Simpltry.DataGrid.css.headerControl, style: "display:none"});
             headerControl.id = header.id + "_tooltip";
@@ -228,7 +229,7 @@ Simpltry.DataGrid.prototype = {
             }
             ul.appendChild(removeLi);
             document.body.appendChild(headerControl);
-            this.headerControl[displayedCols[i]] = new Simpltry.PopupTooltip(header);
+            this.headerControl[displayedCols[i]] = new Simpltry.MouseoverTooltip(header);
         }.bind(this));
     },
     
@@ -244,7 +245,7 @@ Simpltry.DataGrid.prototype = {
 	render: function() {
 	    this.removeHeaderControls();
 		this.container.innerHTML = '';
-		var table = Builder.node('table', {className:Simpltry.DataGrid.css.dataGrid});
+		var table = Builder.node('table', {cellspacing:"0", cellpadding:"0", className:Simpltry.DataGrid.css.dataGrid});
 		table.appendChild(this.buildThead(this.data.headers));
 		table.appendChild(this.buildTbody(this.data.rows));
 		var footer = this.buildTfoot(this.footerData);
