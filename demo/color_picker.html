@@ -8,6 +8,7 @@
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/color_picker.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 		<style type="text/css" media="screen">
 		  .colorPickerColor {
 		      padding:  5px;
@@ -16,12 +17,18 @@
 		
 	</head>
 	<body id="color_picker_test">
-	    <p><a href="index.html">back</a></p>
-		4x3
-		<div id="picker1" simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'">
-		</div>
-		10x7
-		<div id="picker3" simpltry_widget="color_picker">
-		</div>
+	    <h1>Simpltry Color Picker</h1>
+	    <h2>simpltry_widget="color_picker"</h2>
+	    <p>This is a <b>very</b> basic color.  It comes in two sizes big and small.  And only has one other option, onSelect, where you specify a function to call when the user selects a color.  The colors are customizable, but it isn't super easy and will require some digging through the source.  One important tip is to include one line of css to make it look decent. <b>.colorPickerColor {padding:  5px;}</b> that allows you to make the color cells as big or small as you see fit.</p>
+	    <p>Here is the small color picker</p>
+		<div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'"></div>
+<code><pre>
+&lt;div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'">&lt;/div>
+</code></pre>
+	    <p>Here is the large color picker</p>
+		<div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}"></div>
+<code><pre>
+&lt;div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}">&lt;/div>
+</code></pre>
 	</body>
 </html>
