@@ -3,9 +3,9 @@ function alertBox () {
 }
 
 function confirmBox() {
-    new Simpltry.Dialog.Confirm({additionalText: "Do you accept the terms?",title: "CONFIRM!!!"}, [
-        {text: "yes", onClick: function(){alert("pressed yes")}},
-        {text: "no", onClick: function(){alert("pressed no")}}
+    new Simpltry.Dialog.Confirm({additionalText: "Enter your name: <input id='name' type='text' name='name' />",title: "CONFIRM!!!"}, [
+        {text: "first", onClick: function(){alert("your first name is " + $('name').value + "?  wierd")}},
+        {text: "last", onClick: function(){alert("your last name is " + $('name').value + "?  wierd")}}
         ]);
 }
 

@@ -44,4 +44,29 @@ if(Simpltry.Widgets) {
     Simpltry.Widgets.register('move_to_next', function(element, options) {
         if(element.type == "text" && element.maxLength) new Simpltry.Form.MoveToNextField(element);
     });
+    
+    //make s.a.u InPlaceEditor a widget
+    Simpltry.Widgets.register('inplace_editor', function(element, options) {
+        var url = options['url'];
+        delete(options['url']);
+        new Ajax.InPlaceEditor(element, url, options);
+    });
+
+    //make s.a.u Ajax.Autocompleter a widget
+    Simpltry.Widgets.register('ajax_autocompleter', function(element, options) {
+        var url = options['url'];
+        delete(options['url']);
+        var autoCompleteElement = options['autoCompleteElement'];
+        delete(options['autoCompleteElement']);
+        var autoComplete = null;
+        if(autoCompleteElement) {
+            autoCompleteElement = $(autoCompleteElement);
+        } else {
+            autoCompleteElement = document.createElement('div');
+            autoCompleteElement.setStyle({'display':'none'});
+            autoCompleteElement.addClassName("autocomplete");
+            document.body.appendChild(autoCompleteElement);
+        }
+        new Ajax.Autocompleter(element, autoCompleteElement, url, options);
+    });
 }

@@ -1,0 +1,11 @@
+.dialog {
+	background-color: #eee;
+}
+
+.dialog_title {
+	background-color: #333;
+	color: #fff;
+	font-weight: bold;
+	margin: 2px;
+	padding: 1px;
+}
