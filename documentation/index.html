@@ -4,43 +4,43 @@
 	<head>
 		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 		<title>Simpltry Javascript Widgets</title>
-		<style type="text/css" media="screen">
-		  #footer {
-		      font-size: 70%;
-		  }
-		</style>
+		<link href="../demo/css/layout.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="demo_index">
-		<h1>Simpltry Javascript Widget Documentation</h1>
-		<h2>Basics</h2>
-        <p>Simpltry attempts to separate the current way of attaching behavior with a website.  We think it makes more sense to add custom attributes instead of tie behavior to class names.  To add a date picker to your screen simply include the appropriate libraries then add simpltry_widget="date_picker" to any div.  But some objects take options.  Great!  Pass them through with a second attribute simpltry_options="dateString:'3/7/1979'" now your date picker will be prepopulated starting at that date.</p>
-		<h2>What's the point?</h2>
-		<p>Well like many web developers who have been personally touched (in a good way) by the web 2.0 craze, we feel that it is important to be able to easily use implement enhanced functionality.  There was an article on <a href="http://alistapart.com/articles/scripttriggers/">ALA</a> and decided that pushed us away from associating classes with functionality (it was not semantically working for a while but this confirmed it).  So it was time to go down the rabbit hole, and go the route that a lot of people end up going, custom attributes.  But this is expensive! Because you either mix the logic of attaching different widgets into a common place (scour the DOM once looking for all my attributes) or I had to do it over and over looking for different attributes.  The ladder was just too expensive and violated the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> philosophy that <strike>good</strike> diligent programmers strive to fulfill.</p>
-		<h2>Existing Widgets Demos!</h2>
-		<ul>
-		    <li><a href="../demo/color_picker.html">Color Picker</a></li>
-		    <li><a href="../demo/date_picker.html">Date Picker</a></li>
-		    <li><a href="../demo/grid.html">Data Grid</a></li>
-		    <li><a href="../demo/dialog.html">Dialog</a></li>
-		    <li><a href="../demo/form.html">Form</a></li>
-		    <li><a href="../demo/tooltip.html">Tooltips</a></li>
-		    <li><a href="../demo/rating_control.html">Rating</a></li>
-	    </ul>
-    	<h2>Impress your boss</h2>
-    	<p>At simpltry we know the pain of having a bunch of different js libraries in your system.  That is why we provided an easy way to make it seem like you wrote the code yourself.  All you need to do is include these three lines after the simpltry code is loaded.  And fill in whatever string you like.</p>
-    	<code><pre>
+	    <div id="header">
+	        <h1>Simpltry Widget</h1>
+	    </div>
+	    <div id="app">
+    		<h2>Basics</h2>
+            <p>Simpltry attempts to separate the current way of attaching behavior with a website.  We think it makes more sense to add custom attributes instead of tie behavior to class names.  To add a date picker to your screen simply include the appropriate libraries then add simpltry_widget="date_picker" to any div.  But some objects take options.  Great!  Pass them through with a second attribute simpltry_options="dateString:'3/7/1979'" now your date picker will be prepopulated starting at that date.</p>
+    		<h2>What's the point?</h2>
+    		<p>Well like many web developers who have been personally touched (in a good way) by the web 2.0 craze, we feel that it is important to be able to easily use implement enhanced functionality.  There was an article on <a href="http://alistapart.com/articles/scripttriggers/">ALA</a> and decided that pushed us away from associating classes with functionality (it was not semantically working for a while but this confirmed it).  So it was time to go down the rabbit hole, and go the route that a lot of people end up going, custom attributes.  But this is expensive! Because you either mix the logic of attaching different widgets into a common place (scour the DOM once looking for all my attributes) or I had to do it over and over looking for different attributes.  The ladder was just too expensive and violated the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> philosophy that <strike>good</strike> diligent programmers strive to fulfill.</p>
+    		<h2>Existing Widgets Demos!</h2>
+    		<ul>
+    		    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    		    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    		    <li><a href="../demo/grid.html">Data Grid</a></li>
+    		    <li><a href="../demo/dialog.html">Dialog</a></li>
+    		    <li><a href="../demo/form.html">Form</a></li>
+    		    <li><a href="../demo/tooltip.html">Tooltips</a></li>
+    		    <li><a href="../demo/rating_control.html">Rating</a></li>
+    	    </ul>
+        	<h2>Impress your boss</h2>
+        	<p>At simpltry we know the pain of having a bunch of different js libraries in your system.  That is why we provided an easy way to make it seem like you wrote the code yourself.  All you need to do is include these three lines after the simpltry code is loaded.  And fill in whatever string you like.</p>
+    	    <div class="code"><code><pre>
 var YourCompany = Simpltry;
 YourCompany.Widgets.widgetAttribute = "your_company_type";
 YourCompany.Widgets.optionsAttribute = "your_company_options"; 
-    	</pre></code>
-    	<p>Then anytime you would use "simpltry_type" you would replace it with "your_company_type".  The same applies to any time you would use the Simpltry object.  Simpltry.DatePicker becomes YourCompany.DatePicker.</p>
-    	<h2>Hate Widgets?</h2>
-    	<p>Do you hate widgets?  Think they are too obtrusive?  Fine.  Be a purist and still use these components.  Here is the complete javascript <a href="complete_reference.html">reference</a>.  Even if you don't hate widgets that will be a good reference for the options that are allowed.</p>
-    	<h2><a href="../dist/simpltry_0.4.zip">Download</a></h2>
-    	<h2><a href="write_your_own.html">Write your own!</a></h2>
-    	<div id="footer">
-    	    From the writers of <a href="http://dcrails.com">dcrails</a><!--a href="http://www.captureimportant.info">sidewalk</a-->
-    	    <p>simpltry: The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</p>
-    	</div>
+    	    </pre></code></div>
+    	    <p>Then anytime you would use "simpltry_type" you would replace it with "your_company_type".  The same applies to any time you would use the Simpltry object.  Simpltry.DatePicker becomes YourCompany.DatePicker.</p>
+        	<h2>Hate Widgets?</h2>
+        	<p>Do you hate widgets?  Think they are too obtrusive?  Fine.  Be a purist and still use these components.  Here is the complete javascript <a href="complete_reference.html">reference</a>.  Even if you don't hate widgets that will be a good reference for the options that are allowed.</p>
+        	<h2><a href="../dist/simpltry_0.4.zip">Download</a></h2>
+        	<h2><a href="write_your_own.html">Write your own!</a></h2>
+        	<div id="footer">
+        	    From the writers of <a href="http://dcrails.com">dcrails</a><!--a href="http://www.captureimportant.info">sidewalk</a-->
+        	    <p>simpltry: The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</p>
+        	</div>
+        </div>
 	</body>
 </html>
