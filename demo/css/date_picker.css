@@ -1,8 +1,9 @@
 .datePicker {
 	background-color: #ffe;
 	border: thin solid black;
-	width: 14.7em;
+	width: 17em;
 	text-align:  center;
+	line-height: 1.6em;
 }
 .datePickerMonthHeader {
 	font-weight: bold;

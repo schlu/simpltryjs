@@ -1,13 +1,3 @@
-* {
-    margin: 0px;
-    padding: 0px;
-}
-body {
-    padding: 3px;
-}
-p {
-    padding: 2px 0;
-}
 div.autocomplete {
   position:absolute;
   width:250px;
@@ -34,13 +24,6 @@ div.autocomplete ul li {
     margin-top: 5px;
     padding: 10px;
     border: thin solid #333;
-}
-.code {
-	background-color: #ffd;
-	padding: 5px;
-	margin: 2px 0;
-	width: 100%;
-	overflow: auto;
 }
 .simpltryTooltip {
 	background-color: #ff2;

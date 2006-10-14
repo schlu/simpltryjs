@@ -39,8 +39,7 @@ h1 {
 	text-indent: -999em;
 }
 
-h2
-{
+h2 {
 	margin: 1em 1.6em 0;
 	color: #30bfac;
 	background-color: transparent;
@@ -48,8 +47,7 @@ h2
 	font-weight: normal;
 }
 
-p, ol, ul, dl
-{
+p, ol, ul, dl {
 	margin: 1em 2.7em;
 	color: #333;
 	background-color: transparent;
@@ -93,8 +91,7 @@ ul.buttons li a
 ul.buttons li.download a { background-color: #000; }
 ul.buttons li a:hover, ul.buttons li a:focus { background-color: #30bfac; }
 
-.code
-{
+.code {
 	margin: .5em 0 1em;
 	font: 1.6em courier,monospace,sans-serif;
 	padding: .5em 2.1em;

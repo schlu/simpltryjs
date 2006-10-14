@@ -9,30 +9,35 @@
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/date_picker.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/date_picker.css" rel="stylesheet" type="text/css" />
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
-	<body id="date_picker_test">
-	    <h1>Simpltry Date Picker Widget</h1>
+<body id="date_picker_test">
+    <div id="header">
+        <a href="../index.html"><h1>Simpltry Date Picker Widget</h1></a>
+    </div>
+    <div id="app">
+	    <h2><em>Simpltry Date Picker Widget</em></h2>
 	    <h2>simpltry_widget="date_picker"</h2>
-	    <p>The date picker widget can be attached to a text field or any block level element (like div).  If you choose to bind it to a text field it serializes the last selection a user makes to that field in the format "mm/dd/yyyy".  To pre populate the date picker with a specific date just set the value on the text field in the same format.  Here is a date picker bound to a text field click on the text field to display the date picker.</p>
+	    <p>The date picker widget can be attached to a text field or any block level element (like div or p).  If you choose to bind it to a text field it serializes the last selection a user makes to that field in the format "mm/dd/yyyy".  To pre populate the date picker with a specific date just set the value on the text field in the same format.  Here is a date picker bound to a text field click on the text field to display the date picker.</p>
 	    <div class="demo">
     		<p><input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /></p>
+    		<p>example markup:</p>
             <div class="code">
-            <p>example markup:</p>
-<code><pre>
-&lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" />&lt;/p>
-</code></pre>
+            <code>
+            &lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" />&lt;/p>
+            </code>
             </div>
         </div>
         <div class="demo">
 		    <p>This demo does not have the date picker bound to any thing.  It is not really that useful, when you select a date it alerts the selected date.</p>
-		    <div simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}"></div>
+		    <p simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}"></p>
+		    <p>example markup:</p>
             <div class="code">
-            <p>example markup:</p>
-<code><pre>
-&lt;div simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}">&lt;/div>
-</code></pre>
+            <code>
+                &lt;p simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}">&lt;/p>
+            </code>
             </div>
 		</div>
 		
@@ -60,5 +65,6 @@
             <li>datePickerSelected</li>
         </ul>
         <p>A good starting off point is the style sheet we used for this demo.  <a href="css/date_picker.css">demo style sheet</a></p>
+        </div>
 	</body>
 </html>
