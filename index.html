@@ -4,18 +4,26 @@
 <head>
 	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 	<title>Simpltry Javascript Widgets</title>
-	<link href="demo/css/layout.css" rel="stylesheet" type="text/css" />
+	<script src="/lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/lib/effects.js" type="text/javascript" charset="utf-8"></script>
+	<script src="/site/simpltry.js" type="text/javascript" charset="utf-8"></script>
+	<link href="/demo/css/layout.css" rel="stylesheet" type="text/css" />
 </head>
 <body id="demo_index">
     <div id="header">
         <h1>Simpltry Widget</h1>
+        <ul class="navigation">
+            <li class="active">home</li>
+            <li><a href="/?demo=true">demo</a></li>
+            <li><a href="dist/download.html">download</a></li>
+        </ul>
     </div>
 	    <div id="app">
     		<h2>Basics</h2>
             <p>Simpltry attempts to separate the current way of attaching behavior with a website.  We think it makes more sense to add custom attributes instead of tie behavior to class names.  To add a date picker to your screen simply include the appropriate libraries then add simpltry_widget="date_picker" to any div.  But some objects take options.  Great!  Pass them through with a second attribute simpltry_options="dateString:'3/7/1979'" now your date picker will be prepopulated starting at that date.</p>
     		<h2>What's the point?</h2>
     		<p>Well like many web developers who have been personally touched (in a good way) by the web 2.0 craze, we feel that it is important to be able to easily use implement enhanced functionality.  There was an article on <a href="http://alistapart.com/articles/scripttriggers/">ALA</a> and decided that pushed us away from associating classes with functionality (it was not semantically working for a while but this confirmed it).  So it was time to go down the rabbit hole, and go the route that a lot of people end up going, custom attributes.  But this is expensive! Because you either mix the logic of attaching different widgets into a common place (scour the DOM once looking for all my attributes) or I had to do it over and over looking for different attributes.  The ladder was just too expensive and violated the <a href="http://en.wikipedia.org/wiki/Don't_repeat_yourself">DRY</a> philosophy that <strike>good</strike> diligent programmers strive to fulfill.</p>
-    		<h2>Existing Widgets Demos!</h2>
+    		<h2 id="demo">Existing Widgets Demos!</h2>
     		<ul class="buttons">
     		    <li><a href="demo/color_picker.html">Color Picker</a></li>
     		    <li><a href="demo/date_picker.html">Date Picker</a></li>

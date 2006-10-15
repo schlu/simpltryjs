@@ -56,26 +56,36 @@ p, ol, ul, dl {
 	line-height: 1.6em;
 }
 
-ul.buttons
+ul.buttons, ul.navigation
 {
 	list-style: none;
-	overflow: auto;
+}
+ul.buttons:after, ul.navigation:after
+{
+	content: ".";
+	display: block;
+	position:relative;
+	height: 0;
+	clear: both;
+	visibility: hidden;
 }
 
-ul.buttons li
+ul.buttons li, ul.navigation li
 {
 	float: left;
 	width: .1em;
 	white-space: none;
+}
+
+ul.buttons li {
 	margin-right: 5px;
 }
 
-html>body ul.buttons li, html>body ul.buttons li a { width: auto; }
+html>body ul.buttons li, html>body ul.buttons li a, html>body ul.navigation li, html>body ul.navigation li a { width: auto; }
 
-ul.buttons li a
+ul.buttons li a, ul.navigation li a, ul.navigation li.active
 {
 	float: left;
-	width: .1em;
 	padding: .5em 1em;
 	font-size: .9em;
 	font-weight: bold;
@@ -83,13 +93,36 @@ ul.buttons li a
 	text-decoration: none;
 	color: #fff;
 	background-color: #666;
-	border-style: double;
 	border-color: #fff;
+}
+
+ul.buttons li a {	
+	border-style: double;
 	border-width: 3px;
 }
 
 ul.buttons li.download a { background-color: #000; }
-ul.buttons li a:hover, ul.buttons li a:focus { background-color: #30bfac; }
+ul.buttons li a:hover, ul.buttons li a:focus, ul.navigation li a:hover, ul.navigation li a:focus { background-color: #30bfac; }
+
+ul.navigation
+{
+	position: absolute;
+	right: -2.65em;
+	bottom: -1em;
+}
+
+ul.navigation li a, ul.buttons li a {
+	width: .1em;
+}
+
+ul.navigation li.active, ul.navigation li a {
+	border-style: solid;
+	border-width: 1px 0 0 1px;
+}
+
+ul.navigation li.active {
+	background-color: #999;
+}
 
 .code {
 	margin: .5em 0 1em;
