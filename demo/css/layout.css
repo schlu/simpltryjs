@@ -47,7 +47,7 @@ h2 {
 	font-weight: normal;
 }
 
-p, ol, ul, dl {
+p, ol, ul, dl, .inplaceeditor-form {
 	margin: 1em 2.7em;
 	color: #333;
 	background-color: transparent;

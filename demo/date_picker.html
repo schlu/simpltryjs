@@ -38,7 +38,6 @@
 	    <h2>simpltry_widget="date_picker"</h2>
 	    <div id="app">
 	        <p>The date picker widget can be attached to a text field or any block level element (like div or p).  If you choose to bind it to a text field it serializes the last selection a user makes to that field in the format "mm/dd/yyyy".  To pre populate the date picker with a specific date just set the value on the text field in the same format.  Here is a date picker bound to a text field click on the text field to display the date picker.</p>
-    	    <div class="demo">
         		<p><input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /></p>
         		<p>example markup:</p>
             <div class="code">
@@ -46,8 +45,6 @@
 &lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" />&lt;/p>
             </code>
             </div>
-        </div>
-        <div class="demo">
 		    <p>This demo does not have the date picker bound to any thing.  It is not really that useful, when you select a date it alerts the selected date.</p>
 		    <p simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}"></p>
 		    <p>example markup:</p>
@@ -56,9 +53,8 @@
                 &lt;p simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}">&lt;/p>
             </code>
             </div>
-		</div>
 		
-        <h3>css classes</h3>
+        <h2>css classes</h2>
         <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
         <ul class="class_reference">
             <li>datePicker</li>
