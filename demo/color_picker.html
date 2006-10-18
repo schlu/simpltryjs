@@ -7,8 +7,11 @@
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/color_picker.js" type="text/javascript" charset="utf-8"></script>
-		<link href="css/demo.css" rel="stylesheet" type="text/css" />
+		<link href="../demo/css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="../demo/css/demo.css" rel="stylesheet" type="text/css" />
 		<style type="text/css" media="screen">
 		  .colorPickerColor {
 		      padding:  5px;
@@ -17,30 +20,58 @@
 		
 	</head>
 	<body id="color_picker_test">
-	    <h1>Simpltry Color Picker</h1>
-	    <h2>simpltry_widget="color_picker"</h2>
-	    <p>This is a <b>very</b> basic color.  It comes in two sizes big and small.  And only has one other option, onSelect, where you specify a function to call when the user selects a color.  The colors are customizable, but it isn't super easy and will require some digging through the source.  One important tip is to include one line of css to make it look decent. <b>.colorPickerColor {padding:  5px;}</b> that allows you to make the color cells as big or small as you see fit.</p>
-	    <p>Here is the small color picker</p>
-		<div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'"></div>
-        <div class="code">
-        <p>example markup:</p>
-<code><pre>
-&lt;div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'">&lt;/div>
-</code></pre>
-        </div>
-	    <p>Here is the large color picker</p>
-		<div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}"></div>
-        <div class="code">
-        <p>example markup:</p>
-<code><pre>
-&lt;div simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}">&lt;/div>
-</code></pre>
-        </div>
-        <h3>css classes</h3>
-        <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
-        <ul class="class_reference">
-            <li>colorPicker</li>
-            <li>colorPickerColor</li>
+        <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li class="active">Color Picker</li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li><a href="../demo/dialog.html">Dialog</a></li>
+    	    <li><a href="../demo/form.html">Form</a></li>
+    	    <li><a href="../demo/tooltip.html">Tooltips</a></li>
+    	    <li><a href="../demo/rating_control.html">Rating</a></li>
         </ul>
+	    <div id="app">
+    	    <h2>Simpltry Color Picker</h2>
+    	    <h2>simpltry_widget="color_picker"</h2>
+    	    <p>This is a <b>very</b> basic color.  It comes in two sizes big and small.  And only has one other option, onSelect, where you specify a function to call when the user selects a color.  The colors are customizable, but it isn't super easy and will require some digging through the source.  One important tip is to include one line of css to make it look decent. <b>.colorPickerColor {padding:  5px;}</b> that allows you to make the color cells as big or small as you see fit.</p>
+    	    <p>Here is the small color picker</p>
+    		<p simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'"></p>
+            <div class="code">
+            <p>example markup:</p>
+<code><pre>
+&lt;p simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}, size: 'small'">&lt;/p>
+</code></pre>
+            </div>
+    	    <p>Here is the large color picker</p>
+    		<p simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}"></p>
+            <div class="code">
+            <p>example markup:</p>
+    <code><pre>
+    &lt;p simpltry_widget="color_picker" simpltry_options="onSelect: function(color){alert(color)}">&lt;/p>
+    </code></pre>
+            </div>
+            <h3>css classes</h3>
+            <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
+            <ul class="class_reference">
+                <li>colorPicker</li>
+                <li>colorPickerColor</li>
+            </ul>
+        </div>
+        <div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
+    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>

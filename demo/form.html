@@ -8,38 +8,63 @@
 		<script src="../lib/effects.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/controls.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="form_test">
-	    <h1>Simpltry form widgets</h1>
+	    <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+	    <h2>Simpltry form widgets</h2>
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li><a href="../demo/dialog.html">Dialog</a></li>
+    	    <li class="active">Form</li>
+    	    <li><a href="../demo/tooltip.html">Tooltips</a></li>
+    	    <li><a href="../demo/rating_control.html">Rating</a></li>
+        </ul>
 		<div>
 			<form action="/frontier/authentication/login.cgi" id="login" method="post">
-			    <div class="demo"><h2>simptry_widget="move_to_next"</h2><p>Occasionally it is handy to automatically push users to the next field once the minimum number of character has been met.  So of the occasions are zip codes, and phone numbers.  Simpltry offers an easy way to implement this, first you must set the maxlength attribute of you text field.  Then add simptry_widget="move_to_next".  After the max length of characters is met it moves the user to the next input, select box or text area.  Give it a try!</p>
-				<div>Zipcode: <input type="text" id="zipcode" maxlength="5" size="5" simpltry_widget="move_to_next" /></div>
-				<div>Phone:
+			    <h2>simptry_widget="move_to_next"</h2><p>Occasionally it is handy to automatically push users to the next field once the minimum number of character has been met.  So of the occasions are zip codes, and phone numbers.  Simpltry offers an easy way to implement this, first you must set the maxlength attribute of you text field.  Then add simptry_widget="move_to_next".  After the max length of characters is met it moves the user to the next input, select box or text area.  Give it a try!</p>
+				<p>Zipcode: <input type="text" id="zipcode" maxlength="5" size="5" simpltry_widget="move_to_next" /></p>
+				<p>Phone:
 					<input type="text" maxlength="3" name="areacode" id="areacode" size="4" simpltry_widget="move_to_next" />
 					<input type="text" maxlength="3" name="pre" id="pre" size="4" simpltry_widget="move_to_next" />
 					<input type="text" maxlength="4" name="suff" id="suff" size="5" simpltry_widget="move_to_next" />
-				</div>
-				<div><select>
+				</p>
+				<p><select>
 					<option>test</option>
 					</select>
-				</div></div>
-				<div class="demo">
+				</p>
 				    <h2>simpltry_widget="inplace_editor"</h2>
 				    <p>This is a demo of the Ajax.InPlaceEditor from script.aculo.us.  There is a mandatory option (url) that is the server side path for saving what the user changes.  Click on Hello world below to see the demo.</p>
 				    <div simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world</div>
-				</div>
-				<div class="demo">
 				    <h2>simpltry_widget="ajax_autocompleter"</h2>
 				    <p>The auto completer is another control that is awesome.  It becomes even simpler to use when you use the simpltry_widget ajax_autocompleter.  The same as the inplace_editor there is a mandatory option (url) that is the server side path for getting the appropriate list.  To see the demo start typing in the field below.</p>
-    				<div>
+    				<p>
     				    <input size="100" type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
-    				<div>
+    				</p>
     				<p>Usually you need to provide the element to put the results in as the Second parameter for Ajax.Autocompleter, but if you don't provide it in the option "autoCompleteElement" simpltry will build a div for you.</p>
-    			</div>
 			</form>
 		</div>
+		<div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
+    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>

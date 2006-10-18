@@ -7,17 +7,38 @@
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/effects.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/dragdrop.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/dialog.js" type="text/javascript" charset="utf-8"></script>
 		<script src="dialog_test.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 		<link href="css/dialog.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="dialog_test">
-        <h1>Simpltry Dialog</h1>
+        <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li class="active">Dialog</li>
+    	    <li><a href="../demo/form.html">Form</a></li>
+    	    <li><a href="../demo/tooltip.html">Tooltips</a></li>
+    	    <li><a href="../demo/rating_control.html">Rating</a></li>
+        </ul>
+        <h2>Simpltry Dialog</h2>
         <p>This is the only simpltry library that is not attachable via a simpltry_widget attribute.  I also realize that it is <em>terrible</em> to attach click events obtrusively, but it is the easiest to demo.</p>
-        <div class="demo">
             <p>This is a standard alert box.  Not that useful but it shows how easy it is to use.</p>
-            <a href="#" onclick="alertBox(); return false;">alert test</a>
+            <p><a href="#" onclick="alertBox(); return false;">alert test</a></p>
             <div class="code">
                 <p>example markup:</p>
 <code><pre>
@@ -30,16 +51,14 @@ function alertBox () {
 }
 </pre></code>
             </div>
-        </div>
-        <div class="demo">
-            <p>This is a confirm dialog, it allows you to add your own buttons and associate behavior with those buttons.  You can also add "additionalText" which is really just markup, so if you need to have custom field on your dialog you can do so.</p>
-            <a href="#" onclick="confirmBox(); return false;">confirm test</a>
-            <div class="code">
-                <p>example markup:</p>
+        <p>This is a confirm dialog, it allows you to add your own buttons and associate behavior with those buttons.  You can also add "additionalText" which is really just markup, so if you need to have custom field on your dialog you can do so.</p>
+        <p><a href="#" onclick="confirmBox(); return false;">confirm test</a></p>
+        <div class="code">
+            <p>example markup:</p>
 <code><pre>
 &lt;a href="#" onclick="confirmBox(); return false;">confirm test&lt;/a>
 </pre></code>
-                <p>code example:</p>
+            <p>code example:</p>
 <code><pre>
 function confirmBox() {
     new Simpltry.Dialog.Confirm({additionalText: "Enter your name: &lt;input id='name' type='text' name='name' />",title: "CONFIRM!!!"}, [
@@ -48,11 +67,9 @@ function confirmBox() {
         ]);
 }
 </pre></code>
-            </div>
         </div>
-        <div class="demo">
             <p>You can also get the contents of your dialog via an Ajax call to your server. If you choose this dialog you need to provide a means of removing the dialog.  You can remove all dialogs by calling Simpltry.Dialog.removeAll();.</p>
-            <a href="#" onclick="ajaxDialog(); return false;">ajax test</a>
+            <p><a href="#" onclick="ajaxDialog(); return false;">ajax test</a></p>
             <div class="code">
                 <p>example markup:</p>
 <code><pre>
@@ -65,7 +82,6 @@ function ajaxDialog() {
 }
 </pre></code>
             </div>
-        </div>
         <h3>css classes</h3>
         <p>The color picker is builds a dynamic table.  Simpltry tries to put css classes on different parts of the widget.  Here are a list of the classes that you can use.  For any information about which element these classes get placed on there is two things you have to do.  First use <a href="http://mozilla.com/">Firefox</a> and second install the <a href="https://addons.mozilla.org/firefox/1843/">firebug</a> extension.  That allows your to inspect your DOM after it has been built, not just the page source that gets downloaded.</p>
         <ul class="class_reference">
@@ -73,5 +89,13 @@ function ajaxDialog() {
             <li>dialog_title</li>
         </ul>
         <p>A good starting off point is the style sheet we used for this demo.  <a href="css/dialog.css">demo style sheet</a></p>
+        <div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
+    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>

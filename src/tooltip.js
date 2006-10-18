@@ -10,6 +10,8 @@ ask that you leave every from this point up in tact.
 
 Dependencies: 
 	Prototype: 1.5.0_rc0+
+	Simpltry
+		-window_properties.js
 */
 if(!Simpltry) var Simpltry = {};
 Simpltry.BaseTooltip = {};
@@ -28,7 +30,6 @@ Simpltry.BaseTooltip.prototype = {
 		} else {
     		this.popup = $(this.element.id + '_tooltip');
 		}
-		if(!Simpltry.bodyWidth) Simpltry.calculateBodyWidth();
 		this.setPopupPosition();
 		this.attachEvents();
 	},
@@ -49,7 +50,7 @@ Simpltry.BaseTooltip.prototype = {
 		}
 		leftPosition += this.options.offsetLeft;
 		topPosition += this.options.offsetTop;
-		var distanceFromScreenRight = Simpltry.bodyWidth - (offset[0] + Element.getDimensions(this.popup).width + 8);
+		var distanceFromScreenRight = Simpltry.WindowProperties.getContentSize().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
 		if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
 		Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
 	},
@@ -97,7 +98,7 @@ Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTo
 		this.popup.addClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
 	},
-    	elementMouseOut: function(e) {
+	elementMouseOut: function(e) {
 		this.element.removeClassName('toolTipMouseOver');
 		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
 	},
@@ -110,12 +111,6 @@ Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTo
 	},
 	checkMouseOver: function() {
 		if(this.popup.hasClassName('toolTipMouseOver') || this.element.hasClassName('toolTipMouseOver')) this.display();
-	}
-});
-
-Object.extend(Simpltry, {
-	calculateBodyWidth: function() {
-	   Simpltry.bodyWidth = Element.getDimensions(document.body).width;
 	}
 });
 

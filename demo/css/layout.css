@@ -56,9 +56,14 @@ p, ol, ul, dl {
 	line-height: 1.6em;
 }
 
-ul.buttons, ul.navigation
+ul.buttons, ul.navigation, ul.subnav
 {
 	list-style: none;
+}
+ul.subnav {
+	margin-left:.5em;
+	margin-top:.3em;
+	width: 8em;
 }
 ul.buttons:after, ul.navigation:after
 {
@@ -83,7 +88,12 @@ ul.buttons li {
 
 html>body ul.buttons li, html>body ul.buttons li a, html>body ul.navigation li, html>body ul.navigation li a { width: auto; }
 
-ul.buttons li a, ul.navigation li a, ul.navigation li.active
+ul.buttons li a, ul.navigation li a, ul.navigation li.active {
+	border-color: #fff;
+	background-color: #666;
+}
+
+ul.buttons li a, ul.navigation li a, ul.navigation li.active, ul.subnav li a, ul.subnav li.active
 {
 	float: left;
 	padding: .5em 1em;
@@ -92,8 +102,19 @@ ul.buttons li a, ul.navigation li a, ul.navigation li.active
 	line-height: 1.4em;
 	text-decoration: none;
 	color: #fff;
+}
+ul.subnav li a {
+	border: none;
+}
+
+ul.subnav li {
 	background-color: #666;
-	border-color: #fff;
+	border: thin solid #fff;
+}
+
+
+ul.subnav li a, ul.subnav li.active {
+	float: none;
 }
 
 ul.buttons li a {	
@@ -102,7 +123,7 @@ ul.buttons li a {
 }
 
 ul.buttons li.download a { background-color: #000; }
-ul.buttons li a:hover, ul.buttons li a:focus, ul.navigation li a:hover, ul.navigation li a:focus { background-color: #30bfac; }
+ul.buttons li a:hover, ul.buttons li a:focus, ul.navigation li a:hover, ul.navigation li a:focus, ul.subnav li:hover { background-color: #30bfac; }
 
 ul.navigation
 {
@@ -120,7 +141,11 @@ ul.navigation li.active, ul.navigation li a {
 	border-width: 1px 0 0 1px;
 }
 
-ul.navigation li.active {
+ul.navigation li.active, ul.subnav li.active {
+	background-color: #999;
+}
+
+ul.subnav li.active:hover {
 	background-color: #999;
 }
 

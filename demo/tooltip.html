@@ -7,36 +7,60 @@
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="tt_test">
-	    <h1>Simpltry Tooltip Widget</h1>
-	    <div class="demo">
-	        <h2>simpltry_widget="mouseover_tooltip"</h2>
-	        <p>In this example we build our tooltip with a preexisting dom element.  Mouse over the "anchor" text below to see a demo of the Mouseover Tooltip. When you don't include the "tooltip" option the widget just assumes you want to show the next dom element.</b>
-    		<div class="anchor"simpltry_widget="mouseover_tooltip">anchor</div>
-    		<div style="display:none;" class="simpltryTooltip">tooltip</div>
+	    <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li><a href="../demo/dialog.html">Dialog</a></li>
+    	    <li><a href="../demo/form.html">Form</a></li>
+    	    <li class="active">Tooltips</li>
+    	    <li><a href="../demo/rating_control.html">Rating</a></li>
+        </ul>
+	    <h2>Simpltry Tooltip Widget</h2>
+        <h2>simpltry_widget="mouseover_tooltip"</h2>
+        <p>In this example we build our tooltip with a preexisting dom element.  Mouse over the "anchor" text below to see a demo of the Mouseover Tooltip. When you don't include the "tooltip" option the widget just assumes you want to show the next dom element.</b>
+		<p class="anchor"simpltry_widget="mouseover_tooltip">anchor</p>
+		<div style="display:none;" class="simpltryTooltip">tooltip</div>
 
-            <div class="code">
-            <p>example markup:</p>
+        <div class="code">
+        <p>example markup:</p>
 <code><pre>
-&lt;div id="anchor" simpltry_widget="mouseover_tooltip">anchor&lt;/div>
+&lt;p id="anchor" simpltry_widget="mouseover_tooltip">anchor&lt;/p>
 &lt;div id="anchor_tooltip" style="display:none;" class="simpltryTooltip">tooltip&lt;/div>
 </code></pre>
-            </div>
-    	</div>
+        </div>
 		
-		<div class="demo">
-	        <h2>simpltry_widget="click_tooltip"</h2>
-	        <p>Sometimes all you need is a simple text only tooltip.  Then it is much simpler to pass the option "tooltipText".  This will create the necessary html at load time.  If you choose to go this route you can style the toolip with the class "simpltryTooltip".  This example also demonstrates that you can choose which direction you want your tooltip to display (currently only right and below are supported), if you choose right and your anchor is a block level element you will really need to specify a width on your anchor or else you tooltip will not display anywhere near your anchor</p>
-		    <div class="anchor" style="width:10em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text', direction:'right'">adhock tooltip anchor</div>
-            <div class="code">
-            <p>example markup:</p>
+        <h2>simpltry_widget="click_tooltip"</h2>
+        <p>Sometimes all you need is a simple text only tooltip.  Then it is much simpler to pass the option "tooltipText".  This will create the necessary html at load time.  If you choose to go this route you can style the toolip with the class "simpltryTooltip".  This example also demonstrates that you can choose which direction you want your tooltip to display (currently only right and below are supported), if you choose right and your anchor is a block level element you will really need to specify a width on your anchor or else you tooltip will not display anywhere near your anchor</p>
+	    <p class="anchor" style="width:10em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text', direction:'right'">adhock tooltip anchor</p>
+        <div class="code">
+        <p>example markup:</p>
 <code><pre>
-&lt;div id="anchor" style="width:9em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text'">adhock tooltip anchor&lt;/div>
+&lt;p id="anchor" style="width:9em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text'">adhock tooltip anchor&lt;/p>
 </code></pre>
-            </div>
-		</div>
+        </div>
+		<div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
+    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>

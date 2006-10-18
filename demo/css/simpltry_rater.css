@@ -6,6 +6,9 @@
     clear: both;
     visibility: hidden;
 }
+
+.rater {margin: 1em 2.7em;}
+
 .rater div {
 	height: 10px;
 	width: 10px;

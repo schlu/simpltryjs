@@ -7,11 +7,32 @@
 		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/rating_control.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/demo.css" rel="stylesheet" type="text/css" />
         <link href="css/simpltry_rater.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="tt_test">
-	    <h1>Simpltry Rating Control</h1>
+	    <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li><a href="../demo/dialog.html">Dialog</a></li>
+    	    <li><a href="../demo/form.html">Form</a></li>
+    	    <li><a href="../demo/tooltips.html">Tooltips</a></li>
+    	    <li class="active">Rating</li>
+        </ul>
+	    <h2>Simpltry Rating Control</h2>
 	    <h2>simpltry_widget="rating"</h2>
 	    <p>This is a rating control similar to netflix and every other cool site on the internet.  You build it by creating a container div and then as many divs inside the container as you want ratings.  So in the following example we want 5 pluses so we have 5 divs inside the container.  It is your responsibility to style the divs to look like a rater.  <a href="css/simpltry_rater.css">here</a> is the style sheet I used along with the <a href="css/img/plus-gray.gif">unhighlighted</a> and <a href="css/img/plus-green.gif">highlighted</a> images if you decide to use these images you must buy a license from <a href="http://twothirty.com">twotiny</a> although at the time of this writing I can't find the page where I bought them so . . .</p>
 		<div id="rater1" class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2, onSelect:function(rating){alert('you selected ' + rating);}">
@@ -33,5 +54,13 @@
 &lt;/div>
 </code></pre>
         </div>
+        <div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
+    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>
