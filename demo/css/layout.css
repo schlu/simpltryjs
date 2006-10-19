@@ -163,8 +163,8 @@ ul.subnav li.active:hover {
 #header {
 	position: relative;
 	height: 125px;
-	background-color: #30bfac;
 	border-bottom: 3px double #fff;
+	background: #30bfac url(img/cog.gif) no-repeat right top;
 }
 
 #footer
