@@ -8,9 +8,55 @@
 		<script src="../lib/effects.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../lib/controls.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../src/forms.js" type="text/javascript" charset="utf-8"></script>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="css/demo.css" rel="stylesheet" type="text/css" />
 	</head>
 	<body id="date_picker_test">
-	    <div id='updated'></div>
-		<a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: Simpltry.Widgets.updateComplete}); return false;">update div</a>
+        <div id="header">
+            <h1>Simpltry Widget</h1>
+            <ul class="navigation">
+                <li><a href="../index.html">home</a></li>
+                <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
+                <li><a href="http://widgets.simpltry.com/dist/download.html">download</a></li>
+                <li><a href="../contact/index.html">contact</a></li>
+            </ul>
+        </div>    
+        <ul id="demoTooltip" class="subnav" style="display:none">
+    	    <li><a href="../demo/color_picker.html">Color Picker</a></li>
+    	    <li><a href="../demo/date_picker.html">Date Picker</a></li>
+    	    <li><a href="../demo/grid.html">Data Grid</a></li>
+    	    <li><a href="../demo/dialog.html">Dialog</a></li>
+    	    <li><a href="../demo/form.html">Form</a></li>
+    	    <li><a href="../demo/tooltip.html">Tooltips</a></li>
+    	    <li><a href="../demo/rating_control.html">Rating</a></li>
+    	    <li class="active">Ajax.Updater</li>
+        </ul>
+        <h2>Simpltry Ajax Update Callback</h2>
+        <p>On quite a few modern sites content is loaded with an ajax call.  The prototype way of doing this is through an Ajax.Updater call.  It is desirable to include widgets in your Ajax.Updater content.  Fortunately, there is an extremely easy way to do this.  Treat your partial content exactly like your initial content, and include a specially written onComplete function that does everything for you.</p>
+	    <div id='updated'><p>This content will get replaced when you click update below</p></div>
+		<p><a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: Simpltry.Widgets.updateComplete}); return false;">update</a></p>
+		<div class="code">
+		    <code><pre>
+&lt;div id='updated'>
+    &lt;p>This content will get replaced when you click update below&lt;/p>
+&lt;/div>
+&lt;p>
+    &lt;a href="#" onclick="new Ajax.Updater('updated', 'update.html',
+            {evalScripts:true, onComplete: 
+             Simpltry.Widgets.updateComplete}); return false;">update<&lt;/a>
+&lt;/p>
+		    </pre></code>
+		</div>
+		<p>Note you should not be assigning things directly to your onclick attribute, I did so here for simplicity of demoing.  The key in the previous code block is the onComplete option.  As you can see it is set to Simpltry.Widgets.updateComplete.  That gets called after the Ajax.Updater completes.  It inspects the content that just came in from your Ajax.Updater call and assigns any widgets it knows about.  In the example it is an Inplace editor but it could be any simpltry widgets or anything you have registered as a widget.</p>
+        <div id="footer">
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a> | <a href="http://www.captureimportant.info">sidewalk</a></p>
+    		<dl>
+    			<dt>simpltry</dt>
+    			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
+    		</dl>
+    	</div>
 	</body>
 </html>

@@ -19,7 +19,7 @@
             <ul class="navigation">
                 <li><a href="../index.html">home</a></li>
                 <li><a simpltry_widget="mouseover_tooltip" simpltry_options="tooltip:'demoTooltip'" href="../index.html?demo=true">demo</a></li>
-                <li><a href="../dist/download.html">download</a></li>
+                <li><a href="http://widgets.simpltry.com/dist/download.html">download</a></li>
                 <li><a href="../contact/index.html">contact</a></li>
             </ul>
         </div>    
@@ -31,6 +31,7 @@
     	    <li><a href="../demo/form.html">Form</a></li>
     	    <li><a href="../demo/tooltips.html">Tooltips</a></li>
     	    <li class="active">Rating</li>
+    	    <li><a href="../demo/ajax_updater.html">Ajax.Updater</a></li>
         </ul>
 	    <h2>Simpltry Rating Control</h2>
 	    <h2>simpltry_widget="rating"</h2>
@@ -45,7 +46,10 @@
         <div class="code">
         <p>example markup:</p>
 <code><pre>
-&lt;div class="rater clear" simpltry_widget="rating" simpltry_options="selected: 2, onSelect:function(rating){alert('you selected ' + rating);}">
+&lt;div class="rater clear" 
+    simpltry_widget="rating" 
+    simpltry_options="selected: 2, 
+                      onSelect:function(rating){alert('you selected ' + rating);}">
 	&lt;div>1&lt;/div>
 	&lt;div>2&lt;/div>
 	&lt;div>3&lt;/div>
@@ -55,8 +59,7 @@
 </code></pre>
         </div>
         <div id="footer">
-    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a></p>
-    		<!--a href="http://www.captureimportant.info">sidewalk</a-->
+    		<p>From the writers of <a href="http://dcrails.com/">dcrails</a> | <a href="http://www.captureimportant.info">sidewalk</a></p>
     		<dl>
     			<dt>simpltry</dt>
     			<dd>The school of thought, where using the word simplicity negates the use for hard work, planning, forethought and original ideas - as if by magic.</dd>
