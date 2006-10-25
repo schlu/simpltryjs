@@ -115,8 +115,10 @@ Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTo
 });
 
 Simpltry.BaseTooltip.setupWidget = function(element, options) {
+    element = $(element);
     if(options['tooltipText']) {
-        var tooltip = Builder.node('div', {style: "display:none", className:"simpltryTooltip"}, options['tooltipText']);
+        var tooltip = Builder.node('div', {className:"simpltryTooltip"}, options['tooltipText']);
+        Element.setStyle(tooltip, {display: "none"});
         document.body.appendChild(tooltip);
         options['tooltip'] = tooltip;
         delete(options['tooltipText']);
