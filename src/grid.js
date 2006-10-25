@@ -229,7 +229,7 @@ Simpltry.DataGrid.prototype = {
             }
             ul.appendChild(removeLi);
             document.body.appendChild(headerControl);
-            this.headerControl[displayedCols[i]] = new Simpltry.MouseoverTooltip(header);
+            this.headerControl[displayedCols[i]] = new Simpltry.MouseoverTooltip(header, {offsetTop:-1});
         }.bind(this));
     },
     

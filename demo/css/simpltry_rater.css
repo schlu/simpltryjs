@@ -7,6 +7,10 @@
     visibility: hidden;
 }
 
+/* Hides from IE-mac \*/
+.clear {height: 1%;}
+/* End hide from IE-mac */
+
 .rater {margin: 1em 2.7em;}
 
 .rater div {

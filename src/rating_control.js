@@ -25,7 +25,7 @@ Object.extend(Simpltry.RatingControl.prototype, {
 		var i = 1;
 		$A(this.container.childNodes).each(function(child) {
 			if(child.tagName) {
-				this.ratings[i++] = child;
+				this.ratings[i++] = $(child);
 			} else {
 				throw $continue;
 			}

@@ -63,7 +63,8 @@ if(Simpltry.Widgets) {
             autoCompleteElement = $(autoCompleteElement);
         } else {
             autoCompleteElement = document.createElement('div');
-            autoCompleteElement.setStyle({'display':'none'});
+            $(autoCompleteElement);
+            autoCompleteElement.setStyle({display:'none'});
             autoCompleteElement.addClassName("autocomplete");
             document.body.appendChild(autoCompleteElement);
         }

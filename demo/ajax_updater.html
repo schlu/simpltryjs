@@ -37,7 +37,7 @@
         <h2>Simpltry Ajax Update Callback</h2>
         <p>On quite a few modern sites content is loaded with an ajax call.  The prototype way of doing this is through an Ajax.Updater call.  It is desirable to include widgets in your Ajax.Updater content.  Fortunately, there is an extremely easy way to do this.  Treat your partial content exactly like your initial content, and include a specially written onComplete function that does everything for you.</p>
 	    <div id='updated'><p>This content will get replaced when you click update below</p></div>
-		<p><a href="#" onclick="new Ajax.Updater('updated', 'update.html',{evalScripts:true, onComplete: Simpltry.Widgets.updateComplete}); return false;">update</a></p>
+		<p><a href="#" onclick="new Ajax.Updater('updated', 'update.html',{method:'get', evalScripts:true, onComplete: Simpltry.Widgets.updateComplete}); return false;">update</a></p>
 		<div class="code">
 		    <code><pre>
 &lt;div id='updated'>

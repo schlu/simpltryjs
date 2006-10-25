@@ -66,22 +66,24 @@
 				</div>
 			    <h2>simpltry_widget="inplace_editor"</h2>
 			    <p>This is a demo of the Ajax.InPlaceEditor from script.aculo.us.  There is a mandatory option (url) that is the server side path for saving what the user changes.  Click on Hello world below to see the demo.</p>
-			    <p simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world</p>
+			    <p simpltry_widget="inplace_editor" simpltry_options="ajaxOptions:{method:'get'}, url: 'inplace_editor_save.html'">Hello world</p>
 			    <div class="code">
 			        <p>example markup:</p>
 			        <code><pre>
-&lt;p simpltry_widget="inplace_editor" simpltry_options="url: 'inplace_editor_save.html'">Hello world&lt;/p>
+&lt;p simpltry_widget="inplace_editor" simpltry_options="ajaxOptions:{method:'get'}, 
+    url: 'inplace_editor_save.html'">Hello world&lt;/p>
 			        </pre></code>
 			    </div>
 			    <h2>simpltry_widget="ajax_autocompleter"</h2>
 			    <p>The auto completer is another control that is awesome.  It becomes even simpler to use when you use the simpltry_widget ajax_autocompleter.  The same as the inplace_editor there is a mandatory option (url) that is the server side path for getting the appropriate list.  To see the demo start typing in the field below.</p>
 				<p>
-				    <input size="100" type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
+				    <input size="100" type="text" simpltry_widget="ajax_autocompleter" simpltry_options="method:'get', url: 'autocomplete_list.html'" />
 				</p>
 			    <div class="code">
 			        <p>example markup:</p>
 			        <code><pre>
-&lt;input size="100" type="text" simpltry_widget="ajax_autocompleter" simpltry_options="url: 'autocomplete_list.html'" />
+&lt;input size="100" type="text" simpltry_widget="ajax_autocompleter" 
+    simpltry_options="method:'get', url: 'autocomplete_list.html'" />
 			        </pre></code>
 			    </div>
 				<p>Usually you need to provide the element to put the results in as the Second parameter for Ajax.Autocompleter, but if you don't provide it in the option "autoCompleteElement" simpltry will build a div for you.</p>

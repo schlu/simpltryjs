@@ -47,7 +47,7 @@
     			                    ["black", "baseball", "101"]
     			                ]},
     			    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
-    			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("th"))},
+    			    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("th", {}, [" "]))},
     			    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'></p>
     		<div class="code">
             <p>example markup:</p>

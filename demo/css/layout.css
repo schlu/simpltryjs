@@ -74,6 +74,9 @@ ul.buttons:after, ul.navigation:after
 	clear: both;
 	visibility: hidden;
 }
+/* Hides from IE-mac \*/
+ul.buttons {height: 1%;}
+/* End hide from IE-mac */
 
 ul.buttons li, ul.navigation li
 {
@@ -169,7 +172,7 @@ ul.subnav li.active:hover {
 
 #footer
 {
-	margin-top: 4.5em;
+	margin-top: 3em;
 	padding: 1em 0;
 	background-color: #ebebec;
 	border-top: 3px double #fff;
