@@ -49,11 +49,11 @@ Object.extend(Simpltry.ColorPicker.prototype, {
                 return Builder.node("tr", {}, 
                     row.collect(function(color) {
                         var td = Builder.node("td", {
-                            style: "border: 1px solid #ccc;background-color:#" + color,
                             className: Simpltry.ColorPicker.css.color
                         }, [" "]);
-                        td.onmouseover = pThis.cellMouseOver;
-                        td.onmouseout = pThis.cellMouseOut;
+                        Element.setStyle(td, {border:"1px solid #ccc",backgroundColor:"#" + color});
+                        td.onmouseover = pThis.cellMouseOver.bindAsEventListener(pThis);
+                        td.onmouseout = pThis.cellMouseOut.bindAsEventListener(pThis);
                         td.onclick = function() {pThis.options.onSelect(color);};
                         return td;
                     })
