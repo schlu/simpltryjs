@@ -63,7 +63,7 @@ ul.buttons, ul.navigation, ul.subnav
 ul.subnav {
 	margin-left:.5em;
 	margin-top:.3em;
-	width: 9em;
+	width: 9.2em;
 }
 ul.buttons:after, ul.navigation:after
 {
@@ -82,7 +82,7 @@ ul.buttons li, ul.navigation li
 {
 	float: left;
 	width: .1em;
-	white-space: none;
+	white-space: nowrap;
 }
 
 ul.buttons li {
