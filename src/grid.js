@@ -86,6 +86,7 @@ Simpltry.DataGrid.prototype = {
 	        if(!this.removedColumns[i]) {
     	        var th = Builder.node("th", {className: Simpltry.DataGrid.css.headerCell}, [header]);
     	        if(this.sortedBy == i) {
+    	            th = $(th);
     	            if(this.sortedReverse) {
     	                th.addClassName(Simpltry.DataGrid.css.sortedReverse);
     	            } else {

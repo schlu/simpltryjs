@@ -113,6 +113,7 @@ ul.subnav li a {
 ul.subnav li {
 	background-color: #666;
 	border: thin solid #fff;
+	border-top-width: 0;
 }
 
 
