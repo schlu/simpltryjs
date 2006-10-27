@@ -1,16 +1,25 @@
 .datePicker {
 	background-color: #ffe;
 	border: thin solid black;
-	width: 17em;
+	width: 18em;
 	text-align:  center;
 	line-height: 1.6em;
+	border-top-width: 0;
+}
+.datePickerControlTable {
+    background-color: #ffe;
+	border: thin solid black;
+	border-bottom-width: 0;
+	width: 18em;
+	text-align:  center;
 }
 .datePickerMonthHeader {
 	font-weight: bold;
 	white-space: nowrap;
+	width: 10em;
 }
 .datePickerDay {
-	width: 14%;
+	width: 2.57em;
 	cursor: pointer;
 	color: #222;
 }
@@ -35,4 +44,7 @@
 }
 .datePickerSelected {
     background-color: #faa;
+}
+.datePickerBackYear, .datePickerBackMonth, .datePickerForwardMonth, .datePickerforwardYear {
+    width: 2em;
 }
