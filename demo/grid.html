@@ -53,18 +53,29 @@
     		<div class="code">
             <p>example markup:</p>
 <code><pre>
-&lt;p id="grid" simpltry_widget="grid" simpltry_options='data:{headers: ["cat","hat","count"],
-	                rows: [
-	                    ["red","baseball", "1"],
-	                    ["black", "fedora", "3"],
-	                    ["blue", "fedora", "3"],
-	                    ["blue", "bowler", "2"],
-	                    ["red", "bowler", "5"],
-	                    ["black", "baseball", "101"]
-	                ]},
-	    beforeEachRow: function(tr, i) {tr.appendChild(Builder.node("td", {}, [i+1]))},
-	    beforeHeaderRow: function(tr) {tr.appendChild(Builder.node("th"))},
-	    beforeFooterRow: function(tr) {tr.appendChild(Builder.node("td"))}'>&lt;/p>
+&lt;p id="grid" simpltry_widget="grid" simpltry_options='
+    data:{headers: ["cat","hat","count"],
+    rows: [
+            ["red","baseball", "1"],
+            ["black", "fedora", "3"],
+            ["blue", "fedora", "3"],
+            ["blue", "bowler", "2"],
+            ["red", "bowler", "5"],
+            ["black", "baseball", "101"]
+          ]},
+    beforeEachRow: 
+        function(tr, i) {
+            tr.appendChild(Builder.node("td", {}, [i+1]))
+        },
+    beforeHeaderRow: 
+        function(tr) {
+            tr.appendChild(Builder.node("th"))
+        },
+    beforeFooterRow: 
+        function(tr) {
+            tr.appendChild(Builder.node("td"))
+        }'>
+&lt;/p>
 </pre></code>
     		</div>
     		<p>Above you can see what the "data" format should look like.  It has two properties headers and rows.  headers is an array of strings, those get built as the table headers.  rows is an array of arrays where each array represents a row in your table.  You can also pass in some callbacks to be called while the table is being rendered.  For instance beforeEachRow gets called before the data is put into the tr, in our example we are simply printing out the row number.</p>
