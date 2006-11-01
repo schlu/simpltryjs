@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>script.aculo.us Unit test file</title>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+    <script src="../../lib/prototype.js" type="text/javascript"></script>
+    <script src="../../lib/effects.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../lib/controls.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../src/forms.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../../lib/unittest.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="../test.css" type="text/css" />
+</head>
+<body>
+<h1>script.aculo.us Unit test file</h1>
+<p>
+  Test the attach partial method
+</p>
+
+<!-- generated elements go in here -->
+<div id="sandbox"></div>
+
+<!-- Log output -->
+<div id="testlog"> </div>
+
+<!-- Tests follow -->
+<script type="text/javascript" language="javascript" charset="utf-8">
+// <![CDATA[
+
+
+  new Test.Unit.Runner({
+
+    setup: function() { with (this) {
+      $('sandbox').innerHTML = "";
+    }},
+    
+    teardown: function() { with(this) {
+    }},
+
+    // test if all combined effects correctly initialize themselves
+    testPartial: function() { with(this) {
+          info("Partial");
+          $('sandbox').innerHTML = '<div simpltry_widget="inplace_editor" simpltry_options="url:\'../../demo/inplace_editor_save.html\'">hello</div>';
+          Simpltry.Widgets.attachPartial('sandbox');
+          assertEqual($('sandbox').childNodes[0].id, 'inplace_editor0');
+    }}
+
+  });
+
+// ]]>
+</script>
+</body>
+</html>
