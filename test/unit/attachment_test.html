@@ -42,12 +42,19 @@
 
     // test if all combined effects correctly initialize themselves
     testPartial: function() { with(this) {
-          info("Partial");
-          $('sandbox').innerHTML = '<div simpltry_widget="inplace_editor" simpltry_options="url:\'../../demo/inplace_editor_save.html\'">hello</div>';
-          Simpltry.Widgets.attachPartial('sandbox');
-          assertEqual($('sandbox').childNodes[0].id, 'inplace_editor0');
+        info("Partial");
+        $('sandbox').innerHTML = '<div simpltry_widget="inplace_editor" simpltry_options="url:\'../../demo/inplace_editor_save.html\'">hello</div>';
+        Simpltry.Widgets.attachPartial('sandbox');
+        assertEqual($('sandbox').childNodes[0].id, 'inplace_editor0');
+    }},
+    testAttributeChange: function(){ with(this) {
+        info('Attribute Change');
+        Simpltry.Widgets.widgetAttribute = "changed_widget";
+		Simpltry.Widgets.optionsAttribute = "changed_options";
+		$('sandbox').innerHTML = '<div changed_widget="inplace_editor" changed_options="url:\'../../demo/inplace_editor_save.html\'">hello</div>';
+        Simpltry.Widgets.attachPartial('sandbox');
+        assertEqual($('sandbox').childNodes[0].id, 'inplace_editor0');
     }}
-
   });
 
 // ]]>
