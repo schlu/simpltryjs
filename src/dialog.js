@@ -121,6 +121,7 @@ Simpltry.Dialog.Base.prototype = {
 			titleLayer.style.cursor = "move";
 			Draggables.addObserver(this);
 		}
+		Event.observe(document, "keypress", this.onKeyPress.bindAsEventListener(this), false);
 		Event.observe(window, "keypress", this.onKeyPress.bindAsEventListener(this), false);
 		if(this.options.repositionOnScroll) Event.observe(window, "scroll", this.onScroll.bindAsEventListener(this), false);
 		var inputs = $A(this.dialogLayer.getElementsByTagName('input'));
