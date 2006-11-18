@@ -189,8 +189,12 @@ Simpltry.DatePicker.prototype = {
 				this.selectedCell = td;
 				this.options.selectedDate.day = date.getDate();
 				this.options.selectedDate.month = date.getMonth() + 1;
-				this.options.selectedDate.year = date.getYear() + 1900;
-				td.addClassName(Simpltry.DatePicker.css.selected);this.options.onSelect(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
+				if(date.getYear() < 300) {
+    				this.options.selectedDate.year = date.getYear() + 1900;
+    			} else {
+    			    this.options.selectedDate.year = date.getYear()
+    			}
+				td.addClassName(Simpltry.DatePicker.css.selected);this.options.onSelect(this.options.selectedDate.year, date.getMonth() + 1, date.getDate());
 			}.bindAsEventListener(this);
 			currentRow.push(td);
 			if(currentRow.length % 7 == 0) {
