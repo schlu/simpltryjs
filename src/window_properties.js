@@ -1,3 +1,5 @@
+if(!Simpltry) var Simpltry = {};
+
 Simpltry.WindowProperties = {
 	getHorizontalScroll: function() {
 		return window.pageXOffset || document.documentElement.scrollLeft || document.body.scrollLeft || 0;
