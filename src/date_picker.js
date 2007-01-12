@@ -78,28 +78,24 @@ Simpltry.DatePicker.prototype = {
 	initialize: function(container, options) {
 		this.container = container;
 		this.setOptions(options);
-		if(this.options.month && this.options.year) {
+		if(this.options.month != null && this.options.year) {
 			this.month = this.options.month;
 			this.year = this.options.year;
 		} else if(this.options.dateString) {
 			try {
 				var d = new Date(Date.parse(this.options.dateString));
 				this.month = d.getMonth() + 1;
-				this.year = d.getYear() + 1900;
+				this.year = d.getFullYear();
 				this.day = d.getDate();
 				this.options.selectedDate.month = this.month;
 				this.options.selectedDate.year = this.year;
 				this.options.selectedDate.day = this.day;
 			} catch(e) {};
 		} 
-		if(!this.month){
+		if(this.month == null){
 			var today = new Date();
 			this.month = today.getMonth() + 1;
-			if(today.getYear() < 300) {
-			    this.year = today.getYear() + 1900;
-		    } else {
-		        this.year = today.getYear();
-		    }
+			this.year = today.getFullYear();
 		}
 		if(this.month == 0) {
 			this.year -= 1;
@@ -125,8 +121,8 @@ Simpltry.DatePicker.prototype = {
 		Object.extend(this.options, options || {});
 	},
 	buildDateControls: function(){
-	    var tbody = Builder.node("tbody");
-	    var table = Builder.node("table", {className: Simpltry.DatePicker.css.controlTable}, [tbody]);
+		var tbody = Builder.node("tbody");
+		var table = Builder.node("table", {className: Simpltry.DatePicker.css.controlTable}, [tbody]);
 		var tr = Builder.node("tr");
 		var c1 = Builder.node("td", {className: Simpltry.DatePicker.css.backYear}, [Builder.node("a", {href:"#"}, ["<<"])]);
 		c1.onclick = function(event) {this.change(this.year-1, this.month); return false;}.bindAsEventListener(this);
@@ -175,10 +171,10 @@ Simpltry.DatePicker.prototype = {
 			} else {
 				$(td).addClassName(Simpltry.DatePicker.css.weekday);
 			}
-			if(today.getDate() == date.getDate() && today.getMonth() == date.getMonth() && today.getYear() == date.getYear()) {
+			if(today.getDate() == date.getDate() && today.getMonth() == date.getMonth() && today.getFullYear() == date.getFullYear()) {
 				$(td).addClassName(Simpltry.DatePicker.css.today);
 			}
-			if(this.options.selectedDate.day && this.options.selectedDate.day == date.getDate() && this.options.selectedDate.month == date.getMonth() + 1 && this.options.selectedDate.year == date.getYear() + 1900) {
+			if(this.options.selectedDate.day && this.options.selectedDate.day == date.getDate() && this.options.selectedDate.month == date.getMonth() + 1 && this.options.selectedDate.year == date.getFullYear()) {
 				$(td).addClassName(Simpltry.DatePicker.css.selected);
 				this.selectedCell = td;
 			}
@@ -189,11 +185,7 @@ Simpltry.DatePicker.prototype = {
 				this.selectedCell = td;
 				this.options.selectedDate.day = date.getDate();
 				this.options.selectedDate.month = date.getMonth() + 1;
-				if(date.getYear() < 300) {
-    				this.options.selectedDate.year = date.getYear() + 1900;
-    			} else {
-    			    this.options.selectedDate.year = date.getYear()
-    			}
+				this.options.selectedDate.year = date.getFullYear();
 				td.addClassName(Simpltry.DatePicker.css.selected);this.options.onSelect(this.options.selectedDate.year, date.getMonth() + 1, date.getDate());
 			}.bindAsEventListener(this);
 			currentRow.push(td);
@@ -224,25 +216,25 @@ Simpltry.DatePicker.prototype = {
 };
 
 if(Simpltry.Widgets) {
-    Simpltry.Widgets.register('date_picker', function(element, options) {
-        if(element.tagName == 'INPUT' && element.type == 'text') {
-            element.autoComplete = "false";
-    		var popup = Builder.node("div", {id: element.id + "_tooltip", style: "display:none;"}, ["test"]);
-    		document.body.appendChild(popup);
-    		var toolTip = new Simpltry.ClickTooltip(element, {offsetLeft:9,toggle:false,direction:"right"});
-    		new Simpltry.DatePicker(popup, {
-    			onSelect: function(year, month, day) {
-    				element.value = month + "/" + day + "/" + year;
-    				toolTip.close();
-    			},
-    			onCancel: function() {
-    				toolTip.close();
-    			},
-    			showCancel: true,
-    			dateString: (element.value != "" ? element.value : null)
-    		});
-        } else {
-            new Simpltry.DatePicker(element, options);
-        }
-    });
+	Simpltry.Widgets.register('date_picker', function(element, options) {
+		if(element.tagName == 'INPUT' && element.type == 'text') {
+			element.autoComplete = "false";
+			var popup = Builder.node("div", {id: element.id + "_tooltip", style: "display:none;"}, ["test"]);
+			document.body.appendChild(popup);
+			var toolTip = new Simpltry.ClickTooltip(element, {offsetLeft:9,toggle:false,direction:"right"});
+			new Simpltry.DatePicker(popup, {
+				onSelect: function(year, month, day) {
+					element.value = month + "/" + day + "/" + year;
+					toolTip.close();
+				},
+				onCancel: function() {
+					toolTip.close();
+				},
+				showCancel: true,
+				dateString: (element.value != "" ? element.value : null)
+			});
+		} else {
+			new Simpltry.DatePicker(element, options);
+		}
+	});
 }
