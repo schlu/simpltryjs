@@ -4,6 +4,7 @@ require 'zip/ziprequire'
 CLOBBER.include('simpltry_*')
 DONT_COPY = [".", "..", 'dist', 'Rakefile', 'tasks']
 
+desc "makes the js file"
 task :dist => :clobber do
     dist_version = "simpltry_#{ENV['VERSION']}"
     files = Dir.entries(".")
