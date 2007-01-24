@@ -68,12 +68,6 @@ Simpltry.DatePicker.css = {
 };
 Simpltry.DatePicker.ths = {0:"sun", 1:"mon", 2:"tue", 3:"wed", 4:"thu", 5:"fri", 6:"sat"};
 Simpltry.DatePicker.months = {1:"January", 2:"Febuary", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
-Simpltry.DatePicker.DefaultOptions = {
-	onSelect: Prototype.emptyFunction,
-	onCancel: Prototype.emptyFunction,
-	showCancel: false,
-	selectedDate: {day:null, month:null, year:null}
-};
 Simpltry.DatePicker.prototype = {
 	initialize: function(container, options) {
 		this.container = container;
@@ -117,7 +111,12 @@ Simpltry.DatePicker.prototype = {
 		$(this.container).appendChild(table);
 	},
 	setOptions: function(options) {
-		this.options = $H(Simpltry.DatePicker.DefaultOptions);
+		this.options = {
+			onSelect: Prototype.emptyFunction,
+			onCancel: Prototype.emptyFunction,
+			showCancel: false,
+			selectedDate: {day:null, month:null, year:null}
+		};
 		Object.extend(this.options, options || {});
 	},
 	buildDateControls: function(){
@@ -186,7 +185,8 @@ Simpltry.DatePicker.prototype = {
 				this.options.selectedDate.day = date.getDate();
 				this.options.selectedDate.month = date.getMonth() + 1;
 				this.options.selectedDate.year = date.getFullYear();
-				td.addClassName(Simpltry.DatePicker.css.selected);this.options.onSelect(this.options.selectedDate.year, date.getMonth() + 1, date.getDate());
+				td.addClassName(Simpltry.DatePicker.css.selected);
+				this.options.onSelect(this.options.selectedDate.year, date.getMonth() + 1, date.getDate());
 			}.bindAsEventListener(this);
 			currentRow.push(td);
 			if(currentRow.length % 7 == 0) {
