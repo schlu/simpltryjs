@@ -67,7 +67,7 @@ Simpltry.DatePicker.css = {
 	selected: "datePickerSelected"
 };
 Simpltry.DatePicker.ths = {0:"sun", 1:"mon", 2:"tue", 3:"wed", 4:"thu", 5:"fri", 6:"sat"};
-Simpltry.DatePicker.months = {1:"January", 2:"Febuary", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
+Simpltry.DatePicker.months = {1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
 Simpltry.DatePicker.prototype = {
 	initialize: function(container, options) {
 		this.container = container;
