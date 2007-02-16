@@ -38,7 +38,7 @@ Simpltry.Form.MoveToNextField.prototype = {
 			}.bind(this));
 		}
 	}
-}
+};
 
 if(Simpltry.Widgets) {
     Simpltry.Widgets.register('move_to_next', function(element, options) {

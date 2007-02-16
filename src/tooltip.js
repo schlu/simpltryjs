@@ -20,7 +20,7 @@ Simpltry.BaseTooltip.DefaultOptions  = {
 	offsetTop: 0,
 	direction: "below",
 	toggle: true
-}
+};
 Simpltry.BaseTooltip.prototype = {
 	initialize: function(element, options) {
 		this.setOptions(options);
@@ -62,7 +62,7 @@ Simpltry.BaseTooltip.prototype = {
 	close: function() {
 		this.popup.hide();
 	}
-}
+};
 
 Simpltry.ClickTooltip = Class.create();
 Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseTooltip.prototype),  {

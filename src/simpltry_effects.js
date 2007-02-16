@@ -46,4 +46,4 @@ Simpltry.Effect.XBlindIn = function(element, options) {
       } 
     }, options || {})
   );
-}
+};

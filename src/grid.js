@@ -30,7 +30,7 @@ Simpltry.DataGrid.css = {
     sorted: "simpltryDataGridSorted",
     sortedReverse: "simpltryDataGridSortedReverse",
     headerControl: "simpltryDataGridHeaderControl"
-}
+};
 
 Simpltry.DataGrid.DefaultOptions = {
     beforeEachRow: Prototype.emptyFunction,
@@ -134,7 +134,7 @@ Simpltry.DataGrid.prototype = {
             if(!this.removedColumns[i]) {
     	        var td = Builder.node('td', {}, [footerData[i] || ""]);
     	        if(footerData[i]) renderFooter = true;
-    	        tr.appendChild(td)
+    	        tr.appendChild(td);
 	        }
         }.bind(this));
 	    this.options.afterFooterRow(tr);
@@ -188,14 +188,14 @@ Simpltry.DataGrid.prototype = {
 	
 	sumColumn: function(column){
 	   var sum = 0;
-	   this.data.rows.collect(function(row) {return row[column]}).each(function(cell) {sum += parseFloat(cell)});
+	   this.data.rows.collect(function(row) {return row[column];}).each(function(cell) {sum += parseFloat(cell);});
 	   this.footerData[column] = "sum: " + sum;
 	   this.render();
 	},
 	
 	averageColumn: function(column){
 	   var sum = 0;
-	   this.data.rows.collect(function(row) {return row[column]}).each(function(cell) {sum += parseFloat(cell)});
+	   this.data.rows.collect(function(row) {return row[column];}).each(function(cell) {sum += parseFloat(cell);});
 	   this.footerData[column] = "average: " + Math.round((sum / this.data.rows.length) * 100)/100;
 	   this.render();
 	},

@@ -21,12 +21,12 @@ Simpltry.ColorPicker = Class.create();
 Simpltry.ColorPicker.css = {
     table: "colorPicker",
     color: "colorPickerColor"
-}
+};
 
 Simpltry.ColorPicker.DefaultOptions = {
     size: "large",
     onSelect: Prototype.emptyFunction
-}
+};
 Object.extend(Simpltry.ColorPicker.prototype, {
     initialize: function(container, options) {
         this.container = $(container);

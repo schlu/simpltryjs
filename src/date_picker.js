@@ -207,8 +207,8 @@ Simpltry.DatePicker.prototype = {
 	buildCancel: function() {
 		var tr = Builder.node('tr', {className: Simpltry.DatePicker.css.cancelRow});
 		var td = Builder.node("td",{colspan:7});
-		var div = Builder.node('div',{className: Simpltry.DatePicker.css.cancel}, ['cancel'])
-		div.onclick = function(event) {if(this.day) {this.options.onCancel(this.year, this.month, this.day);}else{this.options.onCancel()}}.bindAsEventListener(this);
+		var div = Builder.node('div',{className: Simpltry.DatePicker.css.cancel}, ['cancel']);
+		div.onclick = function(event) {if(this.day) {this.options.onCancel(this.year, this.month, this.day);}else{this.options.onCancel();}}.bindAsEventListener(this);
 		td.appendChild(div);
 		tr.appendChild(td);
 		return tr;

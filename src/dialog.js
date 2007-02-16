@@ -24,7 +24,7 @@ Simpltry.Dialog = {};
 Simpltry.Dialog.State = {
 	activeDialog: [],
 	opaqueDivUp: null,
-	hasActiveDialogs: function() {return Simpltry.Dialog.State.activeDialog.length > 0},
+	hasActiveDialogs: function() {return Simpltry.Dialog.State.activeDialog.length > 0;},
 	highestIndex: 1000,
 	highestId: 0,
     setOpaqueSize: function() {
@@ -46,7 +46,7 @@ Simpltry.Dialog.DefaultOptions = {
 	height:null
 };
 
-Simpltry.Dialog.removeAll = function() {Simpltry.Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog()})};
+Simpltry.Dialog.removeAll = function() {Simpltry.Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog();});};
 
 Simpltry.Dialog.Button = Class.create();
 Simpltry.Dialog.Button.prototype = {
@@ -77,7 +77,7 @@ Simpltry.Dialog.Base.prototype = {
 			opaqueLayer.id = "dialog_opaque_layer";
 			Element.setOpacity(opaqueLayer, this.options.opacity);
 			document.body.appendChild(opaqueLayer);
-			$$('select').each(function(element) {Element.hide(element)});
+			$$('select').each(Element.hide);
 			Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize, false);
 		}
 				
@@ -159,12 +159,12 @@ Simpltry.Dialog.Base.prototype = {
 		this.dialogLayer.style.display = "none";
 		Element.remove(this.dialogLayer);
 		this.isRemoved = true;
-		Simpltry.Dialog.State.activeDialog = Simpltry.Dialog.State.activeDialog.reject(function(dialog){return dialog.id == this.id;}.bind(this))
+		Simpltry.Dialog.State.activeDialog = Simpltry.Dialog.State.activeDialog.reject(function(dialog){return dialog.id == this.id;}.bind(this));
 		if(!Simpltry.Dialog.State.hasActiveDialogs()) {
 			Simpltry.Dialog.State.opaqueDialog.style.display = "none";
 			Element.remove(Simpltry.Dialog.State.opaqueDialog);
 			if(this.options.makeDraggable) Draggables.removeObserver(this);
-			$$('select').each(function(element) {Element.show(element)});
+			$$('select').each(Element.show);
 			Simpltry.Dialog.State.opaqueDialog = null;
 			Event.stopObserving(window, "resize", Simpltry.Dialog.State.setOpaqueSize, false);
 		}
@@ -186,7 +186,7 @@ Simpltry.Dialog.Base.prototype = {
 		
 		if(reposition) this.positionDialog();
 	}
-}
+};
 
 Simpltry.Dialog.Ajax = Class.create();
 Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base.prototype),
@@ -249,7 +249,7 @@ Object.extend(Object.extend(Simpltry.Dialog.Confirm.prototype, Simpltry.Dialog.B
 		buttonLayer.style.textAlign = "center";
 		buttonLayer.style.marginTop = "5px";
 		buttonLayer.style.marginBottom = "2px";
-		this.buttons.each(function(currentButton) { buttonLayer.appendChild(currentButton.element) } );
+		this.buttons.each(function(currentButton) { buttonLayer.appendChild(currentButton.element); } );
 		this.dialogLayer.appendChild(buttonLayer);
 	}
 	
