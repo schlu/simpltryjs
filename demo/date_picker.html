@@ -1,19 +1,19 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
 	"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
-	<head>
-		<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-		<title>Simpltry Date Picker Demo</title>
-		<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
-		<script src="../src/date_picker.js" type="text/javascript" charset="utf-8"></script>
-		<link href="../demo/css/layout.css" rel="stylesheet" type="text/css" />
-		<link href="../demo/css/date_picker.css" rel="stylesheet" type="text/css" />
-		<link href="../demo/css/demo.css" rel="stylesheet" type="text/css" />
-	</head>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Simpltry Date Picker Demo</title>
+	<script src="../lib/prototype.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../lib/builder.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/simpltry_widget.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/window_properties.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/tooltip.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../src/date_picker.js" type="text/javascript" charset="utf-8"></script>
+	<link href="../demo/css/layout.css" rel="stylesheet" type="text/css" />
+	<link href="../demo/css/date_picker.css" rel="stylesheet" type="text/css" />
+	<link href="../demo/css/demo.css" rel="stylesheet" type="text/css" />
+</head>
 <body id="date_picker_test">
     <div id="header">
         <h1>Simpltry Widget</h1>
@@ -38,7 +38,6 @@
     <div id="app">
 	    <h2><em>Simpltry Date Picker Widget</em></h2>
 	    <h2>simpltry_widget="date_picker"</h2>
-	    <div id="app">
 	        <p>The date picker widget can be attached to a text field or any block level element (like div or p).  If you choose to bind it to a text field it serializes the last selection a user makes to that field in the format "mm/dd/yyyy".  To pre populate the date picker with a specific date just set the value on the text field in the same format.  Here is a date picker bound to a text field click on the text field to display the date picker.</p>
         		<p><input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" /></p>
         		<p>example markup:</p>
@@ -47,6 +46,15 @@
 &lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_picker" value="3/7/1979" />&lt;/p>
             </code>
             </div>
+            <h2>simpltry_widget="date_time_picker"</h2>
+      	        <p>The Date Picker can also be a Date Time Picker.  The format is MM/DD/YYYY at MI:SSPM.  You can also choose an alternate handle for your popup instead of the textbox itself.</p>
+              		<p><input type="text" name="oldDate" id="datefield2" simpltry_widget="date_time_picker" simpltry_options="handle: 'calendar'" value="3/7/1979 at 7:00PM" /> <img src="img/calendar.gif" id="calendar" /></p>
+              		<p>example markup:</p>
+                  <div class="code">
+                  <code>
+      &lt;p>&lt;input type="text" name="oldDate" id="datefield2" simpltry_widget="date_time_picker" simpltry_options="handle: 'calendar'" value="3/7/1979 at 7:30PM" /> &lt;img src="img/calendar.gif" id="calendar" />&lt;/p>
+                  </code>
+                  </div>
 		    <p>This demo does not have the date picker bound to any thing.  It is not really that useful, when you select a date it alerts the selected date.</p>
 		    <p simpltry_widget="date_picker" simpltry_options="onSelect: function(year, month, day){alert(month + '/' + day + '/' + year);}"></p>
 		    <p>example markup:</p>
@@ -80,7 +88,6 @@
             <li>datePickerSelected</li>
         </ul>
         <p>A good starting off point is the style sheet we used for this demo.  <a href="css/date_picker.css">demo style sheet</a></p>
-        </div>
         </div>
         <div id="footer">
     		<p>From the writers of <a href="http://dcrails.com/">dcrails</a> | <a href="http://www.captureimportant.info">sidewalk</a></p>

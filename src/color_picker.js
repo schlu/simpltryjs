@@ -1,16 +1,12 @@
 /*
-Created On: 09/01/2006
-Created By: Nicholas Schlueter -- http://www.simpltry.com
-version: .5
+Copyright (c) 2006-2007 Nicholas Schlueter (http://widgets.simpltry.com, http://simpltry.com)
 
-This is freely available for noncommercial and commerical use.  I am not responsible for support and 
-if this script causes harm directly or indirectly I am not liable for any damages.  Using any part of this 
-Code means you agree to the aformentioned conditions.  Please alter this code however you see fit. I do 
-ask that you leave every from this point up in tact.
+Simpltry Widgets is freely distributable under the terms of an MIT-style license.
+For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-    Prototype: 1.5.0_rc0+
-    script.aculo.us: 1.6.1+
+    Prototype: 1.5.1+
+    script.aculo.us: 1.7.1_beta3+
         -builder
 */
 

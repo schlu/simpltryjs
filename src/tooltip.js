@@ -1,15 +1,11 @@
 /*
-Created On: 09/12/2006
-Created By: Nicholas Schlueter -- http://www.simpltry.com
-version: .5
+Copyright (c) 2006-2007 Nicholas Schlueter (http://widgets.simpltry.com, http://simpltry.com)
 
-This is freely available for noncommercial and commerical use.	I am not responsible for support and 
-if this script causes harm directly or indirectly I am not liable for any damages.	Using any part of this 
-Code means you agree to the aformentioned conditions.  Please alter this code however you see fit. I do 
-ask that you leave every from this point up in tact.
+Simpltry Widgets is freely distributable under the terms of an MIT-style license.
+For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-	Prototype: 1.5.0_rc0+
+	Prototype: 1.5.1+
 	Simpltry
 		-window_properties.js
 */
@@ -52,6 +48,8 @@ Simpltry.BaseTooltip.prototype = {
 		topPosition += this.options.offsetTop;
 		var distanceFromScreenRight = Simpltry.WindowProperties.getContentSize().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
 		if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
+		var distanceFromScreenTop = Simpltry.WindowProperties.getContentSize().height - (offset[1] + Element.getDimensions(this.popup).height + 8);
+		if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
 		Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
 	},
 	attachEvents: Prototype.emptyFunction,
@@ -63,23 +61,22 @@ Simpltry.BaseTooltip.prototype = {
 		this.popup.hide();
 	}
 };
-
 Simpltry.ClickTooltip = Class.create();
 Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
 	attachEvents: function() {
 		this.element.onclick = this.onClick.bind(this);
 	},
-    onClick: function(event) {
-        if(this.options.toggle) {
-            if(this.popup.visible()) {
-                this.close();
-            } else {
-                this.display();
-            }
-        } else {
-            this.display();
-        }
+  onClick: function(event) {
+    if(this.options.toggle) {
+      if(this.popup.visible()) {
+        this.close();
+      } else {
+        this.display();
+      }
+    } else {
+      this.display();
     }
+  }
 });
 
 Simpltry.MouseoverTooltip = Class.create();
@@ -115,26 +112,26 @@ Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTo
 });
 
 Simpltry.BaseTooltip.setupWidget = function(element, options) {
-    element = $(element);
-    if(options['tooltipText']) {
-        var tooltip = Builder.node('div', {className:"simpltryTooltip"}, options['tooltipText']);
-        Element.setStyle(tooltip, {display: "none"});
-        document.body.appendChild(tooltip);
-        options['tooltip'] = tooltip;
-        delete(options['tooltipText']);
-    }
-    if(!options['tooltip']) {
-        options['tooltip'] = element.next();
-    }
+  element = $(element);
+  if(options['tooltipText']) {
+    var tooltip = Builder.node('div', {className:"simpltryTooltip"}, options['tooltipText']);
+    Element.setStyle(tooltip, {display: "none"});
+    document.body.appendChild(tooltip);
+    options['tooltip'] = tooltip;
+    delete(options['tooltipText']);
+  }
+  if(!options['tooltip']) {
+    options['tooltip'] = element.next();
+  }
 };
 
 if(Simpltry.Widgets) {
-    Simpltry.Widgets.register("mouseover_tooltip", function(element, options) {
-        Simpltry.BaseTooltip.setupWidget(element, options);
-        new Simpltry.MouseoverTooltip(element, options);
-    });
-    Simpltry.Widgets.register("click_tooltip", function(element, options) {
-        Simpltry.BaseTooltip.setupWidget(element, options);
-        new Simpltry.ClickTooltip(element, options);
-    });
+  Simpltry.Widgets.register("mouseover_tooltip", function(element, options) {
+    Simpltry.BaseTooltip.setupWidget(element, options);
+    new Simpltry.MouseoverTooltip(element, options);
+  });
+  Simpltry.Widgets.register("click_tooltip", function(element, options) {
+    Simpltry.BaseTooltip.setupWidget(element, options);
+    new Simpltry.ClickTooltip(element, options);
+  });
 }

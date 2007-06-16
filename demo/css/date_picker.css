@@ -1,15 +1,13 @@
 .datePicker {
 	background-color: #ffe;
-	border: thin solid black;
+	border-top: thin solid black;
 	width: 18em;
 	text-align:  center;
 	line-height: 1.6em;
-	border-top-width: 0;
+	padding: 1px;
 }
 .datePickerControlTable {
-    background-color: #ffe;
-	border: thin solid black;
-	border-bottom-width: 0;
+  background-color: #ffe;
 	width: 18em;
 	text-align:  center;
 }
@@ -19,7 +17,7 @@
 	width: 10em;
 }
 .datePickerDay {
-	width: 2.57em;
+	width: 2.58em;
 	cursor: pointer;
 	color: #222;
 }
@@ -47,4 +45,72 @@
 }
 .datePickerBackYear, .datePickerBackMonth, .datePickerForwardMonth, .datePickerforwardYear {
     width: 2em;
+}
+
+.datePickerWrapper {
+  width: 18.1em;
+  border: 1px solid #000;
+}
+.timePicker:after {
+    content: "."; 
+    display: block; 
+    height: 0; 
+    clear: both; 
+    visibility: hidden;
+}
+
+.timePicker {display: inline-block;}
+
+/* Hides from IE-mac \*/
+* html .clearfix {height: 1%;}
+.timePicker {display: block;}
+/* End hide from IE-mac */
+.timePickerAmPm {
+  width: 9em;
+}
+.timePicker {
+  text-align: center;
+  width: 18.1em;
+  background-color:#fee;
+}
+.timePicker {
+  line-height: 1.6em;
+  border: 1px solid #000;
+  border-top-width: 0;
+}
+.timePickerHourHeader,.timePickerMinuteHeader,.timePickerHours,.timePickerMinutes,.timePickerAmPm,.timePickerAM,.timePickerPM,.timePickerMinute,.timePickerHour {
+  float: left;
+}
+.timePickerHourHeader,.timePickerMinuteHeader {
+  font-weight: bold;
+}
+.timePickerHourHeader,.timePickerMinuteHeader,.timePickerHours,.timePickerMinutes {
+  width: 9em;
+}
+.timePickerAM {
+  width: 4.5em;
+}
+.timePickerPM {
+  width: 4.4em;
+}
+.timePickerMinute,.timePickerHour {
+  width: 3em;
+}
+.timePickerHourHeader,.timePickerHours,.timePickerAM {
+  border-right: 1px solid #000;
+}
+.timePickerHourHeader,.timePickerMinuteHeader,.timePickerHours,.timePickerMinutes {
+  border-bottom: 1px solid #000;
+}
+.timePickerHours,.timePickerMinutes,.timePickerAm,.timePickerPm {
+  padding-top: .2em;
+}
+.timePickerAmPm {
+  border-right: 1px solid #000;
+}
+.timePickerMinute,.timePickerHour,.timePickerAM,.timePickerPM,.timePickerClose {
+  cursor: pointer;
+}
+.timePickerMinuteSelected,.timePickerHourSelected,.timePickerAmPmSelected {
+  background-color: #faa;
 }
