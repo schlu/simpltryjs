@@ -61,7 +61,8 @@ Simpltry.DatePicker.css = {
   tbody: "datePickerTbody",
   cancelRow: "datePickerCancelRow",
   cancel: "datePickerCancel",
-  selected: "datePickerSelected"
+  selected: "datePickerSelected",
+  selectable: "datePickerSelectable"
 };
 Simpltry.DatePicker.ths = ["sun","mon","tue","wed","thu","fri","sat"];
 Simpltry.DatePicker.months = {1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
@@ -96,6 +97,12 @@ Simpltry.DatePicker.prototype = {
       this.year += 1;
       this.month = 1;
     }
+    if(!this.options.selectedDate.month && this.options.defaultSelectedDateToday) {
+      var today = new Date();
+      this.options.selectedDate.month = today.getMonth() + 1;
+      this.options.selectedDate.year = today.getFullYear();
+      this.options.selectedDate.day = today.getDate();
+    }
     var tbody = Builder.node("tbody", {className: this.css.tbody}, [this.buildDateHeader()]);
     
     this.buildDates().each(function(row) {
@@ -110,7 +117,9 @@ Simpltry.DatePicker.prototype = {
       onSelect: Prototype.emptyFunction,
       onCancel: Prototype.emptyFunction,
       showCancel: false,
-      selectedDate: {day:null, month:null, year:null}
+      selectedDate: {day:null, month:null, year:null},
+      defaultSelectedDateToday: true,
+      noPast: false
     };
     Object.extend(this.options, options || {});
   },
@@ -144,6 +153,10 @@ Simpltry.DatePicker.prototype = {
   },
   buildDates: function() {
     var today = new Date();
+    today.setSeconds(0);
+    today.setMilliseconds(0);
+    today.setMinutes(0);
+    today.setHours(0);
     var rows = [];
     var firstDate = new Date(this.year, this.month-1, 1);
     var currentRow = [];
@@ -161,12 +174,16 @@ Simpltry.DatePicker.prototype = {
       } else {
         td.addClassName(this.css.weekday);
       }
-      if(today.getDate() == date.getDate() && today.getMonth() == date.getMonth() && today.getFullYear() == date.getFullYear()) td.addClassName(this.css.today);
+      if(today.valueOf() == date.valueOf()) td.addClassName(this.css.today);
       if(this.options.selectedDate.day && this.options.selectedDate.day == date.getDate() && this.options.selectedDate.month == date.getMonth() + 1 && this.options.selectedDate.year == date.getFullYear()) {
         td.addClassName(this.css.selected);
         this.selectedCell = td;
       }
-      td.observe("click", this.tdClick.bindAsEventListener(this, date));
+      
+      if(!this.options.noPast || today.valueOf() <= date.valueOf()) {
+        td.addClassName(this.css.selectable);
+        td.observe("click", this.tdClick.bindAsEventListener(this, date));
+      }
       currentRow.push(td);
       if(currentRow.length % 7 == 0) {
         rows.push(Builder.node("tr", {className: this.css.tableRow}, currentRow));
@@ -232,9 +249,15 @@ Simpltry.TimePicker.prototype = {
     this.container = $(container);
     this.setOptions(options);
     if(this.options.timeString) {
-      if(matchParts = this.options.timeString.match(/^(\d{1,2}):(\d{2})(AM|PM)$/)) {
+      if(matchParts = this.options.timeString.strip().match(/^(\d{1,2}):(\d{2})(AM|PM)$/)) {
         this.options.selectedTime.hour = matchParts[1];
-        this.options.selectedTime.minute = matchParts[2];
+        this.options.selectedTime.minute = (parseInt((parseInt(matchParts[2]) + 4) / 5) * 5);
+        if(this.options.selectedTime.minute < 10) {
+          this.options.selectedTime.minute = "0" + this.options.selectedTime.minute;
+        } else {
+          this.options.selectedTime.minute = "" + this.options.selectedTime.minute;
+        }
+        
         this.options.selectedTime.amPm = matchParts[3];
       }
     }
@@ -329,6 +352,7 @@ Simpltry.buildDateField = function(element, options) {
   });
 };
 Simpltry.buildDateTimeField = function(element, options) {
+  options = options || {};
   element.autoComplete = "false";
   var dateParts = element.value.split(/ at /);
   var datePart = dateParts[0];
@@ -353,7 +377,8 @@ Simpltry.buildDateTimeField = function(element, options) {
       }
       element.value = month + "/" + day + "/" + year + currentTimeString;
     },
-    dateString: datePart
+    dateString: datePart,
+    noPast: options.noPast
   });
   var tp = new Simpltry.TimePicker(timeDiv, {
     timeString: timePart,

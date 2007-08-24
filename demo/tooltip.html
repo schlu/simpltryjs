@@ -50,12 +50,27 @@
         <h2>simpltry_widget="click_tooltip"</h2>
         <p>Sometimes all you need is a simple text only tooltip.  Then it is much simpler to pass the option "tooltipText".  This will create the necessary html at load time.  If you choose to go this route you can style the toolip with the class "simpltryTooltip".  This example also demonstrates that you can choose which direction you want your tooltip to display (currently only right and below are supported), if you choose right and your anchor is a block level element you will really need to specify a width on your anchor or else you tooltip will not display anywhere near your anchor</p>
 	    <p class="anchor" style="width:10em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text', direction:'right'">adhock tooltip anchor</p>
-        <div class="code">
-        <p>example markup:</p>
+    <div class="code">
+      <p>example markup:</p>
 <code><pre>
-&lt;p id="anchor" style="width:9em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text'">adhock tooltip anchor&lt;/p>
+&lt;p id="anchor" style="width:9em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text'">
+  adhock tooltip anchor
+&lt;/p>
 </code></pre>
-        </div>
+    </div>
+    <h2>relative: "cursor"</h2>
+    <p>By default the tooltips show up relative to the anchor. You can use the relative option to make the tooltip popup under the cursor.</p>
+    <p class="anchor" style="width:10em;" simpltry_widget="click_tooltip" simpltry_options="tooltipText: 'this is adhock text',relative:'cursor',offsetLeft:7">adhock tooltip anchor</p>
+<div class="code">
+  <p>example markup:</p>
+<code><pre>
+&lt;p id="anchor" style="width:9em;" simpltry_widget="click_tooltip" 
+          simpltry_options="tooltipText: 'this is adhock text',relative:'cursor',offsetLeft:7">
+  adhock tooltip anchor
+&lt;/p>
+</code></pre>
+</div>
+    
 		<div id="footer">
     		<p>From the writers of <a href="http://dcrails.com/">dcrails</a> | <a href="http://www.captureimportant.info">sidewalk</a></p>
     		<dl>

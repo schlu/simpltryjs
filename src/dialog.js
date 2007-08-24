@@ -187,9 +187,10 @@ Simpltry.Dialog.Ajax = Class.create();
 Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base.prototype),
 	{
 		setup:function(options, buttons) {
-		    options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
+		  options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
 			this.options = Object.extend({
-				additionalText: "loading . . . "
+				additionalText: "loading . . . ",
+				method: "get"
 			}, options);
 			this.options.makeDraggable = false;
 			this.options.displayTitle = false;
@@ -211,7 +212,8 @@ Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base
 			new Ajax.Updater('ajaxUpdateLayer', this.options.url, {
 				onComplete: function() {Element.remove($('dialogLoadingLayer'));this.positionDialog();}.bind(this),
 				evalScripts: true,
-				method: "get"
+				parameters: this.options.parameters,
+				method: this.options.method
 			});
 		}
 	});

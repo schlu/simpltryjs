@@ -5,67 +5,86 @@ Simpltry Widgets is freely distributable under the terms of an MIT-style license
 For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-	Prototype: 1.5.1+
-	Simpltry
-		-window_properties.js
+  Prototype: 1.5.1+
+  Simpltry
+    -window_properties.js
 */
 if(!Simpltry) var Simpltry = {};
 Simpltry.BaseTooltip = {};
 Simpltry.BaseTooltip.DefaultOptions  = {
-	offsetLeft: 0,
-	offsetTop: 0,
-	direction: "below",
-	toggle: true
+  offsetLeft: 0,
+  offsetTop: 0,
+  direction: "below",
+  toggle: true,
+  relative: "anchor"
 };
 Simpltry.BaseTooltip.prototype = {
-	initialize: function(element, options) {
-		this.setOptions(options);
-		this.element = $(element);
-		if(this.options.tooltip) {
-		    this.popup = $(this.options.tooltip);
-		} else {
-    		this.popup = $(this.element.id + '_tooltip');
-		}
-		this.setPopupPosition();
-		this.attachEvents();
-	},
-	setOptions: function(options) {
-		this.options = $H(Simpltry.BaseTooltip.DefaultOptions);
-		Object.extend(this.options, options || {});
-	},
-	setPopupPosition: function() {
-		var offset = Position.cumulativeOffset(this.element);
-		var leftPosition = 0;
-		var topPosition = 0;
-		if(this.options.direction == "right") {
-			leftPosition = offset[0] + this.element.clientWidth;
-			topPosition = offset[1];
-		} else if(this.options.direction == "below") {
-			leftPosition = offset[0];
-			topPosition = offset[1] + this.element.offsetHeight;
-		}
-		leftPosition += this.options.offsetLeft;
-		topPosition += this.options.offsetTop;
-		var distanceFromScreenRight = Simpltry.WindowProperties.getContentSize().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
-		if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
-		var distanceFromScreenTop = Simpltry.WindowProperties.getContentSize().height - (offset[1] + Element.getDimensions(this.popup).height + 8);
-		if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
-		Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
-	},
-	attachEvents: Prototype.emptyFunction,
-	display: function() {
-	    this.setPopupPosition();
-		this.popup.show();
-	},
-	close: function() {
-		this.popup.hide();
-	}
+  initialize: function(element, options) {
+    this.setOptions(options);
+    this.element = $(element);
+    if(this.options.tooltip) {
+        this.popup = $(this.options.tooltip);
+    } else {
+        this.popup = $(this.element.id + '_tooltip');
+    }
+    this.setPopupPosition();
+    $$("body")[0].appendChild(this.popup);
+    this.attachEvents();
+    if(this.options.relative == "cursor") {
+      Event.observe(document, "mousemove", this.setMouse.bindAsEventListener(this));
+    }
+  },
+  setOptions: function(options) {
+    this.options = $H(Simpltry.BaseTooltip.DefaultOptions);
+    Object.extend(this.options, options || {});
+  },
+  setPopupPosition: function() {
+    var offset = Position.cumulativeOffset(this.element);
+    var leftPosition = 0;
+    var topPosition = 0;
+    var elementDimentions = this.element.getDimensions();
+    if(this.options.relative == "anchor") {
+      if(this.options.direction == "right") {
+        leftPosition = offset[0] + elementDimentions.width;
+        topPosition = offset[1];
+      } else if(this.options.direction == "below") {
+        leftPosition = offset[0];
+        topPosition = offset[1] + elementDimentions.height;
+      }
+    } else if(this.options.relative == "cursor") {
+      if(this.lastX && this.lastY) {
+        leftPosition = this.lastX;
+        topPosition = this.lastY;
+      }
+    }
+    leftPosition += this.options.offsetLeft;
+    topPosition += this.options.offsetTop;
+    var distanceFromScreenRight = Simpltry.WindowProperties.getContentSize().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
+    if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
+    var distanceFromScreenTop = Simpltry.WindowProperties.getContentSize().height - (offset[1] + Element.getDimensions(this.popup).height + 8);
+    if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
+    Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
+    
+  },
+  attachEvents: Prototype.emptyFunction,
+  display: function() {
+    this.setPopupPosition();
+    this.popup.show();
+  },
+  close: function() {
+    this.popup.hide();
+  },
+  setMouse: function(event) {
+    this.lastX = Event.pointerX(event);
+    this.lastY = Event.pointerY(event);
+  }
 };
 Simpltry.ClickTooltip = Class.create();
 Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
-	attachEvents: function() {
-		this.element.onclick = this.onClick.bind(this);
-	},
+  attachEvents: function() {
+    $(this.element).observe("click", this.onClick.bind(this));
+    Event.observe($$("body")[0], "click", this.blurIfNotTooltip.bindAsEventListener(this));
+  },
   onClick: function(event) {
     if(this.options.toggle) {
       if(this.popup.visible()) {
@@ -76,39 +95,45 @@ Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseToolti
     } else {
       this.display();
     }
+  },
+  blurIfNotTooltip: function(event) {
+    var clicked = Event.element(event);
+    if(this.popup.visible() && clicked != this.element && clicked != this.popup && !clicked.descendantOf(this.popup) && !clicked.descendantOf(this.element)) {
+      this.close();
+    }
   }
 });
 
 Simpltry.MouseoverTooltip = Class.create();
 Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
-	attachEvents: function() {
-		this.element.onmouseover = this.elementMouseOver.bindAsEventListener(this);
-		this.element.onmouseout = this.elementMouseOut.bindAsEventListener(this);
-		this.popup.onmouseover = this.popupMouseOver.bindAsEventListener(this);
-		this.popup.onmouseout = this.popupMouseOut.bindAsEventListener(this);
-	},
-	elementMouseOver: function(e) {
-		this.element.addClassName('toolTipMouseOver');
-		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
-	},
-	popupMouseOver: function(e) {
-		this.popup.addClassName('toolTipMouseOver');
-		setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
-	},
-	elementMouseOut: function(e) {
-		this.element.removeClassName('toolTipMouseOver');
-		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
-	},
-	popupMouseOut: function(e) {
-		this.popup.removeClassName('toolTipMouseOver');
-		setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
-	},
-	checkMouseOut: function() {
-		if(!this.popup.hasClassName('toolTipMouseOver') && !this.element.hasClassName('toolTipMouseOver')) this.close();
-	},
-	checkMouseOver: function() {
-		if(this.popup.hasClassName('toolTipMouseOver') || this.element.hasClassName('toolTipMouseOver')) this.display();
-	}
+  attachEvents: function() {
+    this.element.onmouseover = this.elementMouseOver.bindAsEventListener(this);
+    this.element.onmouseout = this.elementMouseOut.bindAsEventListener(this);
+    this.popup.onmouseover = this.popupMouseOver.bindAsEventListener(this);
+    this.popup.onmouseout = this.popupMouseOut.bindAsEventListener(this);
+  },
+  elementMouseOver: function(e) {
+    this.element.addClassName('toolTipMouseOver');
+    setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
+  },
+  popupMouseOver: function(e) {
+    this.popup.addClassName('toolTipMouseOver');
+    setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
+  },
+  elementMouseOut: function(e) {
+    this.element.removeClassName('toolTipMouseOver');
+    setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
+  },
+  popupMouseOut: function(e) {
+    this.popup.removeClassName('toolTipMouseOver');
+    setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
+  },
+  checkMouseOut: function() {
+    if(!this.popup.hasClassName('toolTipMouseOver') && !this.element.hasClassName('toolTipMouseOver')) this.close();
+  },
+  checkMouseOver: function() {
+    if(!this.popup.visible() && (this.popup.hasClassName('toolTipMouseOver') || this.element.hasClassName('toolTipMouseOver'))) this.display();
+  }
 });
 
 Simpltry.BaseTooltip.setupWidget = function(element, options) {
