@@ -22,10 +22,11 @@ Simpltry.Dialog.State = {
 	hasActiveDialogs: function() {return Simpltry.Dialog.State.activeDialog.length > 0;},
 	highestIndex: 1000,
 	highestId: 0,
-    setOpaqueSize: function() {
-        var contentSize = Simpltry.WindowProperties.getContentSize(Simpltry.Dialog.State.opaqueDialog);
-        Element.setStyle(Simpltry.Dialog.State.opaqueDialog, {width: contentSize.width + "px", height: contentSize.height + "px"});
-    }
+  setOpaqueSize: function() {
+    var contentSize = Simpltry.WindowProperties.getContentSize(Simpltry.Dialog.State.opaqueDialog);
+    Element.setStyle(Simpltry.Dialog.State.opaqueDialog, {width: (contentSize.width-15) + "px", height: contentSize.height + "px"});
+    Simpltry.Dialog.State.opaqueDialog.setStyle({top: document.viewport.getScrollOffsets().top + "px"});
+  }
 };
 Simpltry.Dialog.css = {
 	title: "simpltryDialogTitle",
@@ -43,8 +44,7 @@ Simpltry.Dialog.DefaultOptions = {
 
 Simpltry.Dialog.removeAll = function() {Simpltry.Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog();});};
 
-Simpltry.Dialog.Button = Class.create();
-Simpltry.Dialog.Button.prototype = {
+Simpltry.Dialog.Button = Class.create({
 	initialize: function(buttonText, dialogBox, options) {
 		this.options = Object.extend({onClick: Prototype.emptyFunction}, options || {});
 		this.element = document.createElement('input');
@@ -52,13 +52,12 @@ Simpltry.Dialog.Button.prototype = {
 		this.element.value = buttonText;
 		this.element.onclick = function(event) {this.options.onClick(event);dialogBox.removeDialog();return false;}.bindAsEventListener(this);
 	}
-};
-Simpltry.Dialog.Base = {};
-Simpltry.Dialog.Base.prototype = {
-    initialize: function(options, buttons){
-        this.setup(options, buttons);
-        this.show();
-    },
+});
+Simpltry.Dialog.Base = Class.create({
+  initialize: function(options, buttons){
+    this.options = Object.extend(Object.clone(Simpltry.Dialog.DefaultOptions), options || {});
+      this.show();
+  },
 	_show: Prototype.emptyFunction,
 	onDisplay: Prototype.emptyFunction,
 	show: function() {
@@ -68,7 +67,6 @@ Simpltry.Dialog.Base.prototype = {
 			$(opaqueLayer);
 			Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
 			Element.setStyle(opaqueLayer, {position: "absolute", top:"0", left:"0", display: "block", zIndex: 1000, background: "#fff"});
-			Simpltry.Dialog.State.setOpaqueSize();
 			opaqueLayer.id = "dialog_opaque_layer";
 			Element.setOpacity(opaqueLayer, this.options.opacity);
 			document.body.appendChild(opaqueLayer);
@@ -81,7 +79,7 @@ Simpltry.Dialog.Base.prototype = {
 		$(this.dialogLayer);
 		this.dialogLayer.addClassName("dialog");
 		Element.setStyle(this.dialogLayer, {position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
-		var browserSize = Simpltry.WindowProperties.getBrowserSize();
+		var browserSize = document.viewport.getDimensions();
 		if(typeof(this.options.width) == 'number') {
 			this.dialogLayer.style.width = this.options.width + "px";
 		} else {
@@ -118,7 +116,7 @@ Simpltry.Dialog.Base.prototype = {
 		}
 		Event.observe(document, "keypress", this.onKeyPress.bindAsEventListener(this), false);
 		Event.observe(window, "keypress", this.onKeyPress.bindAsEventListener(this), false);
-		if(this.options.repositionOnScroll) Event.observe(window, "scroll", this.onScroll.bindAsEventListener(this), false);
+		if(this.options.repositionOnScroll) Event.observe(window, "scroll", this.onScroll.bindAsEventListener(this));
 		var inputs = $A(this.dialogLayer.getElementsByTagName('input'));
 		if(inputs.length > 0 && !inputs[0].disabled) inputs.first().focus();
 		this.isRemoved = false;
@@ -126,15 +124,16 @@ Simpltry.Dialog.Base.prototype = {
 		this.onDisplay();
 	},
 	positionDialog: function() {
+		Simpltry.Dialog.State.setOpaqueSize();
 		var dims = this.dialogLayer.getDimensions();
 		if(!this.dims || dims.width != this.dims.width || dims.height != this.dims.height) {
 			this.dims = dims;
-			var browserSize = Simpltry.WindowProperties.getBrowserSize();
+			var browserSize = document.viewport.getDimensions();
 			this.topOffset = (browserSize.height / 2) - (this.dims.height / 2);
 			this.leftOffset = (browserSize.width / 2) - (this.dims.width / 2);
 		}
-		this.dialogLayer.style.top = (Simpltry.WindowProperties.getVerticalScroll() + this.topOffset) + "px";
-		this.dialogLayer.style.left = (Simpltry.WindowProperties.getHorizontalScroll() + this.leftOffset) + "px";
+		this.dialogLayer.style.top = (document.viewport.getScrollOffsets().top + this.topOffset) + "px";
+		this.dialogLayer.style.left = (document.viewport.getScrollOffsets().left + this.leftOffset) + "px";
 	},
 	onKeyPress: function(event) {
 		if(event.keyCode == Event.KEY_ESC && !this.isRemoved) {
@@ -166,10 +165,10 @@ Simpltry.Dialog.Base.prototype = {
 	},
 	setOffset: function() {
 		var offset = Position.positionedOffset(this.dialogLayer);
-		this.leftOffset = offset[0] - Simpltry.WindowProperties.getHorizontalScroll();
-		this.topOffset = offset[1] - Simpltry.WindowProperties.getVerticalScroll();
+		this.leftOffset = offset[0] - document.viewport.getScrollOffsets().left;
+		this.topOffset = offset[1] - document.viewport.getScrollOffsets().top;
 		var reposition = false;
-		var browserSize = Simpltry.WindowProperties.getBrowserSize();
+		var browserSize = document.viewport.getDimensions();
 		if((this.topOffset + this.dialogLayer.getDimensions().height + 20) > browserSize.height) {
 			this.topOffset -= (this.topOffset + this.dialogLayer.getDimensions().height) - (browserSize.height - 20);
 			reposition = true;
@@ -181,20 +180,19 @@ Simpltry.Dialog.Base.prototype = {
 		
 		if(reposition) this.positionDialog();
 	}
-};
+});
 
-Simpltry.Dialog.Ajax = Class.create();
-Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base.prototype),
+Simpltry.Dialog.Ajax = Class.create(Simpltry.Dialog.Base, 
 	{
-		setup:function(options, buttons) {
-		  options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
+		initialize:function($super, options, buttons) {
 			this.options = Object.extend({
 				additionalText: "loading . . . ",
-				method: "get"
-			}, options);
-			this.options.makeDraggable = false;
-			this.options.displayTitle = false;
+				method: "get",
+				makeDraggable: false,
+				displayTitle: false
+			}, options || {});
 			this.buttons = buttons || [];
+			$super(this.options, buttons);
 		},
 		_show: function(){
 			var additionalTextLayer = document.createElement('div');
@@ -218,17 +216,16 @@ Object.extend(Object.extend(Simpltry.Dialog.Ajax.prototype, Simpltry.Dialog.Base
 		}
 	});
 
-Simpltry.Dialog.Confirm = Class.create();
-Object.extend(Object.extend(Simpltry.Dialog.Confirm.prototype, Simpltry.Dialog.Base.prototype), {
-	setup: function(options, buttons) {
-		options = Object.extend(Object.extend({},Simpltry.Dialog.DefaultOptions), options || {});
+Simpltry.Dialog.Confirm = Class.create(Simpltry.Dialog.Base, {
+	initialize: function($super, options, buttons) {
 		this.options = Object.extend({
 			additionalText: null
-		}, options);
+		}, options || {});
 		this.buttons = [];
 		(buttons || []).each(function(button) {
 			this.addButton(button.text || "ok", button);
 		}.bind(this));
+		$super(this.options, buttons);
 	},
 	addButton: function(buttonText, options) {
 		var newButton = new Simpltry.Dialog.Button(buttonText, this, options);
@@ -249,7 +246,6 @@ Object.extend(Object.extend(Simpltry.Dialog.Confirm.prototype, Simpltry.Dialog.B
 		this.buttons.each(function(currentButton) { buttonLayer.appendChild(currentButton.element); } );
 		this.dialogLayer.appendChild(buttonLayer);
 	}
-	
 });
 
 Simpltry.Dialog.Alert = function(alertText, options) {

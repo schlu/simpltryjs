@@ -10,15 +10,15 @@ Dependencies:
     -window_properties.js
 */
 if(!Simpltry) var Simpltry = {};
-Simpltry.BaseTooltip = {};
-Simpltry.BaseTooltip.DefaultOptions  = {
+Simpltry.Tooltip = {};
+Simpltry.Tooltip.DefaultOptions  = {
   offsetLeft: 0,
   offsetTop: 0,
   direction: "below",
   toggle: true,
   relative: "anchor"
 };
-Simpltry.BaseTooltip.prototype = {
+Simpltry.Tooltip.Base = Class.create({
   initialize: function(element, options) {
     this.setOptions(options);
     this.element = $(element);
@@ -35,7 +35,7 @@ Simpltry.BaseTooltip.prototype = {
     }
   },
   setOptions: function(options) {
-    this.options = $H(Simpltry.BaseTooltip.DefaultOptions);
+    this.options = Object.clone(Simpltry.Tooltip.DefaultOptions);
     Object.extend(this.options, options || {});
   },
   setPopupPosition: function() {
@@ -78,9 +78,8 @@ Simpltry.BaseTooltip.prototype = {
     this.lastX = Event.pointerX(event);
     this.lastY = Event.pointerY(event);
   }
-};
-Simpltry.ClickTooltip = Class.create();
-Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
+});
+Simpltry.ClickTooltip = Class.create(Simpltry.Tooltip.Base, {
   attachEvents: function() {
     $(this.element).observe("click", this.onClick.bind(this));
     Event.observe($$("body")[0], "click", this.blurIfNotTooltip.bindAsEventListener(this));
@@ -104,8 +103,7 @@ Object.extend(Object.extend(Simpltry.ClickTooltip.prototype, Simpltry.BaseToolti
   }
 });
 
-Simpltry.MouseoverTooltip = Class.create();
-Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTooltip.prototype),  {
+Simpltry.MouseoverTooltip = Class.create(Simpltry.Tooltip.Base, {
   attachEvents: function() {
     this.element.onmouseover = this.elementMouseOver.bindAsEventListener(this);
     this.element.onmouseout = this.elementMouseOut.bindAsEventListener(this);
@@ -136,7 +134,7 @@ Object.extend(Object.extend(Simpltry.MouseoverTooltip.prototype, Simpltry.BaseTo
   }
 });
 
-Simpltry.BaseTooltip.setupWidget = function(element, options) {
+Simpltry.Tooltip.setupWidget = function(element, options) {
   element = $(element);
   if(options['tooltipText']) {
     var tooltip = Builder.node('div', {className:"simpltryTooltip"}, options['tooltipText']);
@@ -152,11 +150,11 @@ Simpltry.BaseTooltip.setupWidget = function(element, options) {
 
 if(Simpltry.Widgets) {
   Simpltry.Widgets.register("mouseover_tooltip", function(element, options) {
-    Simpltry.BaseTooltip.setupWidget(element, options);
+    Simpltry.Tooltip.setupWidget(element, options);
     new Simpltry.MouseoverTooltip(element, options);
   });
   Simpltry.Widgets.register("click_tooltip", function(element, options) {
-    Simpltry.BaseTooltip.setupWidget(element, options);
+    Simpltry.Tooltip.setupWidget(element, options);
     new Simpltry.ClickTooltip(element, options);
   });
 }
