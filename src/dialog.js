@@ -5,8 +5,8 @@ Simpltry Widgets is freely distributable under the terms of an MIT-style license
 For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-	Prototype: 1.5.1+
-	script.aculo.us: 1.7.1 b3+
+	Prototype: 1.6.0_rc1+
+  script.aculo.us: 1.8.0_pre1+
 		-effects
 		-dragdrop
 	Simpltry
@@ -56,7 +56,7 @@ Simpltry.Dialog.Button = Class.create({
 Simpltry.Dialog.Base = Class.create({
   initialize: function(options, buttons){
     this.options = Object.extend(Object.clone(Simpltry.Dialog.DefaultOptions), options || {});
-      this.show();
+    this.show();
   },
 	_show: Prototype.emptyFunction,
 	onDisplay: Prototype.emptyFunction,
@@ -66,10 +66,10 @@ Simpltry.Dialog.Base = Class.create({
 			var opaqueLayer = document.createElement('div');
 			$(opaqueLayer);
 			Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
-			Element.setStyle(opaqueLayer, {position: "absolute", top:"0", left:"0", display: "block", zIndex: 1000, background: "#fff"});
-			opaqueLayer.id = "dialog_opaque_layer";
-			Element.setOpacity(opaqueLayer, this.options.opacity);
 			document.body.appendChild(opaqueLayer);
+			opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", display: "block", zIndex: 1000, background: "#fff", opacity: 0});
+			opaqueLayer.id = "dialog_opaque_layer";
+      new Effect.Opacity(opaqueLayer, {to: this.options.opacity, from: 0, duration: .5});
 			$$('select').each(Element.hide);
 			Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize, false);
 		}
@@ -103,7 +103,6 @@ Simpltry.Dialog.Base = Class.create({
 			titleLayer.appendChild(document.createTextNode(this.options.title));
 			this.dialogLayer.appendChild(titleLayer);
 		}
-		
 		this._show();
 		
 		document.body.appendChild(this.dialogLayer);

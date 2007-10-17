@@ -5,17 +5,17 @@ Simpltry Widgets is freely distributable under the terms of an MIT-style license
 For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-	Prototype: 1.5.1+
-	script.aculo.us
+	Prototype: 1.6.0_rc1+
+  script.aculo.us: 1.8.0_pre1+
 	    -builder
 	simpltry
 	    -tooltip
 */
 
 if(!Simpltry) var Simpltry = {};
-Simpltry.DataGrid = Class.create();
 
-Simpltry.DataGrid.css = {
+Simpltry.DataGrid = Class.create({
+  css: {
     dataGrid: "simpltryDataGrid",
     headerRow: "simpltryDataGridHeaderRow",
     headerCell: "simpltryDataGridHeaderCell",
@@ -26,18 +26,15 @@ Simpltry.DataGrid.css = {
     sorted: "simpltryDataGridSorted",
     sortedReverse: "simpltryDataGridSortedReverse",
     headerControl: "simpltryDataGridHeaderControl"
-};
-
-Simpltry.DataGrid.DefaultOptions = {
-    beforeEachRow: Prototype.emptyFunction,
-    afterEachRow: Prototype.emptyFunction,
-    beforeHeaderRow: Prototype.emptyFunction,
-    afterHeaderRow: Prototype.emptyFunction,
-    beforeFooterRow: Prototype.emptyFunction,
-    afterFooterRow: Prototype.emptyFunction
-};
-
-Simpltry.DataGrid.prototype = {
+  },
+  DefaultOptions: {
+      beforeEachRow: Prototype.emptyFunction,
+      afterEachRow: Prototype.emptyFunction,
+      beforeHeaderRow: Prototype.emptyFunction,
+      afterHeaderRow: Prototype.emptyFunction,
+      beforeFooterRow: Prototype.emptyFunction,
+      afterFooterRow: Prototype.emptyFunction
+  },
 	initialize: function(container, data, options) {
 		this.container = $(container);
 		this.data = data || {};
@@ -65,8 +62,7 @@ Simpltry.DataGrid.prototype = {
 		}
 	},
 	setOptions: function(options) {
-		this.options = $H(Simpltry.DataGrid.DefaultOptions);
-		Object.extend(this.options, options || {});
+		this.options = Object.extend(Object.clone(this.DefaultOptions), options || {});
 	},
 	resetDefaults: function(){
     	this.sortedBy = null;
@@ -76,17 +72,17 @@ Simpltry.DataGrid.prototype = {
 	
 	buildThead: function(headers){
 	    var thead = Builder.node('thead');
-	    var tr = Builder.node('tr', {className: Simpltry.DataGrid.css.headerRow});
+	    var tr = Builder.node('tr', {className: this.css.headerRow});
 	    this.options.beforeHeaderRow(tr);
 	    headers.each(function(header, i) {
 	        if(!this.removedColumns[i]) {
-    	        var th = Builder.node("th", {className: Simpltry.DataGrid.css.headerCell}, [header]);
+    	        var th = Builder.node("th", {className: this.css.headerCell}, [header]);
     	        if(this.sortedBy == i) {
     	            th = $(th);
     	            if(this.sortedReverse) {
-    	                th.addClassName(Simpltry.DataGrid.css.sortedReverse);
+    	                th.addClassName(this.css.sortedReverse);
     	            } else {
-    	                th.addClassName(Simpltry.DataGrid.css.sorted);
+    	                th.addClassName(this.css.sorted);
     	            }
     	        }
     	        th.onclick = this.sort.bind(this,i, (this.sortedBy == i && !this.sortedReverse));
@@ -101,7 +97,7 @@ Simpltry.DataGrid.prototype = {
 	buildTbody: function(rows) {
 	    var tbody = Builder.node('tbody');
 	    rows.each(function(row,i) {
-	        var tr = Builder.node('tr', {className: Simpltry.DataGrid.css.dataRow + " " + (i%2 != 0 ? Simpltry.DataGrid.css.evenRow : Simpltry.DataGrid.css.oddRow)});
+	        var tr = Builder.node('tr', {className: this.css.dataRow + " " + (i%2 != 0 ? this.css.evenRow : this.css.oddRow)});
 	        this.options.beforeEachRow(tr, i);
 	        row.each(function(cell, k) {
 	            if(!this.removedColumns[k]) {
@@ -112,7 +108,7 @@ Simpltry.DataGrid.prototype = {
 	        this.options.afterEachRow(tr, i);
 	        tbody.appendChild(tr);
 	        if(this.groupedBy != null && rows.length > i + 1 && rows[i][this.groupedBy] != rows[i+1][this.groupedBy]) {
-	            var padRow = Builder.node('tr', {className: Simpltry.DataGrid.css.paddingRow}, [$A(tr.childNodes).collect(function(cell) {return Builder.node('td', {}, [' ']);})]);
+	            var padRow = Builder.node('tr', {className: this.css.paddingRow}, [$A(tr.childNodes).collect(function(cell) {return Builder.node('td', {}, [' ']);})]);
 	            tbody.appendChild(padRow);
 	        }
 		}.bind(this));
@@ -205,9 +201,9 @@ Simpltry.DataGrid.prototype = {
                 displayedCols.push(i);
             }
         }.bind(this));
-        $$("#" + this.container.id + " ." + Simpltry.DataGrid.css.headerRow + " th." + Simpltry.DataGrid.css.headerCell).each(function(header, i) {
+        $$("#" + this.container.id + " ." + this.css.headerRow + " th." + this.css.headerCell).each(function(header, i) {
             if(header.id == null || header.id == "") header.id = this.container.id + "_header" + i;
-            var headerControl = Builder.node("div", {className: Simpltry.DataGrid.css.headerControl, style: "display:none"});
+            var headerControl = Builder.node("div", {className: this.css.headerControl, style: "display:none"});
             headerControl.id = header.id + "_tooltip";
             var ul = Builder.node("ul");
             var groupLi = Builder.node("li", {}, ['group by']);
@@ -231,7 +227,7 @@ Simpltry.DataGrid.prototype = {
     },
     
     removeHeaderControls: function(){
-        $$("#" + this.container.id + " ." + Simpltry.DataGrid.css.headerRow + " th").each(function(header, i) {
+        $$("#" + this.container.id + " ." + this.css.headerRow + " th").each(function(header, i) {
             var popup = $(header.id + "_tooltip");
             if(popup) {
                 popup.remove();
@@ -242,7 +238,7 @@ Simpltry.DataGrid.prototype = {
 	render: function() {
 	    this.removeHeaderControls();
 		this.container.innerHTML = '';
-		var table = Builder.node('table', {cellspacing:"0", cellpadding:"0", className:Simpltry.DataGrid.css.dataGrid});
+		var table = Builder.node('table', {cellspacing:"0", cellpadding:"0", className:this.css.dataGrid});
 		table.appendChild(this.buildThead(this.data.headers));
 		table.appendChild(this.buildTbody(this.data.rows));
 		var footer = this.buildTfoot(this.footerData);
@@ -253,7 +249,7 @@ Simpltry.DataGrid.prototype = {
 		this.addHeaderControls();
 	}
 	
-};
+});
 
 if(Simpltry.Widgets) {
     Simpltry.Widgets.register('grid', function(element, options) {

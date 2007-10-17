@@ -5,19 +5,19 @@ Simpltry Widgets is freely distributable under the terms of an MIT-style license
 For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-	Prototype: 1.5.1+
+	Prototype: 1.6.0_rc1+
+  script.aculo.us: 1.8.0_pre1+
 */
 if(!Simpltry) var Simpltry = {};
-Simpltry.RatingControl = Class.create();
-Simpltry.RatingControl.DefaultOptions = {
+Simpltry.RatingControlDefaultOptions = {
 	onSelect: Prototype.emptyFunction,
 	selected: null
 };
-Object.extend(Simpltry.RatingControl.prototype, {
+Simpltry.RatingControl = Class.create({
 	initialize: function(container, options) {
 		this.setOptions(options);
 		this.container = $(container);
-		this.ratings = $H();
+		this.ratings = {};
 		var i = 1;
 		$A(this.container.childNodes).each(function(child) {
 			if(child.tagName) {
@@ -26,23 +26,23 @@ Object.extend(Simpltry.RatingControl.prototype, {
 				return;
 			}
 		}.bind(this));
+		this.ratingsHash = $H(this.ratings);
 		this.attachEvents();
 		if(this.options.selected) {
 		    this.markUpTo(this.ratings[this.options.selected]);
 		}
 	},
 	setOptions: function(options) {
-		this.options = $H(Simpltry.RatingControl.DefaultOptions);
-		Object.extend(this.options, options || {});
+		this.options = Object.extend(Object.clone(Simpltry.RatingControlDefaultOptions), options || {});
 	},
 	attachEvents: function() {
-		this.ratings.values().each(function(rating){
+		this.ratingsHash.values().each(function(rating){
 			rating.onmouseover = this.mouseOver.bindAsEventListener(this);
 		}.bind(this));
-		this.ratings.values().each(function(rating){
+		this.ratingsHash.values().each(function(rating){
 			rating.onmouseout = this.mouseOut.bindAsEventListener(this);
 		}.bind(this));
-		this.ratings.values().each(function(rating, i) {
+		this.ratingsHash.values().each(function(rating, i) {
 			rating.onclick = function(event) {
 				this.options.selected = i + 1;
 				this.options.onSelect(i + 1);
@@ -55,7 +55,7 @@ Object.extend(Simpltry.RatingControl.prototype, {
 	},
 	markUpTo: function(element) {
 	    this.clear(false);
-		$R(1,this.ratings.keys().length, false).each(function(r){
+		$R(1,this.ratingsHash.keys().length, false).each(function(r){
 			this.ratings[r].addClassName("simpltryRatingControlHighlight");
 			if(this.ratings[r] == element) {
 				throw $break;
@@ -66,7 +66,7 @@ Object.extend(Simpltry.RatingControl.prototype, {
 		this.clear(true);
 	},
 	clear: function(preserveSelected) {
-		$R(1,this.ratings.keys().length, false).each(function(r){
+		$R(1,this.ratingsHash.keys().length, false).each(function(r){
 			if(preserveSelected) {
 				if((!this.options.selected || this.options.selected < r)) {
 					this.ratings[r].removeClassName("simpltryRatingControlHighlight");	
@@ -82,6 +82,6 @@ Object.extend(Simpltry.RatingControl.prototype, {
 
 if(Simpltry.Widgets) {
     Simpltry.Widgets.register('rating', function(element, options) {
-        new Simpltry.RatingControl(element.id, options);
+        new Simpltry.RatingControl(element, options);
     });
 }

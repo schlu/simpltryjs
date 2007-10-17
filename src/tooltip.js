@@ -5,7 +5,8 @@ Simpltry Widgets is freely distributable under the terms of an MIT-style license
 For details, see the MIT-LICENSE file in the distribution
 
 Dependencies: 
-  Prototype: 1.5.1+
+  Prototype: 1.6.0_rc1+
+  script.aculo.us: 1.8.0_pre1+
   Simpltry
     -window_properties.js
 */
