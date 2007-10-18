@@ -83,7 +83,7 @@ Simpltry.Tooltip.Base = Class.create({
 Simpltry.ClickTooltip = Class.create(Simpltry.Tooltip.Base, {
   attachEvents: function() {
     $(this.element).observe("click", this.onClick.bind(this));
-    Event.observe($$("body")[0], "click", this.blurIfNotTooltip.bindAsEventListener(this));
+    document.body.observe("click", this.blurIfNotTooltip.bindAsEventListener(this));
   },
   onClick: function(event) {
     if(this.options.toggle) {
