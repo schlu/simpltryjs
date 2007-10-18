@@ -106,26 +106,26 @@ Simpltry.ClickTooltip = Class.create(Simpltry.Tooltip.Base, {
 
 Simpltry.MouseoverTooltip = Class.create(Simpltry.Tooltip.Base, {
   attachEvents: function() {
-    this.element.onmouseover = this.elementMouseOver.bindAsEventListener(this);
-    this.element.onmouseout = this.elementMouseOut.bindAsEventListener(this);
-    this.popup.onmouseover = this.popupMouseOver.bindAsEventListener(this);
-    this.popup.onmouseout = this.popupMouseOut.bindAsEventListener(this);
+    this.element.observe("mouseover", this.elementMouseOver.bindAsEventListener(this));
+    this.element.observe("mouseout", this.elementMouseOut.bindAsEventListener(this));
+    this.popup.observe("mouseover", this.popupMouseOver.bindAsEventListener(this));
+    this.popup.observe("mouseout", this.popupMouseOut.bindAsEventListener(this));
   },
   elementMouseOver: function(e) {
     this.element.addClassName('toolTipMouseOver');
-    setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
+    this.checkMouseOver.bind(this).delay(.25);
   },
   popupMouseOver: function(e) {
     this.popup.addClassName('toolTipMouseOver');
-    setTimeout(this.checkMouseOver.bindAsEventListener(this), 250);
+    this.checkMouseOver.bind(this).delay(.25);
   },
   elementMouseOut: function(e) {
     this.element.removeClassName('toolTipMouseOver');
-    setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
+    this.checkMouseOut.bind(this).delay(.25);
   },
   popupMouseOut: function(e) {
     this.popup.removeClassName('toolTipMouseOver');
-    setTimeout(this.checkMouseOut.bindAsEventListener(this), 250);
+    this.checkMouseOut.bind(this).delay(.25);
   },
   checkMouseOut: function() {
     if(!this.popup.hasClassName('toolTipMouseOver') && !this.element.hasClassName('toolTipMouseOver')) this.close();
