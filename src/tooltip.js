@@ -40,7 +40,7 @@ Simpltry.Tooltip.Base = Class.create({
     Object.extend(this.options, options || {});
   },
   setPopupPosition: function() {
-    var offset = Position.cumulativeOffset(this.element);
+    var offset = this.element.positionedOffset();
     var leftPosition = 0;
     var topPosition = 0;
     var elementDimentions = this.element.getDimensions();
@@ -60,9 +60,9 @@ Simpltry.Tooltip.Base = Class.create({
     }
     leftPosition += this.options.offsetLeft;
     topPosition += this.options.offsetTop;
-    var distanceFromScreenRight = Simpltry.WindowProperties.getContentSize().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
+    var distanceFromScreenRight = document.body.getDimensions().width - (offset[0] + Element.getDimensions(this.popup).width + 8);
     if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
-    var distanceFromScreenTop = Simpltry.WindowProperties.getContentSize().height - (offset[1] + Element.getDimensions(this.popup).height + 8);
+    var distanceFromScreenTop = document.body.getDimensions().height - (offset[1] + Element.getDimensions(this.popup).height + 8);
     if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
     Element.setStyle(this.popup, {position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
     

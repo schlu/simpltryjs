@@ -173,7 +173,7 @@ Simpltry.Dialog.Base = Class.create({
     }
   },
   setOffset: function() {
-    var offset = Position.positionedOffset(this.dialogLayer);
+    var offset = this.dialogLayer.positionedOffset();
     this.leftOffset = offset[0] - document.viewport.getScrollOffsets().left;
     this.topOffset = offset[1] - document.viewport.getScrollOffsets().top;
     var reposition = false;
