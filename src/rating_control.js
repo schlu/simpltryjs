@@ -18,13 +18,8 @@ Simpltry.RatingControl = Class.create({
 		this.setOptions(options);
 		this.container = $(container);
 		this.ratings = {};
-		var i = 1;
-		$A(this.container.childNodes).each(function(child) {
-			if(child.tagName) {
-				this.ratings[i++] = $(child);
-			} else {
-				return;
-			}
+		this.container.immediateDescendants().each(function(child, i) {
+				this.ratings[i + 1] = $(child);
 		}.bind(this));
 		this.attachEvents();
 		if(this.options.selected) {
@@ -35,22 +30,14 @@ Simpltry.RatingControl = Class.create({
 		this.options = Object.extend(Object.clone(this.DefaultOptions), options || {});
 	},
 	attachEvents: function() {
-		Object.values(this.ratings).each(function(rating){
+		Object.values(this.ratings).each(function(rating, i){
 			rating.observe("mouseover",this.mouseOver.bindAsEventListener(this));
-		}.bind(this));
-		Object.values(this.ratings).each(function(rating){
 		  rating.observe("mouseout",this.mouseOut.bindAsEventListener(this));
-		}.bind(this));
-		Object.values(this.ratings).each(function(rating, i) {
-			rating.onclick = function(event) {
-				this.options.selected = i + 1;
-				this.options.onSelect(i + 1);
-			}.bindAsEventListener(this);
+			rating.observe("click", this.onClick.bindAsEventListener(this, i));
 		}.bind(this));
 	},
 	mouseOver: function(event) {
-		var rating = Event.element(event);
-		this.markUpTo(rating);
+		this.markUpTo(event.element());
 	},
 	markUpTo: function(element) {
 	    this.clear(false);
@@ -63,6 +50,10 @@ Simpltry.RatingControl = Class.create({
 	},
 	mouseOut: function(event) {
 		this.clear(true);
+	},
+	onClick: function(event, i) {
+	  this.options.selected = i + 1;
+		this.options.onSelect(i + 1);
 	},
 	clear: function(preserveSelected) {
 		$R(1,Object.keys(this.ratings).length, false).each(function(r){
