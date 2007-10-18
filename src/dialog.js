@@ -84,11 +84,10 @@ Simpltry.Dialog.Base = Class.create({
     }
   },
   afterDim: function() {
-    this.dialogLayer = document.createElement('div');
+    this.dialogLayer = $(document.createElement('div'));
     this.dialogLayer.id = "dialog_layer" + this.id;
-    $(this.dialogLayer);
     this.dialogLayer.addClassName("dialog");
-    Element.setStyle(this.dialogLayer, {position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
+    this.dialogLayer.setStyle({position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
     var browserSize = document.viewport.getDimensions();
     if(typeof(this.options.width) == 'number') {
       this.dialogLayer.style.width = this.options.width + "px";
@@ -141,8 +140,10 @@ Simpltry.Dialog.Base = Class.create({
       this.topOffset = (browserSize.height / 2) - (this.dims.height / 2);
       this.leftOffset = (browserSize.width / 2) - (this.dims.width / 2);
     }
-    this.dialogLayer.style.top = (document.viewport.getScrollOffsets().top + this.topOffset) + "px";
-    this.dialogLayer.style.left = (document.viewport.getScrollOffsets().left + this.leftOffset) + "px";
+    this.dialogLayer.setStyle({
+      top: (document.viewport.getScrollOffsets().top + this.topOffset) + "px",
+      left: (document.viewport.getScrollOffsets().left + this.leftOffset) + "px"
+    });
   },
   onKeyPress: function(event) {
     if(event.keyCode == Event.KEY_ESC && !this.isRemoved) {

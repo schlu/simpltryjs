@@ -40,7 +40,7 @@ Simpltry.Tooltip.Base = Class.create({
     Object.extend(this.options, options || {});
   },
   setPopupPosition: function() {
-    var offset = this.element.positionedOffset();
+    var offset = this.element.cumulativeOffset();
     var leftPosition = 0;
     var topPosition = 0;
     var elementDimentions = this.element.getDimensions();
