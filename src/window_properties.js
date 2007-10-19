@@ -28,9 +28,12 @@ Simpltry.WindowProperties = {
     if(ignore) {
         ignore.hide();
     }
+    var bodyDims = $(document.body).getDimensions();
     var browserSize = document.viewport.getDimensions();
+    if(bodyDims.height > browserSize.height) browserSize.height = bodyDims.height;
+    if(bodyDims.width > browserSize.width) browserSize.width = bodyDims.width;
     if(ignore) {
-        ignore.show();
+        (function(){ignore.show();}).defer();
     }
     return browserSize;
   }
