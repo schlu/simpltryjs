@@ -41,8 +41,7 @@ Simpltry.Tooltip.Base = Class.create({
   },
   setPopupPosition: function() {
     var offset = this.element.cumulativeOffset();
-    var leftPosition = 0;
-    var topPosition = 0;
+    var leftPosition = topPosition = 0;
     var elementDimentions = this.element.getDimensions();
     if(this.options.relative == "anchor") {
       if(this.options.direction == "right") {

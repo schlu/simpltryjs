@@ -18,16 +18,6 @@ Simpltry.DateUtil = {
     var d = new Date(year, month, day);
     return d.getMonth() == month;
   },
-  getLastDay: function(year, month) {
-    month = month - 1;
-    var lastDate = new Date(year, month, 29);
-    $R(29, 31, false).each(function(day) {
-      if(Simpltry.DateUtil.isValidDate(year, month, day)) {
-        lastDate = new Date(year, month, day);
-      }
-    });
-    return lastDate;
-  },
   getDateObjects: function(year, month) {
     month = month - 1;
     return $R(1, 31, false).collect(function(day) {
@@ -40,35 +30,33 @@ Simpltry.DateUtil = {
   }
 };
 
-Simpltry.DatePicker = Class.create();
-Simpltry.DatePicker.css = {
-  datePickerWrapper: "datePickerWrapper",
-  datePicker: "datePicker",
-  backYear: "datePickerBackYear",
-  backMonth: "datePickerBackMonth",
-  forwardMonth: "datePickerForwardMonth",
-  forwardYear: "datePickerforwardYear",
-  today: "datePickerToday",
-  dayHeader: "datePickerDayHeader",
-  monthHeader: "datePickerMonthHeader",
-  day: "datePickerDay",
-  tablePadding: "datePickerTablePadding",
-  tableRow: "datePickerTableRow",
-  headerRow: "datePickerHeaderRow",
-  controlTable: "datePickerControlTable",
-  weekend: "datePickerWeekend",
-  weekday: "datePickerWeekday",
-  tbody: "datePickerTbody",
-  cancelRow: "datePickerCancelRow",
-  cancel: "datePickerCancel",
-  selected: "datePickerSelected",
-  selectable: "datePickerSelectable"
-};
-Simpltry.DatePicker.ths = ["sun","mon","tue","wed","thu","fri","sat"];
-Simpltry.DatePicker.months = {1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"};
-Simpltry.DatePicker.prototype = {
+Simpltry.DatePicker = Class.create({
+  ths: ["sun","mon","tue","wed","thu","fri","sat"],
+  months: {1:"January", 2:"February", 3:"March", 4:"April", 5:"May", 6:"June", 7:"July", 8:"August", 9:"September", 10:"October", 11:"November", 12:"December"},
+  css: {
+    datePickerWrapper: "datePickerWrapper",
+    datePicker: "datePicker",
+    backYear: "datePickerBackYear",
+    backMonth: "datePickerBackMonth",
+    forwardMonth: "datePickerForwardMonth",
+    forwardYear: "datePickerforwardYear",
+    today: "datePickerToday",
+    dayHeader: "datePickerDayHeader",
+    monthHeader: "datePickerMonthHeader",
+    day: "datePickerDay",
+    tablePadding: "datePickerTablePadding",
+    tableRow: "datePickerTableRow",
+    headerRow: "datePickerHeaderRow",
+    controlTable: "datePickerControlTable",
+    weekend: "datePickerWeekend",
+    weekday: "datePickerWeekday",
+    tbody: "datePickerTbody",
+    cancelRow: "datePickerCancelRow",
+    cancel: "datePickerCancel",
+    selected: "datePickerSelected",
+    selectable: "datePickerSelectable"
+  },
   initialize: function(container, options) {
-    this.css = Simpltry.DatePicker.css;
     this.container = $(container);
     this.setOptions(options);
     if(this.options.month != null && this.options.year) {
@@ -109,8 +97,7 @@ Simpltry.DatePicker.prototype = {
       tbody.appendChild(row);
     });
     if(this.options.showCancel) tbody.appendChild(this.buildCancel());
-    this.container.innerHTML = "";
-    this.container.appendChild(Builder.node("div", {className: this.css.datePickerWrapper}, [this.buildDateControls(), Builder.node("table", {className: this.css.datePicker, cellspacing:0, cellpadding:0}, tbody)]));
+    this.container.update("").appendChild(Builder.node("div", {className: this.css.datePickerWrapper}, [this.buildDateControls(), Builder.node("table", {className: this.css.datePicker, cellspacing:0, cellpadding:0}, tbody)]));
   },
   setOptions: function(options) {
     this.options = {
@@ -127,7 +114,7 @@ Simpltry.DatePicker.prototype = {
     var tr = Builder.node("tr");
     var c1 = Builder.node("td", {className: this.css.backYear}, [this.buildA("<<")]);
     var c2 = Builder.node("td", {className: this.css.backMonth}, [this.buildA("<")]);
-    var month = Builder.node("td", {className: this.css.monthHeader}, [Simpltry.DatePicker.months[this.month] + " " + this.year]);
+    var month = Builder.node("td", {className: this.css.monthHeader}, [this.months[this.month] + " " + this.year]);
     var c3 = Builder.node("td", {className: this.css.forwardMonth}, [this.buildA(">")]);
     var c4 = Builder.node("td", {className: this.css.forwardYear}, [this.buildA(">>")]);
     [[c1, -1, 0], [c2, 0, -1], [c3, 0, 1], [c4, 1, 0]].each(function(c) {$(c[0]).observe("click", this.changeEvent.bindAsEventListener(this, c[1], c[2]));}.bind(this));
@@ -138,17 +125,16 @@ Simpltry.DatePicker.prototype = {
     return Builder.node("a", {href:"#"}, [text]);
   },
   changeEvent: function(event, yearDelta, monthDelta){
-    Event.stop(event);
+    event.stop();
     this.change(this.year + yearDelta, this.month + monthDelta);
   },
   change: function(newYear, newMonth){
     new Simpltry.DatePicker(this.container, Object.extend(this.options, {year:newYear, month:newMonth}));
   },
   buildDateHeader: function() {
-    var tr = Builder.node("tr", {className: this.css.headerRow});
-    Simpltry.DatePicker.ths.each(function(th) {
-      tr.appendChild(Builder.node("th", {className: this.css.dayHeader}, [th]));
-    }.bind(this));
+    var tr = Builder.node("tr", {className: this.css.headerRow}, this.ths.collect(function(th) {
+      return Builder.node("th", {className: this.css.dayHeader}, [th]);
+    }.bind(this)));
     return tr;
   },
   buildDates: function() {
@@ -162,9 +148,7 @@ Simpltry.DatePicker.prototype = {
     var currentRow = [];
     if(firstDate.getDay() != 0) {
       currentRow = $R(0, firstDate.getDay(), true).collect(function(i) {
-        var blankNode = Builder.node("td", {className: this.css.tablePadding});
-        blankNode.innerHTML = "&nbsp;";
-        return blankNode;
+        return Builder.node("td", {className: this.css.tablePadding}, [" "]);
       }.bind(this));
     }
     Simpltry.DateUtil.getDateObjects(this.year, this.month).each(function(date) {
@@ -176,13 +160,11 @@ Simpltry.DatePicker.prototype = {
       }
       if(today.valueOf() == date.valueOf()) td.addClassName(this.css.today);
       if(this.options.selectedDate.day && this.options.selectedDate.day == date.getDate() && this.options.selectedDate.month == date.getMonth() + 1 && this.options.selectedDate.year == date.getFullYear()) {
-        td.addClassName(this.css.selected);
-        this.selectedCell = td;
+        this.selectedCell = td.addClassName(this.css.selected);
       }
       
       if(!this.options.noPast || today.valueOf() <= date.valueOf()) {
-        td.addClassName(this.css.selectable);
-        td.observe("click", this.tdClick.bindAsEventListener(this, date));
+        td.addClassName(this.css.selectable).observe("click", this.tdClick.bindAsEventListener(this, date));
       }
       currentRow.push(td);
       if(currentRow.length % 7 == 0) {
@@ -192,17 +174,15 @@ Simpltry.DatePicker.prototype = {
     }.bind(this));
     if(currentRow.length > 0) {
       (7-currentRow.length).times(function(i) {
-        currentRow.push($(Builder.node("td", {className: this.css.tablePadding})).update("&nbsp;"));
+        currentRow.push($(Builder.node("td", {className: this.css.tablePadding}, [" "])));
       }.bind(this));
       rows.push(Builder.node("tr", {className: this.css.tableRow}, currentRow));
     }
     return rows;
   },
   tdClick: function(event, date) {
-    var td = Event.element(event);
-    if(this.selectedCell) {
-      this.selectedCell.removeClassName(this.css.selected);
-    }
+    var td = event.element();
+    if(this.selectedCell) this.selectedCell.removeClassName(this.css.selected);
     this.selectedCell = td;
     this.options.selectedDate.day = date.getDate();
     this.options.selectedDate.month = date.getMonth() + 1;
@@ -224,28 +204,26 @@ Simpltry.DatePicker.prototype = {
     if(this.options.selectedDate.month && this.options.selectedDate.day && this.options.selectedDate.year) currentDateString = this.options.selectedDate.month + "/" + this.options.selectedDate.day + "/" + this.options.selectedDate.year;
     return currentDateString;
   }
-};
+});
 
-Simpltry.TimePicker = Class.create();
-Simpltry.TimePicker.css = {
-  timePicker: "timePicker",
-  timePickerHourHeader: "timePickerHourHeader",
-  timePickerMinuteHeader: "timePickerMinuteHeader",
-  timePickerMinutes: "timePickerMinutes",
-  timePickerMinute: "timePickerMinute",
-  timePickerHours: "timePickerHours",
-  timePickerHour: "timePickerHour",
-  timePickerAmPm: "timePickerAmPm",
-  timePickerAM: "timePickerAM",
-  timePickerPM: "timePickerPM",
-  timePickerMinuteSelected: "timePickerMinuteSelected",
-  timePickerHourSelected: "timePickerHourSelected",
-  timePickerAmPmSelected: "timePickerAmPmSelected",
-  timePickerClose: "timePickerClose"
-};
-Simpltry.TimePicker.prototype = {
+Simpltry.TimePicker = Class.create({
+  css: {
+    timePicker: "timePicker",
+    timePickerHourHeader: "timePickerHourHeader",
+    timePickerMinuteHeader: "timePickerMinuteHeader",
+    timePickerMinutes: "timePickerMinutes",
+    timePickerMinute: "timePickerMinute",
+    timePickerHours: "timePickerHours",
+    timePickerHour: "timePickerHour",
+    timePickerAmPm: "timePickerAmPm",
+    timePickerAM: "timePickerAM",
+    timePickerPM: "timePickerPM",
+    timePickerMinuteSelected: "timePickerMinuteSelected",
+    timePickerHourSelected: "timePickerHourSelected",
+    timePickerAmPmSelected: "timePickerAmPmSelected",
+    timePickerClose: "timePickerClose"
+  },
   initialize: function(container, options){
-    this.css = Simpltry.TimePicker.css;
     this.container = $(container);
     this.setOptions(options);
     if(this.options.timeString) {
@@ -254,9 +232,8 @@ Simpltry.TimePicker.prototype = {
         this.options.selectedTime.minute = (parseInt((parseInt(matchParts[2]) + 4) / 5) * 5);
         if(this.options.selectedTime.minute < 10) {
           this.options.selectedTime.minute = "0" + this.options.selectedTime.minute;
-        } else {
-          this.options.selectedTime.minute = "" + this.options.selectedTime.minute;
         }
+        this.options.selectedTime.minute += "";
         
         this.options.selectedTime.amPm = matchParts[3];
       }
@@ -275,31 +252,24 @@ Simpltry.TimePicker.prototype = {
   buildTimes: function() {
     var timePickerNodes = Builder.node("div", {className: this.css.timePicker}, [Builder.node("div", {className: this.css.timePickerHourHeader}, "Hour"), Builder.node("div", {className: this.css.timePickerMinuteHeader}, "Minute"), this.buildHours(), this.buildMinutes(), this.buildAmPm()]);
     if(this.options.showClose) {
-      var closeNode = Builder.node("div", {className: this.css.timePickerClose}, "Close");
-      $(closeNode).observe("click", function(event) {this.options.onClose();}.bindAsEventListener(this));
+      var closeNode = $(Builder.node("div", {className: this.css.timePickerClose}, "Close")).observe("click", function(event) {this.options.onClose();}.bindAsEventListener(this));
       timePickerNodes.appendChild(closeNode);
     }
     return timePickerNodes;
   },
   buildHours: function() {
     return Builder.node("div", {className: this.css.timePickerHours}, $w("12 1 2 3 4 5 6 7 8 9 10 11").collect(function(number) {
-      var hourField = Builder.node("div", {className: this.css.timePickerHour + (this.options.selectedTime.hour == parseInt(number, 10) ? " " + this.css.timePickerHourSelected : "")}, number);
-      $(hourField).observe("click", this.hourClicked.bindAsEventListener(this, number, this.css.timePickerHourSelected));
-      return hourField;
+      return $(Builder.node("div", {className: this.css.timePickerHour + (this.options.selectedTime.hour == parseInt(number, 10) ? " " + this.css.timePickerHourSelected : "")}, number)).observe("click", this.hourClicked.bindAsEventListener(this, number, this.css.timePickerHourSelected));
     }.bind(this)));
   },
   buildMinutes: function() {
     return Builder.node("div", {className: this.css.timePickerMinutes}, $w("00 05 10 15 20 25 30 35 40 45 50 55").collect(function(number) {
-      var minuteField = Builder.node("div", {className: this.css.timePickerMinute + (this.options.selectedTime.minute == parseInt(number, 10) ? " " + this.css.timePickerMinuteSelected : "")}, number);
-      $(minuteField).observe("click", this.minuteClicked.bindAsEventListener(this, number));
-      return minuteField;
+      return $(Builder.node("div", {className: this.css.timePickerMinute + (this.options.selectedTime.minute == parseInt(number, 10) ? " " + this.css.timePickerMinuteSelected : "")}, number)).observe("click", this.minuteClicked.bindAsEventListener(this, number));
     }.bind(this)));
   },
   buildAmPm: function() {
     return Builder.node("div", {className: this.css.timePickerAmPm}, $w("AM PM").collect(function(amPm) {
-      var amPmField = Builder.node("div", {className: this.css["timePicker" + amPm] + (this.options.selectedTime.amPm == amPm ? " " + this.css.timePickerAmPmSelected : "")}, amPm);
-      $(amPmField).observe("click", this.amPmClicked.bindAsEventListener(this, amPm, this.css.timePickerAmPmSelected));
-      return amPmField;
+      return $(Builder.node("div", {className: this.css["timePicker" + amPm] + (this.options.selectedTime.amPm == amPm ? " " + this.css.timePickerAmPmSelected : "")}, amPm)).observe("click", this.amPmClicked.bindAsEventListener(this, amPm, this.css.timePickerAmPmSelected));
     }.bind(this)));
   },
   minuteClicked: function(event, value){
@@ -330,7 +300,7 @@ Simpltry.TimePicker.prototype = {
     if(this.options.selectedTime.hour && this.options.selectedTime.minute && this.options.selectedTime.amPm) currentTimeString = this.options.selectedTime.hour + ":" + this.options.selectedTime.minute + this.options.selectedTime.amPm;
     return currentTimeString;
   }
-};
+});
 
 Simpltry.buildDateField = function(element, options) {
   element.autoComplete = "false";
