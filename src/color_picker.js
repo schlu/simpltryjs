@@ -13,25 +13,22 @@ Dependencies:
 if(!Simpltry) var Simpltry = {};
 
 Simpltry.ColorPicker = Class.create();
-
-Simpltry.ColorPicker.css = {
-  table: "colorPicker",
-  color: "colorPickerColor"
-};
-
-Simpltry.ColorPicker.DefaultOptions = {
-  size: "large"
-};
 Object.extend(Simpltry.ColorPicker.prototype, {
+  DefaultOptions: {
+    size: "large"
+  },
+  css: {
+    table: "colorPicker",
+    color: "colorPickerColor"
+  },
   initialize: function(container, options) {
     this.container = $(container);
-    this.options = Object.extend(Object.extend({}, Simpltry.ColorPicker.DefaultOptions), options || {});
+    this.options = Object.extend(Object.clone(this.DefaultOptions), options || {});
     this.rows = this.populateColors();
     if(this.options.onSelect) this.container.observe("color:changed", function(event) {
       this.options.onSelect(event.memo);
     }.bindAsEventListener(this));
-    this.container.appendChild(this.createPicker());
-    return this;
+    this.container.insert(this.createPicker());
   },
   populateColors: function() {
     if(this.options.size == "large") {
@@ -42,18 +39,14 @@ Object.extend(Simpltry.ColorPicker.prototype, {
   },
   createPicker: function() {
     var pThis = this;
-    var p = Builder.node("table", {cellspacing: 1, cellpadding: 0, style: "border: thin solid #ccc", className: Simpltry.ColorPicker.css.table}, [Builder.node("tbody", {},
+    var p = Builder.node("table", {cellspacing: 1, cellpadding: 0, style: "border: thin solid #ccc", className: pThis.css.table}, [Builder.node("tbody", {},
       this.rows.collect(function(row) {
         return Builder.node("tr", {}, 
           row.collect(function(color) {
             var td = Builder.node("td", {
-              className: Simpltry.ColorPicker.css.color
+              className: pThis.css.color
             }, [" "]);
-            Element.setStyle(td, {border:"1px solid #ccc",backgroundColor:"#" + color});
-            td.observe("mouseover", pThis.cellMouseOver);
-            td.observe("mouseout", pThis.cellMouseOut);
-            td.onclick = function() {pThis.container.fire("color:changed", color);};
-            return td;
+            return $(td).setStyle({border:"1px solid #ccc",backgroundColor:"#" + color}).observe("mouseover", pThis.cellMouseOver).observe("mouseout", pThis.cellMouseOut).observe('click', function() {pThis.container.fire("color:changed", color);});
           })
         );
       })

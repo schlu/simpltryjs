@@ -31,9 +31,7 @@ Simpltry.RatingControl = Class.create({
   },
   attachEvents: function() {
     Object.values(this.ratings).each(function(rating, i){
-      rating.observe("mouseover",this.mouseOver.bindAsEventListener(this));
-      rating.observe("mouseout",this.mouseOut.bindAsEventListener(this));
-      rating.observe("click", this.onClick.bindAsEventListener(this, i));
+      rating.observe("mouseover",this.mouseOver.bindAsEventListener(this)).observe("mouseout",this.mouseOut.bindAsEventListener(this)).observe("click", this.onClick.bindAsEventListener(this, i));
     }.bind(this));
   },
   mouseOver: function(event) {
@@ -71,7 +69,7 @@ Simpltry.RatingControl = Class.create({
 });
 
 if(Simpltry.Widgets) {
-    Simpltry.Widgets.register('rating', function(element, options) {
-        new Simpltry.RatingControl(element, options);
-    });
+  Simpltry.Widgets.register('rating', function(element, options) {
+    new Simpltry.RatingControl(element, options);
+  });
 }
