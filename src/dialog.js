@@ -18,17 +18,15 @@ if(!Simpltry) var Simpltry = {};
 Simpltry.Dialog = {};
 Simpltry.Dialog.State = {
   activeDialog: [],
-  opaqueDivUp: null,
   hasActiveDialogs: function() {return Simpltry.Dialog.State.activeDialog.length > 0;},
   highestIndex: 1000,
   highestId: 0,
   createOpaqueLayer: function() {
-    var opaqueLayer = $(document.createElement('div'));
+    var opaqueLayer = new Element('div', {id: "dialog_opaque_layer"});
     Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
-    document.body.appendChild(opaqueLayer);
+    document.body.insert(opaqueLayer);
     opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", display: "none", zIndex: -1000, background: "#fff", opacity: 0});
     Simpltry.Dialog.State.setOpaqueSize();
-    opaqueLayer.id = "dialog_opaque_layer";
     Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize);
   },
   setOpaqueSize: function() {
@@ -39,20 +37,15 @@ Simpltry.Dialog.State = {
     });
   }
 };
-Simpltry.Dialog.css = {
-  title: "simpltryDialogTitle",
-  dialog: "simpltryDialog"
-};
 
 Simpltry.Dialog.removeAll = function() {Simpltry.Dialog.State.activeDialog.each(function(dialog){dialog.removeDialog();});};
 
 Simpltry.Dialog.Button = Class.create({
   initialize: function(buttonText, dialogBox, options) {
     this.options = Object.extend({onClick: Prototype.emptyFunction}, options || {});
-    this.element = document.createElement('input');
-    this.element.type = 'submit';
-    this.element.value = buttonText;
-    this.element.onclick = function(event) {this.options.onClick(event);dialogBox.removeDialog();return false;}.bindAsEventListener(this);
+    this.element = new Element('input', {type: 'submit', value: buttonText}).observe("click", 
+      function(event) {event.stop();this.options.onClick(event);dialogBox.removeDialog();}.bindAsEventListener(this)
+    );
   }
 });
 Simpltry.Dialog.Base = Class.create({
@@ -67,6 +60,10 @@ Simpltry.Dialog.Base = Class.create({
   },
   initialize: function(options, buttons){
     this.options = Object.extend(Object.clone(this.DefaultOptions), options || {});
+    this.buttons = buttons || [];
+    (buttons || []).each(function(button) {
+      this.addButton(button.text || "ok", button);
+    }.bind(this));
     this.show();
   },
   _show: Prototype.emptyFunction,
@@ -91,10 +88,7 @@ Simpltry.Dialog.Base = Class.create({
     }
   },
   afterDim: function() {
-    this.dialogLayer = $(document.createElement('div'));
-    this.dialogLayer.id = "dialog_layer" + this.id;
-    this.dialogLayer.addClassName("dialog");
-    this.dialogLayer.setStyle({position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
+    this.dialogLayer = new Element('div', {id: "dialog_layer" + this.id}).addClassName("dialog").setStyle({position: "absolute", zIndex: ++Simpltry.Dialog.State.highestIndex});
     var browserSize = document.viewport.getDimensions();
     if(typeof(this.options.width) == 'number') {
       this.dialogLayer.style.width = this.options.width + "px";
@@ -112,16 +106,12 @@ Simpltry.Dialog.Base = Class.create({
     }
     
     if(this.options.displayTitle) {
-      var titleLayer = document.createElement('div');
-      titleLayer.id = "dialog_title" + this.id;
-      $(titleLayer);
-      titleLayer.addClassName("dialog_title");
-      titleLayer.appendChild(document.createTextNode(this.options.title));
-      this.dialogLayer.appendChild(titleLayer);
+      var titleLayer = new Element('div', {id: "dialog_title" + this.id}).addClassName("dialog_title").update(this.options.title);
+      this.dialogLayer.insert(titleLayer);
     }
     this._show();
     
-    document.body.appendChild(this.dialogLayer);
+    document.body.insert(this.dialogLayer);
     this.positionDialog();
     this.hasBeenMoved = false;
     if(this.options.makeDraggable) {
@@ -166,8 +156,7 @@ Simpltry.Dialog.Base = Class.create({
     this.setOffset();
   },
   removeDialog: function() {
-    this.dialogLayer.style.display = "none";
-    Element.remove(this.dialogLayer);
+    this.dialogLayer.setStyle({display:"none"}).remove();
     this.isRemoved = true;
     Simpltry.Dialog.State.activeDialog = Simpltry.Dialog.State.activeDialog.reject(function(dialog){return dialog.id == this.id;}.bind(this));
     if(!Simpltry.Dialog.State.hasActiveDialogs()) {
@@ -206,25 +195,18 @@ Simpltry.Dialog.Ajax = Class.create(Simpltry.Dialog.Base, {
       makeDraggable: false,
       displayTitle: false
     }, options || {});
-    this.buttons = buttons || [];
     $super(this.options, buttons);
   },
   _show: function(){
-    var additionalTextLayer = $(document.createElement('div'));
-    additionalTextLayer.id = "dialogLoadingLayer";
-    additionalTextLayer.setStyle({
+    var additionalTextLayer = new Element('div', {id: "dialogLoadingLayer"}).setStyle({
       margin: "5px",
       padding: "0 4px"
-    });
-    additionalTextLayer.update(this.options.additionalText);
-    this.dialogLayer.appendChild(additionalTextLayer);
-    var ajaxUpdateLayer = document.createElement('div');
-    ajaxUpdateLayer.id = "ajaxUpdateLayer";
-    this.dialogLayer.appendChild(ajaxUpdateLayer);
+    }).update(this.options.additionalText);
+    this.dialogLayer.insert(additionalTextLayer).insert(new Element('div', {id: "ajaxUpdateLayer"}));
   },
   onDisplay: function() {
     new Ajax.Updater('ajaxUpdateLayer', this.options.url, {
-      onComplete: function() {Element.remove($('dialogLoadingLayer'));this.positionDialog();}.bind(this),
+      onComplete: function() {$('dialogLoadingLayer').remove();this.positionDialog();}.bind(this),
       evalScripts: true,
       parameters: this.options.parameters,
       method: this.options.method
@@ -237,10 +219,6 @@ Simpltry.Dialog.Confirm = Class.create(Simpltry.Dialog.Base, {
     this.options = Object.extend({
       additionalText: null
     }, options || {});
-    this.buttons = [];
-    (buttons || []).each(function(button) {
-      this.addButton(button.text || "ok", button);
-    }.bind(this));
     $super(this.options, buttons);
   },
   addButton: function(buttonText, options) {
@@ -249,21 +227,18 @@ Simpltry.Dialog.Confirm = Class.create(Simpltry.Dialog.Base, {
   },
   _show: function() {
     if(this.options.additionalText) {
-      var additionalTextLayer = $(document.createElement('div'));
-      additionalTextLayer.setStyle({
+      var additionalTextLayer = new Element('div').setStyle({
         padding: "0 4px"
-      });
-      additionalTextLayer.update(this.options.additionalText);
-      this.dialogLayer.appendChild(additionalTextLayer);
+      }).update(this.options.additionalText);
+      this.dialogLayer.insert(additionalTextLayer);
     }
-    var buttonLayer = $(document.createElement('div'));
-    buttonLayer.setStyle({
+    var buttonLayer = new Element('div').setStyle({
       textAlign: "center",
       marginTop: "5px",
       marginBottom: "2px"
     });
-    this.buttons.each(function(currentButton) { buttonLayer.appendChild(currentButton.element); } );
-    this.dialogLayer.appendChild(buttonLayer);
+    this.buttons.each(function(currentButton) { buttonLayer.insert(currentButton.element); } );
+    this.dialogLayer.insert(buttonLayer);
   }
 });
 
