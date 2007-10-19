@@ -80,7 +80,9 @@ Simpltry.Dialog.Base = Class.create({
         duration: .3,
         afterFinish: this.afterDim.bind(this)});
       $$('select').each(Element.hide);
-      Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize);
+      Event.observe(document, "resize", Simpltry.Dialog.State.setOpaqueSize);
+    } else {
+      this.afterDim();
     }
   },
   afterDim: function() {
@@ -204,7 +206,7 @@ Simpltry.Dialog.Ajax = Class.create(Simpltry.Dialog.Base, {
     $super(this.options, buttons);
   },
   _show: function(){
-    var additionalTextLayer = (document.createElement('div'));
+    var additionalTextLayer = $(document.createElement('div'));
     additionalTextLayer.id = "dialogLoadingLayer";
     additionalTextLayer.setStyle({
       margin: "5px",
