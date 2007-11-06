@@ -24,15 +24,14 @@ Simpltry.Dialog.State = {
   createOpaqueLayer: function() {
     var opaqueLayer = new Element('div', {id: "dialog_opaque_layer"});
     Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
-    document.body.insert(opaqueLayer);
-    opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", display: "none", zIndex: -1000, background: "#fff", opacity: 0});
+    $(document.body).insert(opaqueLayer);
+    opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", width: "100%", display: "none", zIndex: -1000, background: "#fff", opacity: 0});
     Simpltry.Dialog.State.setOpaqueSize();
     Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize);
   },
   setOpaqueSize: function() {
     var contentSize = Simpltry.WindowProperties.getContentSize(Simpltry.Dialog.State.opaqueDialog);
     Simpltry.Dialog.State.opaqueDialog.setStyle({
-      width: (contentSize.width-15) + "px", 
       height: contentSize.height + "px"
     });
   }
