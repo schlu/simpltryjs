@@ -73,7 +73,7 @@ Simpltry.DatePicker = Class.create({
         this.options.selectedDate.day = this.day;
       } catch(e) {};
     }
-    if(!this.month){
+    if(!this.month && this.month != 0){
       var today = new Date();
       this.month = today.getMonth() + 1;
       this.year = today.getFullYear();
