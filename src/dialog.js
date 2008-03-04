@@ -25,13 +25,14 @@ Simpltry.Dialog.State = {
     var opaqueLayer = new Element('div', {id: "dialog_opaque_layer"});
     Simpltry.Dialog.State.opaqueDialog = opaqueLayer;
     $(document.body).insert(opaqueLayer);
-    opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", width: "100%", display: "none", zIndex: -1000, background: "#fff", opacity: 0});
+    opaqueLayer.setStyle({position: "absolute", top:"0", left:"0", display: "none", zIndex: -1000, background: "#fff", opacity: 0});
     Simpltry.Dialog.State.setOpaqueSize();
     Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize);
   },
   setOpaqueSize: function() {
     var contentSize = Simpltry.WindowProperties.getContentSize(Simpltry.Dialog.State.opaqueDialog);
     Simpltry.Dialog.State.opaqueDialog.setStyle({
+      width: contentSize.width + "px",
       height: contentSize.height + "px"
     });
   }
@@ -81,7 +82,7 @@ Simpltry.Dialog.Base = Class.create({
         duration: .3,
         afterFinish: this.afterDim.bind(this)});
       (function(){Event.observe(window, "resize", Simpltry.Dialog.State.setOpaqueSize);}).delay(.5);
-      $$('select').each(Element.hide);
+      $$('select').invoke("setStyle", {visibility: 'hidden'});
     } else {
       this.afterDim();
     }
@@ -164,7 +165,7 @@ Simpltry.Dialog.Base = Class.create({
         zIndex: -1000,
         opacity: 0
       });
-      $$('select').each(Element.show);
+      $$('select').invoke("setStyle", {visibility: 'visible'});
     }
   },
   setOffset: function() {

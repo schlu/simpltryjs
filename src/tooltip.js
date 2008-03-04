@@ -50,7 +50,10 @@ Simpltry.Tooltip.Base = Class.create({
       } else if(this.options.direction == "below") {
         leftPosition = offset[0];
         topPosition = offset[1] + elementDimentions.height;
-      }
+      } else if(this.options.direction == "left") {
+        leftPosition = offset[0] - this.popup.getDimensions().width;
+        topPosition = offset[1];
+      } 
     } else if(this.options.relative == "cursor") {
       if(this.lastX && this.lastY) {
         leftPosition = this.lastX;
@@ -59,19 +62,27 @@ Simpltry.Tooltip.Base = Class.create({
     }
     leftPosition += this.options.offsetLeft;
     topPosition += this.options.offsetTop;
-    var distanceFromScreenRight = $(document.body).getDimensions().width - (offset[0] + this.popup.getDimensions()).width + 8;
-    if(distanceFromScreenRight < 0) leftPosition += distanceFromScreenRight;
-    var distanceFromScreenTop = document.body.getDimensions().height - (offset[1] + this.popup.getDimensions()).height + 8;
-    if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
+
+    if(this.options.direction == "right"){
+      if(($(document.body).getDimensions().width - ((offset[0] + elementDimentions.width + this.popup.getDimensions().width) + 8)) < 0) {
+        leftPosition = offset[0] + elementDimentions.width - this.popup.getDimensions().width;
+        topPosition = offset[1] + elementDimentions.height + 8;
+      }
+    } else if(this.options.direction == "below") {
+      var distanceFromScreenTop = $(document.body).getDimensions().height - (offset[1] + this.popup.getDimensions().height) + 8;
+      if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
+    }
     this.popup.setStyle({position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
     
   },
   attachEvents: Prototype.emptyFunction,
   display: function() {
+    this.element.fire("tooltip:displayed");
     this.setPopupPosition();
     this.popup.show();
   },
   close: function() {
+    this.element.fire("tooltip:closed");
     this.popup.hide();
   },
   setMouse: function(event) {
@@ -85,6 +96,7 @@ Simpltry.ClickTooltip = Class.create(Simpltry.Tooltip.Base, {
     document.body.observe("click", this.blurIfNotTooltip.bindAsEventListener(this));
   },
   onClick: function(event) {
+    if(event.element().tagName == "A" || event.findElement("a")) event.stop();
     if(this.options.toggle) {
       if(this.popup.visible()) {
         this.close();
