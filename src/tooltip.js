@@ -31,6 +31,8 @@ Simpltry.Tooltip.Base = Class.create({
     this.setPopupPosition();
     $$("body")[0].appendChild(this.popup);
     this.attachEvents();
+    this.element.observe("tooltip:displayed", this.hideSelectBoxes.bind(this));
+    this.element.observe("tooltip:closed", this.showSelectBoxes.bind(this));
     if(this.options.relative == "cursor") {
       Event.observe(document, "mousemove", this.setMouse.bindAsEventListener(this));
     }
@@ -64,12 +66,12 @@ Simpltry.Tooltip.Base = Class.create({
     topPosition += this.options.offsetTop;
 
     if(this.options.direction == "right"){
-      if(($(document.body).getDimensions().width - ((offset[0] + elementDimentions.width + this.popup.getDimensions().width) + 8)) < 0) {
+      if($(document.body).getDimensions().width - (offset[0] + this.popup.getDimensions().width) + 8 < 0) {
         leftPosition = offset[0] + elementDimentions.width - this.popup.getDimensions().width;
         topPosition = offset[1] + elementDimentions.height + 8;
       }
     } else if(this.options.direction == "below") {
-      var distanceFromScreenTop = $(document.body).getDimensions().height - (offset[1] + this.popup.getDimensions().height) + 8;
+      var distanceFromScreenTop = document.body.getDimensions().height - (offset[1] + this.popup.getDimensions().height) + 8;
       if(distanceFromScreenTop < 0) topPosition += distanceFromScreenTop;
     }
     this.popup.setStyle({position: 'absolute', left: leftPosition + "px", top: topPosition + "px"});
@@ -77,8 +79,8 @@ Simpltry.Tooltip.Base = Class.create({
   },
   attachEvents: Prototype.emptyFunction,
   display: function() {
-    this.element.fire("tooltip:displayed");
     this.setPopupPosition();
+    this.element.fire("tooltip:displayed");
     this.popup.show();
   },
   close: function() {
@@ -88,6 +90,35 @@ Simpltry.Tooltip.Base = Class.create({
   setMouse: function(event) {
     this.lastX = Event.pointerX(event);
     this.lastY = Event.pointerY(event);
+  },
+  hideSelectBoxes: function() {
+    var tooltip_offsets = {top: parseInt(this.popup.getStyle("top"), 10), left: parseInt(this.popup.getStyle("left"), 10)};
+    var tooltip_info = {left: tooltip_offsets.left, top: tooltip_offsets.top, right: tooltip_offsets.left + this.popup.getWidth(), bottom: tooltip_offsets.top + this.popup.getHeight()};
+
+    this.popup.select_boxes = $$("select").findAll(function(box) {
+      var box_offsets = box.cumulativeOffset();
+      var box_info = {left: box_offsets.left, top: box_offsets.top, right: box_offsets.left + box.getWidth(), bottom: box_offsets.top + box.getHeight()};
+
+      // if any of box is between tooltip left + right, and any of box is between tooltip top + bottom 
+      // and which have no visibility or visibility: "visible"
+      if(box_info.top > tooltip_info.bottom || box_info.bottom < tooltip_info.top ||
+        box_info.left > tooltip_info.right || box_info.right < tooltip_info.left)
+        return false;
+
+      //else
+      if(box.getStyle("visibility") == undefined || box.getStyle("visibility") == "visible")
+        return true;
+    });
+
+    this.popup.select_boxes.each(function(box) {
+      box.setStyle({visibility: "hidden"});
+    });
+  },
+  showSelectBoxes: function() {
+    if(this.popup.select_boxes)
+      this.popup.select_boxes.each(function(box) {
+        box.setStyle({visibility: "visible"});
+      });
   }
 });
 Simpltry.ClickTooltip = Class.create(Simpltry.Tooltip.Base, {
